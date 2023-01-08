@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrelloProject.View.EnterPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local ="clr-namespace:DrelloProject.ViewModels"
+             Title="EnterPage"
+             x:DataType="local:EnterPageViewModel">
+
+    <StackLayout>
+
+        <StackLayout.Background>
+            <SolidColorBrush Color="#f5f3f4"/>
+        </StackLayout.Background>
+
+        <Label x:Name="TestLabel"
+               Text="{Binding Test}"
+               TextColor="Black"
+               FontSize="10"
+               HorizontalOptions="Center"
+               FontFamily="ROBOTOCONDENSED-BOLD.TTF"
+               CharacterSpacing="2"
+               Margin="1, 10, 1, 1"></Label>
+
+        <Label x:Name="LogInMainLabel"
+               Text="Log In"
+               TextColor="Black"
+               FontSize="30"
+               HorizontalOptions="Start"
+               FontFamily="ROBOTOCONDENSED-BOLD.TTF"
+               CharacterSpacing="2"
+               Margin="40, 100, 0, 20"></Label>
+
+        <Label x:Name="LogInSecondLabel"
+               FontSize="Body"
+               TextColor="Black"
+               HorizontalOptions="StartAndExpand"
+               FontFamily="ROBOTOCONDENSED-REGULAR.TTF"
+               HorizontalTextAlignment="Start"
+               Margin="40, 10, 0, 40"
+               LineHeight="1.2">
+            <Label.Text>
+                Залетай с двух ног
+            </Label.Text>
+
+        </Label>
+
+        <Border Style="{StaticResource BorderStyle}">
+            <Entry x:Name="Login"
+                   Placeholder="Login"
+                   Style="{StaticResource EntryStyle}"
+                   Text="{Binding Login}"/>
+        </Border>
+
+        <Border Style="{StaticResource BorderStyle}">
+            <Entry x:Name="UserName"
+                   Placeholder="User Name"
+                   Style="{StaticResource EntryStyle}"
+                   Text="{Binding UserName}"/>
+        </Border>
+
+        <Border Style="{StaticResource BorderStyle}">
+            <Entry x:Name="Password"
+                   IsPassword="True"
+                   Placeholder="Password"
+                   Style="{StaticResource EntryStyle}"
+                   Text="{Binding Password}"/>
+        </Border>
+
+
+        <ImageButton x:Name="EnterSignUpBtn"
+                     BackgroundColor="#fd6b68"
+                     Margin="60, 20, 60, 0"
+                     HorizontalOptions="End"
+                     HeightRequest="70"
+                     WidthRequest="70"
+                     Aspect="AspectFill"
+                     CornerRadius="24"
+                     Source="right_arrow.svg"
+                     Padding="10" IsEnabled="True" IsOpaque="False"
+                     Command="{Binding LogInBtnCommand}"/>
+
+        <Button VerticalOptions="EndAndExpand"
+                HorizontalOptions="Center"
+                Margin="10"
+                Background="#0000"
+                Text="Нет аккаунта? Создай!"
+                FontFamily="ROBOTOCONDENSED-LIGHT.TTF"
+                TextColor="Black"
+                Clicked="NewAccountBtn_Clicked"/>
+
+    </StackLayout>
+    
+</ContentPage>

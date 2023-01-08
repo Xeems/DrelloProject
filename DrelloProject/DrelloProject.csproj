@@ -1,0 +1,96 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>DrelloProject</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>DrelloProject</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.drelloproject</ApplicationId>
+		<ApplicationIdGuid>45e27ff5-dac2-49d1-a1f3-6e8d8255ffcb</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appiconfg.svg" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\AppIcon\appiconfg.svg" />
+	  <None Remove="Resources\Fonts\ROBOTO-BLACK.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-BLACKITALIC.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-BOLD.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-BOLDITALIC.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-ITALIC.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-LIGHT.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-LIGHTITALIC.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-MEDIUM.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-MEDIUMITALIC.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-REGULAR.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-THIN.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTO-THINITALIC.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-BOLD.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-BOLDITALIC.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-ITALIC.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-LIGHT.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-LIGHTITALIC.TTF" />
+	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-REGULAR.TTF" />
+	  <None Remove="Resources\Images\right_arrow.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Models\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CommunityToolkit.Maui.Core" Version="2.0.0" />
+	  <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\EntryStyle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\EnterPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\MainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>
