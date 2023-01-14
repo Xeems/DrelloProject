@@ -78,7 +78,8 @@
                      CornerRadius="24"
                      Source="right_arrow.svg"
                      Padding="10" IsEnabled="True" IsOpaque="False"
-                     Command="{Binding LogInBtnCommand}"/>
+                     Command="{Binding LogInBtnCommand}"
+                     CommandParameter="{Binding IsLogin}"/>
 
         <Button VerticalOptions="EndAndExpand"
                 HorizontalOptions="Center"
@@ -87,7 +88,8 @@
                 Text="Нет аккаунта? Создай!"
                 FontFamily="ROBOTOCONDENSED-LIGHT.TTF"
                 TextColor="Black"
-                Clicked="NewAccountBtn_Clicked"/>
+                Clicked="NewAccountBtn_Clicked"
+                Command="{Binding ChangeScenarioCommand}"/>
 
     </StackLayout>
     

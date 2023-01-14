@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core;
+using DrelloProject.DataServices;
 using DrelloProject.View;
 using DrelloProject.ViewModels;
 
@@ -17,11 +18,15 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			}).UseMauiCommunityToolkitCore();
 
+        builder.Services.AddHttpClient<IRestDataService, RestDataService>();
+
         builder.Services.AddSingleton<EnterPage>();
         builder.Services.AddSingleton<EnterPageViewModel>();
 
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<MainPageViewModel>();
+
+		//builder.Services.AddSingleton<IRestDataService,RestDataService>();
 
         return builder.Build();
 	}

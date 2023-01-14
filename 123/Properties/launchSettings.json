@@ -1,26 +1,25 @@
 ﻿{
-  "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:63324",
-      "sslPort": 44305
+      "applicationUrl": "http://localhost:52926",
+      "sslPort": 44360
     }
   },
   "profiles": {
-    "WebApplication1": {
+    "_123": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchUrl": "DrelloAPI",
-      "applicationUrl": "https://localhost:7113;http://localhost:5115",
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7286;http://localhost:5003",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchUrl": "DrelloAPI",
+      "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
