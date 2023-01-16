@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using DrelloProject.DataServices;
+using DrelloProject.Models;
 
 namespace DrelloProject.ViewModels
 {
-    internal class MainPageViewModel
+    public partial class MainPageViewModel : ObservableObject
     {
+        [ObservableProperty]
+        private List<KanBoard> boards = new List<KanBoard>();
+
+        private RestDataService _restDataService;
+
+        [RelayCommand]
+        void Load()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                KanBoard board = new KanBoard { Name = "Имя " + i, Description = "Описание " + i};
+                boards.Add(board);
+            }
+        }
+
     }
 }

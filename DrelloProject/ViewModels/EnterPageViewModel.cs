@@ -22,7 +22,6 @@ namespace DrelloProject.ViewModels
         [ObservableProperty]
         bool isLogin = true;
 
-
         private RestDataService _restDataService;
 
         [RelayCommand]
