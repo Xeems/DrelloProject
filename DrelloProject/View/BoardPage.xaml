@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrelloProject.View.BoardPage"
+             Title="BoardPage">
+
+    <ContentPage.Resources>
+        <Style TargetType="Border"  x:Key="BorderStyle">
+            <Setter Property="VerticalOptions" Value="StartAndExpand"/>
+        </Style>
+    </ContentPage.Resources>
+    
+    <ScrollView Orientation="Both" VerticalOptions="FillAndExpand">
+
+        <HorizontalStackLayout VerticalOptions="FillAndExpand"
+                               HorizontalOptions="FillAndExpand">
+
+            <StackLayout WidthRequest="280" 
+                         HeightRequest="300"
+                         VerticalOptions="StartAndExpand">
+
+                <CollectionView>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Border WidthRequest="300">
+                                
+                            </Border>
+                            
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+
+            <StackLayout WidthRequest="280" 
+                         HeightRequest="300"
+                         VerticalOptions="StartAndExpand">
+
+                <Border WidthRequest="280" 
+                    HeightRequest="300"
+                    Margin="10"
+                    StrokeThickness="2"
+                    Style="{StaticResource BorderStyle}"/>
+
+                <Border WidthRequest="280" 
+                    HeightRequest="300"
+                    Margin="10"
+                    StrokeThickness="2"
+                    Style="{StaticResource BorderStyle}"/>
+
+            </StackLayout>
+
+            <StackLayout WidthRequest="280" 
+                         HeightRequest="300"
+                         VerticalOptions="StartAndExpand">
+
+                <Border WidthRequest="280" 
+                    HeightRequest="300"
+                    Margin="10"
+                    StrokeThickness="2"
+                    Style="{StaticResource BorderStyle}"/>
+
+                <Border WidthRequest="280" 
+                    HeightRequest="300"
+                    Margin="10"
+                    StrokeThickness="2"
+                    Style="{StaticResource BorderStyle}"/>
+
+            </StackLayout>
+
+            <StackLayout WidthRequest="280" 
+                         HeightRequest="300"
+                         VerticalOptions="StartAndExpand">
+
+                <Border WidthRequest="280" 
+                    HeightRequest="300"
+                    Margin="10"
+                    StrokeThickness="2"
+                    Style="{StaticResource BorderStyle}"/>
+
+                <Border WidthRequest="280" 
+                    HeightRequest="300"
+                    Margin="10"
+                    StrokeThickness="2"
+                    Style="{StaticResource BorderStyle}"/>
+
+            </StackLayout>
+
+        </HorizontalStackLayout>
+
+
+        
+    </ScrollView>
+</ContentPage>

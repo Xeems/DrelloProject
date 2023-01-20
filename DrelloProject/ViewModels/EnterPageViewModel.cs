@@ -27,24 +27,26 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void LogInBtn() 
         {
-            _restDataService = new RestDataService();
+            await Shell.Current.GoToAsync("MainPage");
 
-            User user = new User { Name = userName, Login = login, Password = password };
+            //_restDataService = new RestDataService();
 
-            if (isLogin)
-            {
-                var answer = await _restDataService.GetUserAsync(user);
-                if (answer.Id != 0)
-                {
-                    await Shell.Current.GoToAsync("MainPage");
-                    answer = null;
-                }    
+            //User user = new User { Name = userName, Login = login, Password = password };
+
+            //if (isLogin)
+            //{
+            //    var answer = await _restDataService.GetUserAsync(user);
+            //    if (answer.Id != 0)
+            //    {
+            //        await Shell.Current.GoToAsync("MainPage");
+            //        answer = null;
+            //    }    
                     
-            }
-            else
-            {
-                await _restDataService.AddUserAsync(user);
-            }
+            //}
+            //else
+            //{
+            //    await _restDataService.AddUserAsync(user);
+            //}
             
 
             

@@ -26,7 +26,10 @@ public static class MauiProgram
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<MainPageViewModel>();
 
-		//builder.Services.AddSingleton<IRestDataService,RestDataService>();
+		builder.Services.AddTransient<BoardPage>();
+        builder.Services.AddTransient<BoardPageViewModel>();
+
+        //builder.Services.AddSingleton<IRestDataService,RestDataService>();
 
         return builder.Build();
 	}

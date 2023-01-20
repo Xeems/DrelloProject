@@ -4,44 +4,114 @@
              x:Class="DrelloProject.View.MainPage"            
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local ="clr-namespace:DrelloProject.ViewModels"
-             x:DataType="local:MainPageViewModel"
              Title="MainPage"
-             >
-    <VerticalStackLayout >
-        <CollectionView ItemsSource="{Binding Boards}"
-                        IsEnabled="{Binding LoadCommand}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Border StrokeShape="RoundRectangle 40,40,40,40"
-                                BackgroundColor="Aqua">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
+             BackgroundColor="White">
 
-                            <Label Text="{TemplateBinding Name}"
-                                   FontAttributes="Bold"
-                                   Grid.Column="0"
-                                   Grid.Row="0"/>
+    <ContentPage.Resources>
+        <Style TargetType="Label" x:Key="LabelStyle">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="ROBOTOCONDENSED-T.TTF"/>
+            <Setter Property="Margin" Value="15, 20, 15, 1"/>
+            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+            <Setter Property="HorizontalTextAlignment" Value="Start"/>
+            <Setter Property="CharacterSpacing" Value="2"/>
+            <Setter Property="MaximumWidthRequest" Value="500"/>
+        </Style>
 
-                            <Entry Text="{TemplateBinding Name}"
-                                   FontSize="Body"
-                                   Placeholder="Something"
-                                   FontAttributes="Bold"
-                                   Grid.Column="1"
-                                   Grid.Row="1"/>
+        <Style TargetType="Border" x:Key="BoardBorderStyle">
+            <Setter Property="StrokeShape" Value="RoundRectangle 10, 10, 10, 10"/>
+            <Setter Property="Margin" Value="40, 7, 40, 7"/>
+            <Setter Property="HeightRequest" Value="60"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+        </Style>
+    </ContentPage.Resources>
+    
+    <ScrollView>
+       
+        <StackLayout >
+        
+            <!--<Image              
+                   Aspect="AspectFit"
+                   HeightRequest="400"
+                   WidthRequest="400"
+                   HorizontalOptions="Center" IsVisible="True" IsEnabled="True" VerticalOptions="Center">
+                <Image.Source>
+                    <UriImageSource Uri="{Binding BackgroundImage}"></UriImageSource>
+                </Image.Source>
+            </Image>-->           
+        
+            <CollectionView ItemsSource="{Binding Boards}"
+                            IsEnabled="{Binding LoadCommand}"
+                            Background="Transperant">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource BoardBorderStyle}"
+                                HeightRequest="250"
+                                StrokeThickness="2">
 
-                        </Grid>
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1" 
+                                    CommandParameter="{Binding .}" 
+                                    Command="{Binding 
+                                    Source={RelativeSource AncestorType={x:Type local:MainPageViewModel}}, Path=TapBoardAsyncCommand}"/>
+                            </Border.GestureRecognizers>
+                            
+                            <Grid HeightRequest="250">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="150"/>
+                                    <RowDefinition Height="100"/>
+                                </Grid.RowDefinitions>
 
-                    </Border>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-        <Button Command="{Binding LoadCommand}"></Button>
-    </VerticalStackLayout>
+                                <Image Grid.Row="0"
+                                       Grid.RowSpan="2"
+                                       WidthRequest="300"
+                                       Source="https://oir.mobi/uploads/posts/2020-01/thumbs/1578320939_36-65.jpg"
+                                       HorizontalOptions="CenterAndExpand"
+                                       Aspect="AspectFill"/>
+
+                                <Border Grid.Row="1" 
+                                        BackgroundColor="Gray"
+                                        
+                                        Opacity="0.75">
+                                    <Grid>
+                                        <Label Text="{Binding Name}"
+                                           Style="{StaticResource LabelStyle}"
+                                           FontAttributes="Bold"
+                                           Grid.Row="0"
+                                           TextColor="Black"
+                                           VerticalOptions="Start"
+                                           Margin="10,10,10,10"/>
+
+                                        <Label Grid.Row="1"
+                                           FontSize="14"
+                                           Text="{Binding Description}"
+                                           Style="{StaticResource LabelStyle}"
+                                           MaximumWidthRequest="200"
+                                           LineBreakMode="WordWrap"
+                                           MaxLines="3"
+                                           CharacterSpacing="0"
+                                           VerticalOptions="End"
+                                           Margin="10"/>
+                                    </Grid>
+                                </Border>
+                                
+                               
+                            </Grid>
+
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Command="{Binding LoadCommand}" WidthRequest="50"/>
+            <Button Command="{Binding BoardCommand}" WidthRequest="50"/>
+
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
