@@ -5,6 +5,7 @@ using DrelloProject.ViewModels;
 
 namespace DrelloProject;
 
+[XamlCompilation(XamlCompilationOptions.Compile)]
 public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
@@ -12,25 +13,39 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+            .RegisterAppServices()
+            .RegisterViewModels()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			}).UseMauiCommunityToolkitCore();
-
-        builder.Services.AddHttpClient<IRestDataService, RestDataService>();
-
-        builder.Services.AddSingleton<EnterPage>();
-        builder.Services.AddSingleton<EnterPageViewModel>();
-
-        builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddSingleton<MainPageViewModel>();
-
-		builder.Services.AddTransient<BoardPage>();
-        builder.Services.AddTransient<BoardPageViewModel>();
-
-        //builder.Services.AddSingleton<IRestDataService,RestDataService>();
-
+                fonts.AddFont("ROBOTO-BOLD.TTF", "RobotoBold");
+                fonts.AddFont("ROBOTO-BOLDITALIC.TTF", "RobotoBoldItalic");
+                fonts.AddFont("ROBOTO-ITALIC.TTF", "RobotoItalic");
+                fonts.AddFont("ROBOTO-LIGHT.TTF", "RobotoLight");
+                fonts.AddFont("ROBOTO-MEDIUM.TTF", "RobotoMedium");
+                fonts.AddFont("ROBOTO-REGULAR.TTF", "RobotoRegular");
+                fonts.AddFont("ROBOTO-THIN.TT", "RobotoThin");
+            }).UseMauiCommunityToolkitCore();
         return builder.Build();
 	}
+    public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder Appbuilder)
+    {
+        Appbuilder.Services.AddHttpClient<IRestDataService, RestDataService>();
+
+        return Appbuilder;
+    }
+
+    public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder Appbuilder)
+    {
+        Appbuilder.Services.AddSingleton<EnterPage>();
+        Appbuilder.Services.AddSingleton<EnterPageViewModel>();
+
+        Appbuilder.Services.AddSingleton<MainPage>();
+        Appbuilder.Services.AddSingleton<MainPageViewModel>();
+
+        Appbuilder.Services.AddTransient<BoardPage>();
+        Appbuilder.Services.AddTransient<BoardPageViewModel>();
+        return Appbuilder;
+    }
 }

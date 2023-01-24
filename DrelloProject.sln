@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrelloProject", "DrelloProject\DrelloProject.csproj", "{D9DC8005-93CE-4BD0-80FF-11286560EE08}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrelloAPI", "DrelloAPI\DrelloAPI.csproj", "{B634C45D-A223-4D69-9D2D-73B88056736B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{D9DC8005-93CE-4BD0-80FF-11286560EE08} = {D9DC8005-93CE-4BD0-80FF-11286560EE08}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

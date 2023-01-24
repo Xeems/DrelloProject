@@ -10,6 +10,6 @@
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate view:EnterPage}"
-        Route="EnterPage" />
+        Route="EnterPage"/>
 
 </Shell>

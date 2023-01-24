@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using DrelloProject.DataServices;
 using DrelloProject.Models;
+using DrelloProject.View;
 
 namespace DrelloProject.ViewModels
 {
@@ -22,33 +23,12 @@ namespace DrelloProject.ViewModels
         [ObservableProperty]
         bool isLogin = true;
 
-        private RestDataService _restDataService;
+        //private RestDataService _restDataService;
 
         [RelayCommand]
-        async void LogInBtn() 
+        async Task LogInBtn() 
         {
-            await Shell.Current.GoToAsync("MainPage");
-
-            //_restDataService = new RestDataService();
-
-            //User user = new User { Name = userName, Login = login, Password = password };
-
-            //if (isLogin)
-            //{
-            //    var answer = await _restDataService.GetUserAsync(user);
-            //    if (answer.Id != 0)
-            //    {
-            //        await Shell.Current.GoToAsync("MainPage");
-            //        answer = null;
-            //    }    
-                    
-            //}
-            //else
-            //{
-            //    await _restDataService.AddUserAsync(user);
-            //}
-            
-
+            await Shell.Current.GoToAsync($"{nameof(MainPage)}");
             
         }
 

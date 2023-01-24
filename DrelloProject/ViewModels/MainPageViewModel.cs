@@ -14,39 +14,44 @@ namespace DrelloProject.ViewModels
         private ObservableCollection<KanBoard> boards = new ObservableCollection<KanBoard>();
 
         [ObservableProperty]
+        private ObservableCollection<PersonalTask> personalTasks = new ObservableCollection<PersonalTask>();
+
+        [ObservableProperty]
         private UploadImage uploadImage = new UploadImage();
 
         [ObservableProperty]
         private ImageSource backgroundImage;
 
-        private RestDataService _restDataService;
+        [ObservableProperty]
+        private KanBoard selectedBoard;
 
-        //public MainPageViewModel(IBoardsService boards) 
-        //{ 
-        // boards = (IBoardsService)boards.GetBoards();
-        //}        
+        //private RestDataService _restDataService;    
 
         [RelayCommand]
         async Task LoadAsync()
         {
 
+            KanBoard board = new KanBoard { Name = "Имя Подленнее ", Description = "Очень длинное описание для проверки на многострочность " };
             for (int i = 0; i < 10; i++)
-            {
-                KanBoard board = new KanBoard { Name = "Имя Подленнее ", Description = "Очень длинное описание для проверки на многострочность "};
+            {                
                 boards.Add(board);
             }
 
-            //var img = await uploadImage.OpenMediaPickerAsync();
-
-            //var imagefile = await uploadImage.Upload(img);
-
-            //backgroundImage = ImageSource.FromStream(() =>
-            //    uploadImage.ByteArrayToStream(uploadImage.StringToByteBase64(imagefile.byteBase64))
-            //);
+            PersonalTask personalTask = new PersonalTask { TaskBody = "Имя Подленнее " };
+            for (int i = 0; i < 20; i++)
+            {
+                personalTasks.Add(personalTask);
+            }
         }
 
         [RelayCommand]
-        async Task BoardAsync()
+        async Task DeletePersonalTask() 
+        {
+            personalTasks.Clear();
+        }
+
+        [RelayCommand]
+        async Task TapBoardAsync()
         {
            await Shell.Current.GoToAsync("BoardPage");
 
