@@ -7,20 +7,17 @@ using System.Collections.ObjectModel;
 
 namespace DrelloProject.ViewModels
 {
+    [QueryProperty("Text","token")]
     public partial class MainPageViewModel : ObservableObject
     {
+        [ObservableProperty]
+        string token;
 
         [ObservableProperty]
         private ObservableCollection<KanBoard> boards = new ObservableCollection<KanBoard>();
 
         [ObservableProperty]
         private ObservableCollection<PersonalTask> personalTasks = new ObservableCollection<PersonalTask>();
-
-        [ObservableProperty]
-        private UploadImage uploadImage = new UploadImage();
-
-        [ObservableProperty]
-        private ImageSource backgroundImage;
 
         [ObservableProperty]
         private KanBoard selectedBoard;

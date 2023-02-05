@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui.Core;
 using DrelloProject.DataServices;
+using DrelloProject.Services;
 using DrelloProject.View;
 using DrelloProject.ViewModels;
 
@@ -46,6 +47,9 @@ public static class MauiProgram
 
         Appbuilder.Services.AddTransient<BoardPage>();
         Appbuilder.Services.AddTransient<BoardPageViewModel>();
+
+        Appbuilder.Services.AddSingleton<IAlertService, AlertService>();
+
         return Appbuilder;
     }
 }

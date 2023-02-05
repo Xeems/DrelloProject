@@ -24,6 +24,8 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<User>> Register(UserLogin request)
         {
+            user = new User();
+
             CreatePasswordHash(request.Password, out byte[] passwordHash, out byte[] passwordSalt);
 
             user.UserName = request.UserName;
@@ -35,8 +37,8 @@ namespace API.Controllers
             {
                 using (AppDbContext dbContext = new AppDbContext())
                 {
-                    dbContext.Users.AddAsync(user);
-                    dbContext.SaveChangesAsync();
+                    await dbContext.Users.AddAsync(user);
+                    await dbContext.SaveChangesAsync();
                 }
 
                 return Ok("Register Complited!");
@@ -44,9 +46,7 @@ namespace API.Controllers
             catch(Exception ex)
             {
                 return BadRequest("Exeption:" + ex);
-            }
-
-            
+            }            
         }
 
         [HttpPost("logIn")]
@@ -58,7 +58,7 @@ namespace API.Controllers
                     return BadRequest("User not found");
 
                 if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
-                    return BadRequest("WrongPassword");
+                    return BadRequest("Wrong password");
 
                 string token = CreateToken(user);
                 return Ok(token);
@@ -69,9 +69,10 @@ namespace API.Controllers
 
         private string CreateToken(User user)
         {
-            List<Claim> claims = new List<Claim>();
+            List<Claim> claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, user.UserName);
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Login)
             };
 
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
@@ -98,9 +99,9 @@ namespace API.Controllers
             }
         }
 
-        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passworrdSalt)
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         { 
-            using(var hmac = new HMACSHA512())
+            using(var hmac = new HMACSHA512(passwordSalt))
             {
                 var computedHash= hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 return computedHash.SequenceEqual(passwordHash);

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -16,14 +17,12 @@ namespace DrelloProject.DataServices
         private readonly string _url;
         private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-        //https://localhost:7113
-        //http://localhost:5115
 
         public RestDataService()
         {
             _httpClient = new HttpClient();
-            _baseAdress = DeviceInfo.Platform == DevicePlatform.Android ? "http://10.0.2.2:5115" : "https://localhost:7113";
-            _url = $"{_baseAdress}/drello/API";
+            _baseAdress = DeviceInfo.Platform == DevicePlatform.Android ? "http://10.0.2.2:5017" : "https://localhost:7005";
+            _url = $"{_baseAdress}/API";
 
             _jsonSerializerOptions = new JsonSerializerOptions
             { 
@@ -43,7 +42,7 @@ namespace DrelloProject.DataServices
                 string jsonUser = JsonSerializer.Serialize<User>(user, _jsonSerializerOptions);
                 StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await _httpClient.PostAsync($"{_url}/Users", content);
+                HttpResponseMessage response = await _httpClient.PostAsync($"{_url}/register", content);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -93,32 +92,35 @@ namespace DrelloProject.DataServices
             return;
         }
 
-        public async Task<User> GetUserAsync(User user)
+        public async Task<string> GetUserAsync(User user)
         {
+            string jsonUser = JsonSerializer.Serialize<User>(user, _jsonSerializerOptions);
+            StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
 
-            if(Connectivity.Current.NetworkAccess !=NetworkAccess.Internet) 
+            if (Connectivity.Current.NetworkAccess !=NetworkAccess.Internet) 
             {
                 Debug.WriteLine("No internet");
                 return null;
             }
             try
             {
-                HttpResponseMessage response = await _httpClient.GetAsync($"{_url}/Users/{user.Login}-{user.Password}");
+                var response = await _httpClient.PostAsync($"{_url}/logIn", content);
                 if (response.IsSuccessStatusCode)
                 {
-                    string content = await response.Content.ReadAsStringAsync();
-                    user = JsonSerializer.Deserialize<User>(content, _jsonSerializerOptions);
+                    string token = await response.Content.ReadAsStringAsync();
+                    return token;
                 }   
                 else
                 {
                     Debug.WriteLine("Non Http 2xx response");
+                    return null;
                 }
             }
             catch(Exception ex)
             {
                 Debug.WriteLine($"Oppa, exeption"+ ex.Message);
+                return null;
             }
-            return user;
         }
 
         public async Task UpdateUserAsync(User user)
@@ -134,7 +136,7 @@ namespace DrelloProject.DataServices
                 string jsonUser = JsonSerializer.Serialize<User>(user, _jsonSerializerOptions);
                 StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
 
-                HttpResponseMessage response = await _httpClient.PutAsync($"{_url}/Users/{user.Id}", content);
+                HttpResponseMessage response = await _httpClient.PutAsync($"{_url}/Users/", content);
 
                 if (response.IsSuccessStatusCode)
                 {

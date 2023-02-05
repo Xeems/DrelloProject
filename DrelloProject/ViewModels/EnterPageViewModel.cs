@@ -23,13 +23,27 @@ namespace DrelloProject.ViewModels
         [ObservableProperty]
         bool isLogin = true;
 
-        //private RestDataService _restDataService;
+        private RestDataService _restDataService = new RestDataService();
 
         [RelayCommand]
         async Task LogInBtn() 
         {
-            await Shell.Current.GoToAsync($"{nameof(MainPage)}");
-            
+            User user = new User() { UserName = userName, Login = login, Password = password };
+           
+            if (isLogin)
+            {
+                var token = await _restDataService.GetUserAsync(user);
+
+                if (token != null)
+                    await Shell.Current.GoToAsync($"{nameof(MainPage)}Text = {token}");
+                else
+                    App.AlertSvc.ShowAlert("Ошибка","Не удалось войти","ОК");
+            }
+            else
+            {                
+                var message = _restDataService.AddUserAsync(user);
+            }
+                                  
         }
 
         [RelayCommand]

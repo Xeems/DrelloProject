@@ -9,7 +9,7 @@ namespace DrelloProject.DataServices
 {
     public interface IRestDataService
     {
-        Task<User> GetUserAsync(User user);
+        Task<string> GetUserAsync(User user);
         Task AddUserAsync(User user);
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);

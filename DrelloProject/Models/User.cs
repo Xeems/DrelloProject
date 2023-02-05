@@ -7,18 +7,10 @@ using System.Threading.Tasks;
 
 namespace DrelloProject.Models
 {
-    public partial class User : ObservableObject
+    public partial class User
     {
-        [ObservableProperty]
-        int id;
-        
-        [ObservableProperty]
-        string name;
-        
-        [ObservableProperty]
-        string login;
-
-        [ObservableProperty]
-        string password;
+        public string? UserName { get; set; } = string.Empty;
+        public string Login { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
     }
 }

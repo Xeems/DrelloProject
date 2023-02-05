@@ -5,7 +5,10 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrelloProject", "DrelloProject\DrelloProject.csproj", "{D9DC8005-93CE-4BD0-80FF-11286560EE08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "API\API.csproj", "{7A2C289D-1306-455B-A0F4-A2B11675DC6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{7A2C289D-1306-455B-A0F4-A2B11675DC6A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D9DC8005-93CE-4BD0-80FF-11286560EE08} = {D9DC8005-93CE-4BD0-80FF-11286560EE08}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
