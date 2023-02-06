@@ -18,6 +18,9 @@ namespace DrelloProject.ViewModels
         string password;
 
         [ObservableProperty]
+        string passwordConfirm;
+
+        [ObservableProperty]
         string test;
 
         [ObservableProperty]
@@ -32,10 +35,14 @@ namespace DrelloProject.ViewModels
            
             if (isLogin)
             {
-                var token = await _restDataService.GetUserAsync(user);
+                var Token = await _restDataService.GetUserAsync(user);
 
-                if (token != null)
-                    await Shell.Current.GoToAsync($"{nameof(MainPage)}Text = {token}");
+                if (Token != null)
+                    await Shell.Current.GoToAsync($"{nameof(MainPage)}",
+                        new Dictionary<string, object>
+                        {
+                            ["Token"] = Token
+                        });
                 else
                     App.AlertSvc.ShowAlert("Ошибка","Не удалось войти","ОК");
             }

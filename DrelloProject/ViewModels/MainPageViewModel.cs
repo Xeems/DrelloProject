@@ -7,14 +7,14 @@ using System.Collections.ObjectModel;
 
 namespace DrelloProject.ViewModels
 {
-    [QueryProperty("Text","token")]
+    [QueryProperty(nameof(Token), nameof(Token))]
     public partial class MainPageViewModel : ObservableObject
-    {
-        [ObservableProperty]
-        string token;
-
+    { 
         [ObservableProperty]
         private ObservableCollection<KanBoard> boards = new ObservableCollection<KanBoard>();
+
+        [ObservableProperty]
+        private string token;
 
         [ObservableProperty]
         private ObservableCollection<PersonalTask> personalTasks = new ObservableCollection<PersonalTask>();
@@ -22,15 +22,11 @@ namespace DrelloProject.ViewModels
         [ObservableProperty]
         private KanBoard selectedBoard;
 
-        //private RestDataService _restDataService;    
-
-        [RelayCommand]
-        async Task LoadAsync()
+        public MainPageViewModel() 
         {
-
-            KanBoard board = new KanBoard { Name = "Имя Подленнее ", Description = "Очень длинное описание для проверки на многострочность " };
+            KanBoard board = new KanBoard { Name = "Имя", Description = "Очень длинное описание для проверки на многострочность " };
             for (int i = 0; i < 10; i++)
-            {                
+            {
                 boards.Add(board);
             }
 

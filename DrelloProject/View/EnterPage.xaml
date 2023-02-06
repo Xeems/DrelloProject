@@ -5,7 +5,7 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local ="clr-namespace:DrelloProject.ViewModels"
              Title="EnterPage"
-             >
+             Shell.NavBarIsVisible="False">
 
     <StackLayout>
 
@@ -65,6 +65,14 @@
                    Placeholder="Password"
                    Style="{StaticResource EntryStyle}"
                    Text="{Binding Password}"/>
+        </Border>
+
+        <Border Style="{StaticResource BorderStyle}">
+            <Entry x:Name="PasswordConfirm"
+                   IsPassword="True"
+                   Placeholder="Password confirm"
+                   Style="{StaticResource EntryStyle}"
+                   Text="{Binding PasswordConfirm}"/>
         </Border>
 
 

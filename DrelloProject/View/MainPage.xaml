@@ -5,8 +5,9 @@
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local ="clr-namespace:DrelloProject.ViewModels"
              xmlns:services ="clr-namespace:DrelloProject.Services"
-             Title="MainPage"
-             BackgroundColor="White">
+             BackgroundColor="White"
+             Title="User name"
+             >
 
     <ContentPage.Resources>
         <Style TargetType="Label" x:Key="LabelStyle">
@@ -40,10 +41,17 @@
 
     </ContentPage.Resources>
 
-    <ScrollView Background="#f5f3f4"
-                 >
-        <StackLayout>
+    <ContentPage.MenuBarItems>
+        <MenuBarItem Text="User name">
+            <MenuFlyoutItem>
+                
+            </MenuFlyoutItem>
+        </MenuBarItem>
+    </ContentPage.MenuBarItems>
 
+    <ScrollView Background="#f5f3f4">
+
+        <StackLayout>
             <StackLayout>
                 <Label Text="Ваши доски"
                        Style="{StaticResource LabelStyle}"/>
