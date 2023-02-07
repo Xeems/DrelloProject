@@ -73,6 +73,7 @@
 	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-LIGHT.TTF" />
 	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-LIGHTITALIC.TTF" />
 	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-REGULAR.TTF" />
+	  <None Remove="Resources\Images\plusicon.svg" />
 	  <None Remove="Resources\Images\right_arrow.svg" />
 	</ItemGroup>
 
@@ -91,6 +92,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\BoardPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\BoardPageSetings.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\EnterPage.xaml">

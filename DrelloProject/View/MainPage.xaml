@@ -7,7 +7,7 @@
              xmlns:services ="clr-namespace:DrelloProject.Services"
              BackgroundColor="White"
              Title="User name"
-             >
+             Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
         <Style TargetType="Label" x:Key="LabelStyle">
@@ -49,87 +49,148 @@
         </MenuBarItem>
     </ContentPage.MenuBarItems>
 
-    <ScrollView Background="#f5f3f4">
+    <Grid Margin="0"
+          Padding="0">
 
-        <StackLayout>
-            <StackLayout>
-                <Label Text="Ваши доски"
-                       Style="{StaticResource LabelStyle}"/>
-            </StackLayout>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-            <ScrollView Orientation="Horizontal"
-                        HorizontalScrollBarVisibility="Never">
-                <HorizontalStackLayout>
-                    <CollectionView ItemsSource="{Binding Boards}"
-                                    SelectedItem="{Binding SelectedBoard}"
-                                    ItemsLayout="HorizontalList"
-                                    Margin="20,0,20,0">
-                    <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="10,0,10,0" WidthRequest="300" HeightRequest="260" IsClippedToBounds="True">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer CommandParameter="{Binding .}" 
-                                                              Command="{Binding Source={RelativeSource 
-                                                              AncestorType={x:Type local:MainPageViewModel}}, 
-                                                              Path=TapBoardCommand}"/>
-                                    </Grid.GestureRecognizers>
-                                    <Frame Padding="0" IsClippedToBounds="True" BorderColor="Transparent" Grid.Row="0" Grid.RowSpan="2">
-                                        <Image Source="https://i.pinimg.com/originals/c1/07/2b/c1072b465b980e9eb218c3b446830653.jpg" HeightRequest="260" WidthRequest="300" Aspect="AspectFill" />
-                                    </Frame>
-                                    <Border StrokeThickness="0" Grid.Row="1" Background="Black" Opacity="0.75" StrokeShape="RoundRectangle 0,0,10,10">
-                                        <StackLayout>
-                                            <Label Text="{Binding Name}" Margin="15,20,0,0" TextColor="White" FontSize="20" FontFamily="ROBOTO-BOLD" FontAttributes="Bold" MaxLines="2"/>
-                                            <Label Text="{Binding Description}" Margin="15,20,0,0" TextColor="White"/>
-                                        </StackLayout>                                  
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </HorizontalStackLayout>
-            </ScrollView>
+        <HorizontalStackLayout BackgroundColor="Transparent"
+               HeightRequest="60"
+               Margin="0"
+               Padding="20, 0, 10, 0">
             
-            <BoxView />
+            <Frame WidthRequest="45"
+                   HeightRequest="45"
+                   CornerRadius="20"
+                   HorizontalOptions="Start"
+                   Padding="1">
+
+                <Label Text="RK"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       WidthRequest="40"
+                       HeightRequest="40"
+                       FontSize="25"
+                       FontFamily="RobotoBold"/>
+
+            </Frame>
+
+            <Label Text="User name"
+                   VerticalOptions="Center"
+                   Margin="20, 0, 0, 0"
+                   FontFamily="RobotoMedium"
+                   FontSize="23"/>
+        </HorizontalStackLayout>
+        
+        <ScrollView Background="#f5f3f4"
+                    Grid.Row="2">
 
             <StackLayout>
-                <Label Style="{StaticResource LabelStyle}"
-                       Text="Личные задачи"/>
-            </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Ваши доски"
+                           Style="{StaticResource LabelStyle}"/>
 
-            <CollectionView ItemsSource="{Binding PersonalTasks}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems Mode="Execute">
-                                    <SwipeItem BackgroundColor="#f5f3f4"
-                                               Command="{Binding DeletePersonalTaskCommand}"/>
-                                </SwipeItems>
-                            </SwipeView.RightItems>
+                    <ImageButton Source="plusicon.svg"
+                                 HeightRequest="60"
+                                 WidthRequest="60"
+                                 Margin="0, 5, 20, 0"
+                                 Aspect="AspectFill"
+                                 Padding="10"
+                                 IsEnabled="True" IsOpaque="False"
+                                 BackgroundColor="Transparent"
+                                 Command="{Binding NewKanBoardBtnCommand}"/>      
+                </StackLayout>
 
-                            <Border StrokeShape="RoundRectangle 15,15,15,15"
-                                    Margin="20,5,20,0"
-                                    HeightRequest="50"
-                                    BackgroundColor="White"
-                                    StrokeThickness="0">
-                                <HorizontalStackLayout>
-                                    <Label Text="{Binding TaskBody}"
-                                           Style="{StaticResource LabelStyle}"
+                <ScrollView Orientation="Horizontal"
+                            HorizontalScrollBarVisibility="Never">
+                    <HorizontalStackLayout>
+                        <CollectionView ItemsSource="{Binding Boards}"
+                                        SelectedItem="{Binding SelectedBoard}"
+                                        ItemsLayout="HorizontalList"
+                                        Margin="20,0,20,0">
+                        <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="10,0,10,0" WidthRequest="300" HeightRequest="260" IsClippedToBounds="True">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer CommandParameter="{Binding .}" 
+                                                                  Command="{Binding Source={RelativeSource 
+                                                                  AncestorType={x:Type local:MainPageViewModel}}, 
+                                                                  Path=TapBoardCommand}"/>
+                                        </Grid.GestureRecognizers>
+                                        <Frame Padding="0" IsClippedToBounds="True" BorderColor="Transparent" Grid.Row="0" Grid.RowSpan="2">
+                                            <Image Source="https://i.pinimg.com/originals/c1/07/2b/c1072b465b980e9eb218c3b446830653.jpg" HeightRequest="260" WidthRequest="300" Aspect="AspectFill" />
+                                        </Frame>
+                                        <Border StrokeThickness="0" Grid.Row="1" Background="Black" Opacity="0.75" StrokeShape="RoundRectangle 0,0,10,10">
+                                            <StackLayout>
+                                                <Label Text="{Binding Name}" Margin="15,20,0,0" TextColor="White" FontSize="20" FontFamily="ROBOTO-BOLD" FontAttributes="Bold" MaxLines="2"/>
+                                                <Label Text="{Binding Description}" Margin="15,20,0,0" TextColor="White"/>
+                                            </StackLayout>                                  
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </HorizontalStackLayout>
+                </ScrollView>
+            
+                <BoxView />
+
+                <StackLayout Orientation="Horizontal">
+                    <Label Style="{StaticResource LabelStyle}"
+                           Text="Личные задачи"/>
+                    
+                    <ImageButton Source="plusicon.svg"
+                                 HeightRequest="60"
+                                 WidthRequest="60"
+                                 Margin="0, 5, 20, 0"
+                                 Aspect="AspectFill"
+                                 Padding="10"
+                                 IsEnabled="True" IsOpaque="False"
+                                 BackgroundColor="Transparent"
+                                 Command="{Binding NewToDoBtnCommand}"/>
+                    
+                </StackLayout>
+
+                <CollectionView ItemsSource="{Binding PersonalTasks}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem BackgroundColor="#f5f3f4"
+                                                   Command="{Binding DeletePersonalTaskCommand}"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+
+                                <Border StrokeShape="RoundRectangle 15,15,15,15"
+                                        Margin="20,5,20,0"
+                                        HeightRequest="50"
+                                        BackgroundColor="White"
+                                        StrokeThickness="0">
+                                    <HorizontalStackLayout>
+                                        <Label Text="{Binding TaskBody}"
+                                               Style="{StaticResource LabelStyle}"
                                            
-                                               Margin="15,0,0,0"
-                                               FontSize="15"/>
-                                </HorizontalStackLayout>
-                            </Border>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                                                   Margin="15,0,0,0"
+                                                   FontSize="15"/>
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-            <Button Command="{Binding LoadCommand}" WidthRequest="50"/>
-        </StackLayout>
-    </ScrollView>
+                <Button Command="{Binding LoadCommand}" WidthRequest="50"/>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

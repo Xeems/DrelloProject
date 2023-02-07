@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using DrelloProject.DataServices;
 using DrelloProject.Models;
 using DrelloProject.Services;
+using DrelloProject.View;
 using System.Collections.ObjectModel;
 
 namespace DrelloProject.ViewModels
@@ -47,6 +48,18 @@ namespace DrelloProject.ViewModels
         async Task TapBoardAsync()
         {
            await Shell.Current.GoToAsync("BoardPage");
+
+        }
+
+        [RelayCommand]
+        async Task NewKanBoardBtn()
+        {
+            Shell.Current.GoToAsync(nameof(BoardPageSetings));
+        }
+
+        [RelayCommand]
+        async Task NewToDoBtn()
+        {
 
         }
     }
