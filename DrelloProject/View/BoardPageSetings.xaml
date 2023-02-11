@@ -2,19 +2,92 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrelloProject.View.BoardPageSetings"
-             Title="BoardPageSetings">
+             Title="BoardPageSetings"
+             BackgroundColor="#f5f3f4">
     <ScrollView>
         <StackLayout>
             
-            <Border Style="{StaticResource BorderStyle}">
+            <Border Style="{StaticResource BorderStyle}"
+                    HeightRequest="50">
                 <Entry Style="{StaticResource EntryStyle}"
                        Placeholder="Название"/>
             </Border>
 
-            <Border Style="{StaticResource BorderStyle}">
-                <Entry Style="{StaticResource EntryStyle}"
-                       Placeholder="Описание"/>
+            <Border Style="{StaticResource BorderStyle}"
+                    HeightRequest="200">
+                <Editor HeightRequest="180"
+                        Placeholder="Описание"
+                        Margin="10,0,10,0"
+                        VerticalOptions="StartAndExpand"/>
             </Border>
+
+            <Label Text="Роли" 
+                   Margin="40,10,0,0"
+                   TextColor="Black"
+                   FontFamily="RobotoRegular"
+                   FontSize="18"
+                   HorizontalOptions="StartAndExpand"/>
+
+            <HorizontalStackLayout Margin="0,10,0,0">
+                <Border Style="{StaticResource BorderStyle}"
+                        HeightRequest="50"
+                        WidthRequest="250"
+                        HorizontalOptions="Start">
+                    <Entry Style="{StaticResource EntryStyle}"
+                           Placeholder="Роль"
+                           Text="{Binding RoleName}"/>
+                </Border>
+
+                <ImageButton Source="plusicon.svg"
+                             HeightRequest="60"
+                             WidthRequest="60"
+                             Aspect="AspectFill"
+                             Padding="10"
+                             IsEnabled="True" IsOpaque="False"
+                             BackgroundColor="Transparent"
+                             HorizontalOptions="Fill"    
+                             Command="{Binding NewRoleBtnCommand}"/>
+            </HorizontalStackLayout>
+
+            <ScrollView Orientation="Horizontal"
+                        HorizontalScrollBarVisibility="Never">
+                <HorizontalStackLayout>
+                    <CollectionView ItemsSource="{Binding Roles}"
+                                    SelectedItem="{Binding SelectedRole}"
+                                    ItemsLayout="HorizontalList"
+                                    Margin="20,10,20,0">
+                        <CollectionView.ItemTemplate>
+                            
+                            <DataTemplate>
+                                <Border HeightRequest="45"
+                                        StrokeShape="RoundRectangle 10,10,10,10"
+                                        StrokeThickness="0"
+                                        Margin="3,0,3,0">
+                                    <HorizontalStackLayout>
+                                        <Label HorizontalOptions="StartAndExpand"
+                                               Text="{Binding Name}"
+                                               FontFamily="RobotoRegular"
+                                               FontSize="16"
+                                               Margin="15,0,0,0"
+                                               VerticalOptions="Center"/>
+
+                                        <ImageButton Source="cross.svg"
+                                             HeightRequest="60"
+                                             WidthRequest="60"
+                                             Aspect="AspectFill"
+                                             Padding="10"
+                                             IsEnabled="True" IsOpaque="False"
+                                             BackgroundColor="Transparent"
+                                             HorizontalOptions="End"    
+                                             Command="{Binding DeleteRoleBtnCommand}"/>
+                                    </HorizontalStackLayout>
+                                </Border>
+                            </DataTemplate>
+                            
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </HorizontalStackLayout>
+            </ScrollView>
 
         </StackLayout>
     </ScrollView>

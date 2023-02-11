@@ -73,6 +73,7 @@
 	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-LIGHT.TTF" />
 	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-LIGHTITALIC.TTF" />
 	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-REGULAR.TTF" />
+	  <None Remove="Resources\Images\cross.svg" />
 	  <None Remove="Resources\Images\plusicon.svg" />
 	  <None Remove="Resources\Images\right_arrow.svg" />
 	</ItemGroup>
