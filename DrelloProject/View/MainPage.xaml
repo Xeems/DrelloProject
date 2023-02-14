@@ -10,19 +10,6 @@
              Shell.NavBarIsVisible="False">
 
     <ContentPage.Resources>
-        <Style TargetType="Label" x:Key="LabelStyle">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="TextColor" Value="Black"/>
-            <Setter Property="BackgroundColor" Value="Transparent"/>
-            <Setter Property="FontFamily" Value="ROBOTOBOLD-T.TTF"/>
-            <Setter Property="FontAttributes" Value="Bold"/>
-            <Setter Property="Margin" Value="20, 20, 0, 20"/>
-            <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
-            <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
-            <Setter Property="HorizontalTextAlignment" Value="Start"/>
-            <Setter Property="CharacterSpacing" Value="2"/>
-            <Setter Property="MaximumWidthRequest" Value="500"/>
-        </Style>
 
         <Style TargetType="Border" x:Key="BoardBorderStyle">
             <Setter Property="StrokeShape" Value="RoundRectangle 10, 10, 10, 10"/>
@@ -93,7 +80,7 @@
             <StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Ваши доски"
-                           Style="{StaticResource LabelStyle}"/>
+                           Style="{StaticResource HeaderStyle}"/>
 
                     <ImageButton Source="plusicon.svg"
                                  HeightRequest="60"
@@ -145,7 +132,7 @@
                 <BoxView />
 
                 <StackLayout Orientation="Horizontal">
-                    <Label Style="{StaticResource LabelStyle}"
+                    <Label Style="{StaticResource HeaderStyle}"
                            Text="Личные задачи"/>
                     
                     <ImageButton Source="plusicon.svg"
@@ -178,7 +165,7 @@
                                         StrokeThickness="0">
                                     <HorizontalStackLayout>
                                         <Label Text="{Binding TaskBody}"
-                                               Style="{StaticResource LabelStyle}"
+                                               Style="{StaticResource HeaderStyle}"
                                            
                                                    Margin="15,0,0,0"
                                                    FontSize="15"/>

@@ -38,5 +38,17 @@ namespace DrelloProject.ViewModels
         {
 
         }
+
+        [RelayCommand]
+        async void BackBtn()
+        {
+
+        }
+
+        [RelayCommand]
+        async void AcceptBtn()
+        {
+
+        }
     }
 }

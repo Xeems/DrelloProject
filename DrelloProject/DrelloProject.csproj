@@ -73,7 +73,8 @@
 	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-LIGHT.TTF" />
 	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-LIGHTITALIC.TTF" />
 	  <None Remove="Resources\Fonts\ROBOTOCONDENSED-REGULAR.TTF" />
-	  <None Remove="Resources\Images\cross.svg" />
+	  <None Remove="Resources\Images\check.png" />
+	  <None Remove="Resources\Images\close.png" />
 	  <None Remove="Resources\Images\plusicon.svg" />
 	  <None Remove="Resources\Images\right_arrow.svg" />
 	</ItemGroup>
@@ -90,6 +91,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Resources\Styles\EntryStyle.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Resources\Styles\HeaderStyle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\BoardPage.xaml">
