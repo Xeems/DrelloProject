@@ -11,10 +11,7 @@ namespace API.Models
         public int KanBoardId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public ICollection<User>? Members { get; set; }
-        public ICollection<ATask>? Tasks { get; set; }
         public int CreatorId { get; set; }
-
 
     }
 }

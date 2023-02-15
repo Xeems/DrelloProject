@@ -42,8 +42,7 @@ namespace API.Controllers
                 var board = await context.Boards.FindAsync(boardId);
                 if (board != null)
                 {
-                    board.Members.Add(user);
-                    await context.SaveChangesAsync();
+                    
                 }
                 else
                     return BadRequest();
