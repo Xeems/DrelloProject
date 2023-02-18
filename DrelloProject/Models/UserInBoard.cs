@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace API.Models
+namespace DrelloProject.Models
 {
     public class UserInBoard
     {

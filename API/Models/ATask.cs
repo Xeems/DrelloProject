@@ -8,8 +8,8 @@ namespace API.Models
 {
     public class ATask
     {
-        public int ATaskId { get; set; }
-        public KanBoard Board { get; set; }
+        public int Id { get; set; }
+        public BoardRole requiredRole { get; set; }
         public string Name { get; set; }
         public ATaskStatus Status { get; set; }
         

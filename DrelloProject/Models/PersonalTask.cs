@@ -9,7 +9,7 @@ namespace DrelloProject.Models
     public class PersonalTask
     {
         public int Id { get; set; }
-        public int CreatorId { get; set; }
+        public User PersonalTaskOwner { get; set; }
         public string TaskBody { get; set; }
         public bool IsCompleted { get; set; }
     }

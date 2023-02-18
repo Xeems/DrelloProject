@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,9 @@ namespace API.Models
 {
     public class BoardRole
     {
-        public int BoardRoleId { get; set; }
-        public int BoardId { get; set; }
+
+        public int Id { get; set; }
+        public Board Board { get; set; }
         public string Name { get; set; }
 
     }

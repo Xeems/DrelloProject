@@ -8,8 +8,9 @@ namespace DrelloProject.Models
 {
     public class BoardRole
     {
+
         public int Id { get; set; }
-        public int BoardId { get; set; }
+        public Board Board { get; set; }
         public string Name { get; set; }
 
     }

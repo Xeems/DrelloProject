@@ -12,7 +12,7 @@ namespace DrelloProject.ViewModels
     public partial class MainPageViewModel : ObservableObject
     { 
         [ObservableProperty]
-        private ObservableCollection<KanBoard> boards = new ObservableCollection<KanBoard>();
+        private ObservableCollection<Board> boards = new ObservableCollection<Board>();
 
         [ObservableProperty]
         private string token;
@@ -21,11 +21,11 @@ namespace DrelloProject.ViewModels
         private ObservableCollection<PersonalTask> personalTasks = new ObservableCollection<PersonalTask>();
 
         [ObservableProperty]
-        private KanBoard selectedBoard;
+        private Board selectedBoard;
 
         public MainPageViewModel() 
         {
-            KanBoard board = new KanBoard { Name = "Имя", Description = "Очень длинное описание для проверки на многострочность " };
+            Board board = new Board { Name = "Имя", Description = "Очень длинное описание для проверки на многострочность " };
             for (int i = 0; i < 10; i++)
             {
                 boards.Add(board);

@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace DrelloProject.Models
 {
-    public class KanBoard
+    public class Board
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<User>  Members { get; set; }
-        public List<ATask>? Tasks { get; set; }
-        public User Creator { get; set; }
-
+        public int CreatorId { get; set; }
 
     }
 }

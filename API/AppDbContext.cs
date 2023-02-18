@@ -7,11 +7,10 @@ namespace DrelloApi
     public class AppDbContext : DbContext
     {
         public DbSet<User> Users => Set<User>();
-        public DbSet<KanBoard> Boards => Set<KanBoard>();
-        public DbSet<BoardRole> BoardRoles => Set<BoardRole>();
+        public DbSet<Board> Boards => Set<Board>();
+        public DbSet<BoardRole> Roles => Set<BoardRole>();
         public DbSet<ATask> Tasks => Set<ATask>();
         public DbSet<PersonalTask> PersonalTasks=> Set<PersonalTask>();
-
         public DbSet<UserInBoard> UserInBoards=> Set<UserInBoard>();
 
         public AppDbContext()
