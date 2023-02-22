@@ -51,7 +51,7 @@
                          IsEnabled="True" IsOpaque="False"
                          BackgroundColor="Transparent"
                          HorizontalOptions="End"    
-                         Command="{Binding AcceptBtnCommand}"/>
+                         Command="{Binding CheckBtnCommand}"/>
         </StackLayout>
         
     <ScrollView Grid.Row="1">
@@ -79,8 +79,11 @@
                     HeightRequest="200"
                     Margin="40,0,40,0">
                 <Editor HeightRequest="180"
-                        Margin="10,0,10,0"
-                        VerticalOptions="StartAndExpand"/>
+                        MinimumWidthRequest="100"
+                        Margin="10"
+                        VerticalOptions="StartAndExpand"
+                        HorizontalOptions="StartAndExpand"
+                        Text="{Binding BoardDescription}"/>
             </Border>
 
             <Label Text="Роли" 

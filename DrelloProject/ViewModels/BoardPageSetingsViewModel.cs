@@ -1,12 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DrelloProject.DataServices;
 using DrelloProject.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DrelloProject.ViewModels
 {
@@ -19,6 +15,9 @@ namespace DrelloProject.ViewModels
         private string boardName;
 
         [ObservableProperty]
+        private int boardId;
+
+        [ObservableProperty]
         private string boardDescription;
 
         [ObservableProperty]
@@ -26,6 +25,8 @@ namespace DrelloProject.ViewModels
 
         [ObservableProperty]
         private BoardRole selectedRole;
+
+        BoardDataService boardDataService = new BoardDataService();
 
         [RelayCommand]
         async void NewRoleBtn()
@@ -46,9 +47,23 @@ namespace DrelloProject.ViewModels
         }
 
         [RelayCommand]
-        async void AcceptBtn()
+        async void CheckBtn()
         {
+            if (BoardId == 0)
+            {
+                var currentBoard = await AddBoard();
+            }
+            
+            else ; 
 
+        }
+
+        async Task<Board> AddBoard()
+        {
+            int creatorId = 1;
+            Board board = new Board() { Name = BoardName, Description = BoardDescription, CreatorId = creatorId};
+
+            return await boardDataService.AddBoard(board);
         }
     }
 }

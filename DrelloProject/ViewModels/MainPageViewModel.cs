@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using DrelloProject.DataServices;
 using DrelloProject.Models;
-using DrelloProject.Services;
 using DrelloProject.View;
 using System.Collections.ObjectModel;
 

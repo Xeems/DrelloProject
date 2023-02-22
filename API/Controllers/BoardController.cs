@@ -20,18 +20,22 @@ namespace API.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<ActionResult<Board>> Create(Board request, int creatorId)
+        public async Task<ActionResult<Board>> Create(Board board)
         {
-            var board = request;
-            board.CreatorId = creatorId;
-
-            using (AppDbContext context = new AppDbContext())
+            try
             {
-                await context.Boards.AddAsync(board);
-                await context.SaveChangesAsync();
-            }
+                using (AppDbContext context = new AppDbContext())
+                {
+                    await context.Boards.AddAsync(board);
+                    await context.SaveChangesAsync();
+                }
 
-            return Ok();
+                return Ok(board);
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex);
+            }                           
         }
 
         [HttpPost("AddUser")]
