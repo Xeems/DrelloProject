@@ -11,7 +11,7 @@ namespace API.Models
     {
 
         public int Id { get; set; }
-        public Board Board { get; set; }
+        public int BoardId { get; set; }
         public string Name { get; set; }
 
     }

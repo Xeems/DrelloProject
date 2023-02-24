@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DrelloProject.DataServices;
 using DrelloProject.Models;
 using DrelloProject.View;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace DrelloProject.ViewModels
 {
@@ -21,19 +23,23 @@ namespace DrelloProject.ViewModels
         [ObservableProperty]
         private Board selectedBoard;
 
+        private PersonalTaskDataService _personalTaskDataService = new PersonalTaskDataService();
+
         public MainPageViewModel() 
         {
+            try
+            {
+                var Tasks = _personalTaskDataService.GetPersonalTasks(1);
+            }
+            catch (Exception ex) {
+                Debug.WriteLine(ex);
+            }
+
             Board board = new Board { Name = "Имя", Description = "Очень длинное описание для проверки на многострочность " };
             for (int i = 0; i < 10; i++)
             {
                 boards.Add(board);
-            }
-
-            PersonalTask personalTask = new PersonalTask { TaskBody = "Имя Подленнее " };
-            for (int i = 0; i < 20; i++)
-            {
-                personalTasks.Add(personalTask);
-            }
+            }            
         }
 
         [RelayCommand]

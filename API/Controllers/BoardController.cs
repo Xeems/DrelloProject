@@ -63,27 +63,20 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpPost("AddRole")]
-        public async Task<ActionResult<BoardRole>> AddRole(int boardId, string roleName)
+        [HttpPost("/{boardId}/AddRoles")]
+        public async Task<ActionResult<BoardRole>> AddRoles(ICollection<BoardRole> roles, [FromRoute]int boardId)
         {
-
             using (AppDbContext context = new AppDbContext())
             {
-                var board = await context.Boards.FindAsync(boardId);
+                board = await context.Boards.FindAsync(boardId);
+                foreach (BoardRole role in roles)
+                    role.BoardId = board.Id;
 
-                if (board != null)
-                {
-                    var role = new BoardRole() { Board = board, Name = roleName};
-                    await context.Roles.AddAsync(role);
-                    await context.SaveChangesAsync();
-                }
-                else
-                {
-                    await context.Database.CloseConnectionAsync();
-                    return BadRequest();
-                }
-            }
-            return Ok();
+                await context.Roles.AddRangeAsync(roles);
+                await context.SaveChangesAsync();
+
+                return Ok(roles);
+            }            
         }
 
     }

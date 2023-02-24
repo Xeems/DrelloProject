@@ -1,6 +1,7 @@
 ﻿using DrelloProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Json;
@@ -31,9 +32,7 @@ namespace DrelloProject.DataServices
         public async Task<Board> AddBoard(Board board)
         {
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
-            {
                 Debug.WriteLine("---> No internet access...");
-            }
 
             try
             {
@@ -45,7 +44,6 @@ namespace DrelloProject.DataServices
                 if (response.IsSuccessStatusCode)
                 {
                     var apiResponse = await response.Content.ReadFromJsonAsync<Board>();
-                    //Board responseBoard = JsonSerializer.Deserialize<Board>(apiResponse);
                     return apiResponse;
                 }
                 else
@@ -56,9 +54,37 @@ namespace DrelloProject.DataServices
 
             }
             catch (Exception ex)
+                { Debug.WriteLine($"Whoops exception: {ex.Message}");}
+
+            return null;
+        }
+
+        public async Task<BoardRole> AddBoardRoles(ICollection<BoardRole> boardRoles, Board board)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                Debug.WriteLine("---> No internet access...");
+
+            try
             {
-                Debug.WriteLine($"Whoops exception: {ex.Message}");
+                string jsonContent = JsonSerializer.Serialize(boardRoles, _jsonSerializerOptions);   
+                StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync($"{_url}/{board.Id}/AddRoles", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var apiResponse = await response.Content.ReadFromJsonAsync<BoardRole>();
+                    return apiResponse;
+                }
+                else
+                {
+                    Debug.WriteLine("Non Http 2xx response");
+                    return null;
+                }
+
             }
+            catch (Exception ex) 
+                { Debug.WriteLine($"Whoops exception: {ex.Message}");}
 
             return null;
         }

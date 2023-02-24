@@ -12,6 +12,9 @@ namespace DrelloProject.ViewModels
         private ObservableCollection<BoardRole> roles = new ObservableCollection<BoardRole>();
 
         [ObservableProperty]
+        private Board currentBoard = new Board();
+
+        [ObservableProperty]
         private string boardName;
 
         [ObservableProperty]
@@ -51,19 +54,15 @@ namespace DrelloProject.ViewModels
         {
             if (BoardId == 0)
             {
-                var currentBoard = await AddBoard();
+                int creatorId = 1;
+                Board board = new Board() { Name = BoardName, Description = BoardDescription, CreatorId = creatorId };
+                CurrentBoard = await boardDataService.AddBoard(board);
+
+                var roles = await boardDataService.AddBoardRoles(Roles, currentBoard);
             }
             
             else ; 
 
-        }
-
-        async Task<Board> AddBoard()
-        {
-            int creatorId = 1;
-            Board board = new Board() { Name = BoardName, Description = BoardDescription, CreatorId = creatorId};
-
-            return await boardDataService.AddBoard(board);
         }
     }
 }

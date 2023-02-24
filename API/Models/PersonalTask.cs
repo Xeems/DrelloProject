@@ -9,7 +9,7 @@ namespace API.Models
     public class PersonalTask
     {
         public int Id { get; set; }
-        public User PersonalTaskOwner { get; set; }
+        public int PersonalTaskOwnerId { get; set; }
         public string TaskBody { get; set; }
         public bool IsCompleted { get; set; }
     }
