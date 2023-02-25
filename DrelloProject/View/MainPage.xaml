@@ -176,7 +176,7 @@
                     </CollectionView.ItemTemplate>
                 </CollectionView>
 
-                <Button Command="{Binding LoadCommand}" WidthRequest="50"/>
+                <Button Command="{Binding NewToDoBtnCommand}" WidthRequest="50"/>
             </StackLayout>
         </ScrollView>
     </Grid>

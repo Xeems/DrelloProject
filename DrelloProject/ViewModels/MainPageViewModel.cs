@@ -10,36 +10,37 @@ namespace DrelloProject.ViewModels
 {
     [QueryProperty(nameof(Token), nameof(Token))]
     public partial class MainPageViewModel : ObservableObject
-    { 
-        [ObservableProperty]
-        private ObservableCollection<Board> boards = new ObservableCollection<Board>();
-
+    {
         [ObservableProperty]
         private string token;
 
         [ObservableProperty]
+        private ObservableCollection<Board> boards = new ObservableCollection<Board>();
+
+        [ObservableProperty]
         private ObservableCollection<PersonalTask> personalTasks = new ObservableCollection<PersonalTask>();
+
+        private PersonalTaskDataService _personalTaskDataService = new PersonalTaskDataService();
 
         [ObservableProperty]
         private Board selectedBoard;
 
-        private PersonalTaskDataService _personalTaskDataService = new PersonalTaskDataService();
-
         public MainPageViewModel() 
         {
-            try
-            {
-                var Tasks = _personalTaskDataService.GetPersonalTasks(1);
-            }
-            catch (Exception ex) {
-                Debug.WriteLine(ex);
-            }
+            GetPersonalTasks(1);
 
             Board board = new Board { Name = "Имя", Description = "Очень длинное описание для проверки на многострочность " };
             for (int i = 0; i < 10; i++)
             {
                 boards.Add(board);
             }            
+        }
+
+        public async void GetPersonalTasks(int userId)
+        {
+            var Tasks = await _personalTaskDataService.GetPersonalTasks(userId);
+            if (Tasks != null)
+                PersonalTasks = Tasks;
         }
 
         [RelayCommand]
@@ -64,7 +65,7 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async Task NewToDoBtn()
         {
-
+            GetPersonalTasks(1);
         }
     }
 }

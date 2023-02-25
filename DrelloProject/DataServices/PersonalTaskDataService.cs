@@ -21,7 +21,7 @@ namespace DrelloProject.DataServices
         {
             _httpClient = new HttpClient();
             _baseAdress = DeviceInfo.Platform == DevicePlatform.Android ? "http://10.0.2.2:5017" : "https://localhost:7005";
-            _url = $"{_baseAdress}/API/User/";
+            _url = $"{_baseAdress}";
 
             _jsonSerializerOptions = new JsonSerializerOptions
             {
@@ -43,23 +43,17 @@ namespace DrelloProject.DataServices
         {
 
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
-            {
-                Debug.WriteLine("No internet");
                 return null;
-            }
             try
             {
-                var response = await _httpClient.GetAsync($"{_url}/GetPersonalTasks/{userId}");
+                var response = await _httpClient.GetAsync($"{_url}/{userId}/GetPersonalTasks");
                 if (response.IsSuccessStatusCode)
                 {
                     var tasks = await response.Content.ReadFromJsonAsync<ObservableCollection<PersonalTask>>();
                     return tasks;
                 }
                 else
-                {
-                    Debug.WriteLine("Non Http 2xx response");
                     return null;
-                }
             }
             catch (Exception ex)
             {
