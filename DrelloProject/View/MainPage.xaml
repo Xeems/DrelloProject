@@ -143,7 +143,7 @@
                                  Padding="10"
                                  IsEnabled="True" IsOpaque="False"
                                  BackgroundColor="Transparent"
-                                 Command="{Binding NewToDoBtnCommand}"/>
+                                 Command="{Binding NewPersonalTaskBtnCommand}"/>
                     
                 </StackLayout>
 
@@ -175,8 +175,6 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-
-                <Button Command="{Binding NewToDoBtnCommand}" WidthRequest="50"/>
             </StackLayout>
         </ScrollView>
     </Grid>

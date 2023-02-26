@@ -21,7 +21,7 @@ namespace DrelloProject.DataServices
         {
             _httpClient = new HttpClient();
             _baseAdress = DeviceInfo.Platform == DevicePlatform.Android ? "http://10.0.2.2:5017" : "https://localhost:7005";
-            _url = $"{_baseAdress}";
+            _url = $"{_baseAdress}/API/User";
 
             _jsonSerializerOptions = new JsonSerializerOptions
             {
@@ -29,19 +29,51 @@ namespace DrelloProject.DataServices
             };
         }
 
-        public Task<PersonalTask> AddPesonalTask(PersonalTask task)
+        public async Task<bool> AddPesonalTask(PersonalTask task, int userId)
         {
-            throw new NotImplementedException();
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                return false;
+            try
+            {
+                string jsonContent = JsonSerializer.Serialize<PersonalTask>(task, _jsonSerializerOptions);
+                StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync($"{_url}/{userId}/AddPersonalTask", content);
+                if (response.IsSuccessStatusCode)
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Oppa, exeption" + ex.Message);
+                return false;
+            }
+            return false;
         }
 
-        public Task DeletePersonalTak(int personalTaskId)
+        public async Task DeletePersonalTak(int personalTaskId)
         {
-            throw new NotImplementedException();
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                return null;
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"{_url}/{userId}/DeletePersonalTasks");
+                if (response.IsSuccessStatusCode)
+                {
+                    var tasks = await response.Content.ReadFromJsonAsync<ObservableCollection<PersonalTask>>();
+                    return tasks;
+                }
+                else
+                    return null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Oppa, exeption" + ex.Message);
+                return null;
+            }
         }
 
         public async Task<ObservableCollection<PersonalTask>> GetPersonalTasks(int userId)
         {
-
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
                 return null;
             try

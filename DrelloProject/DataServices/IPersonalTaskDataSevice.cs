@@ -11,7 +11,7 @@ namespace DrelloProject.DataServices
     public interface IPersonalTaskDataSevice
     {
         Task<ObservableCollection<PersonalTask>> GetPersonalTasks(int userId);
-        Task<PersonalTask> AddPesonalTask(PersonalTask task);
+        Task<bool> AddPesonalTask(PersonalTask task, int userId);
         Task DeletePersonalTak(int personalTaskId);
     }
 }

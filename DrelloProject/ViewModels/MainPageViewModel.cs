@@ -63,9 +63,13 @@ namespace DrelloProject.ViewModels
         }
 
         [RelayCommand]
-        async Task NewToDoBtn()
+        async Task NewPersonalTaskBtn()
         {
-            GetPersonalTasks(1);
+            string personalTaskName = await Shell.Current.DisplayPromptAsync("Новая задача", "Введите название:", "OK", "Отмена");
+            PersonalTask task = new PersonalTask() { TaskBody = personalTaskName};
+            bool response = await _personalTaskDataService.AddPesonalTask(task, 1);
+            if(response == true)
+                GetPersonalTasks(1);
         }
     }
 }
