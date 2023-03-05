@@ -36,17 +36,11 @@ namespace DrelloProject.ViewModels
             }            
         }
 
-        public async void GetPersonalTasks(int userId)
-        {
-            var Tasks = await _personalTaskDataService.GetPersonalTasks(userId);
-            if (Tasks != null)
-                PersonalTasks = Tasks;
-        }
-
         [RelayCommand]
-        async Task DeletePersonalTask() 
+        async Task DeletePersonalTask(PersonalTask personalTask) 
         {
-            personalTasks.Clear();
+            personalTasks.Remove(personalTask);
+            await _personalTaskDataService.DeletePersonalTask(personalTask.Id);
         }
 
         [RelayCommand]
@@ -59,7 +53,7 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async Task NewKanBoardBtn()
         {
-            Shell.Current.GoToAsync(nameof(BoardPageSetings));
+            await Shell.Current.GoToAsync(nameof(BoardPageSetings));
         }
 
         [RelayCommand]
@@ -70,6 +64,13 @@ namespace DrelloProject.ViewModels
             bool response = await _personalTaskDataService.AddPesonalTask(task, 1);
             if(response == true)
                 GetPersonalTasks(1);
+        }
+
+        public async void GetPersonalTasks(int userId)
+        {
+            var Tasks = await _personalTaskDataService.GetPersonalTasks(userId);
+            if (Tasks != null)
+                PersonalTasks = Tasks;
         }
     }
 }

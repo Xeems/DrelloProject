@@ -15,17 +15,17 @@ namespace API.Controllers
         }
 
         [HttpGet("GetBoards")]
-        public async Task<ActionResult<ICollection<Board>>> GetBoards(int userId)
+        public async Task<ActionResult<List<Board>>> GetBoards(int userId)
         {
-            ICollection<Board> boards = null;
+            List<Board> boards = null;
 
             return Ok(boards);
         }
 
         [HttpGet("{userId}/GetPersonalTasks")]
-        public async Task<ActionResult<ICollection<PersonalTask>>> GetPersonalTasks([FromRoute]int userId)
+        public async Task<ActionResult<List<PersonalTask>>> GetPersonalTasks([FromRoute]int userId)
         {
-            ICollection<PersonalTask> tasks = null;
+            List<PersonalTask> tasks = null;
 
             using(AppDbContext context = new AppDbContext())
             {
@@ -53,8 +53,8 @@ namespace API.Controllers
             { return BadRequest(false); }           
         }
 
-        [HttpPost("DeletePersonalTask/{taskId}")]
-        public async Task<ActionResult<bool>> AddPersonalTasks([FromRoute] int taskId)
+        [HttpDelete("DeletePersonalTask/{taskId}")]
+        public async Task<ActionResult<bool>> DeletePersonalTasks([FromRoute] int taskId)
         {
             try
             {

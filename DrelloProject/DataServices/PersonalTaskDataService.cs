@@ -50,25 +50,22 @@ namespace DrelloProject.DataServices
             return false;
         }
 
-        public async Task DeletePersonalTak(int personalTaskId)
+        public async Task<bool> DeletePersonalTask(int personalTaskId)
         {
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
-                return null;
+                return false;
             try
             {
-                var response = await _httpClient.DeleteAsync($"{_url}/{userId}/DeletePersonalTasks");
+                var response = await _httpClient.DeleteAsync($"{_url}/DeletePersonalTask/{personalTaskId}");
                 if (response.IsSuccessStatusCode)
-                {
-                    var tasks = await response.Content.ReadFromJsonAsync<ObservableCollection<PersonalTask>>();
-                    return tasks;
-                }
+                    return true;
                 else
-                    return null;
+                    return false;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Oppa, exeption" + ex.Message);
-                return null;
+                return false;
             }
         }
 

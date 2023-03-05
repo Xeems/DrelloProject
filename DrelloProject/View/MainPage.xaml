@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DrelloProject.View.MainPage"            
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:local ="clr-namespace:DrelloProject.ViewModels"
+             xmlns:viewModels ="clr-namespace:DrelloProject.ViewModels"
+             xmlns:models ="clr-namespace:DrelloProject.Models"
              xmlns:services ="clr-namespace:DrelloProject.Services"
              BackgroundColor="White"
              Title="User name"
@@ -110,7 +111,7 @@
                                         <Grid.GestureRecognizers>
                                             <TapGestureRecognizer CommandParameter="{Binding .}" 
                                                                   Command="{Binding Source={RelativeSource 
-                                                                  AncestorType={x:Type local:MainPageViewModel}}, 
+                                                                  AncestorType={x:Type viewModels:MainPageViewModel}}, 
                                                                   Path=TapBoardCommand}"/>
                                         </Grid.GestureRecognizers>
                                         <Frame Padding="0" IsClippedToBounds="True" BorderColor="Transparent" Grid.Row="0" Grid.RowSpan="2">
@@ -149,29 +150,24 @@
 
                 <CollectionView ItemsSource="{Binding PersonalTasks}">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <SwipeView>
-                                <SwipeView.RightItems>
-                                    <SwipeItems Mode="Execute">
-                                        <SwipeItem BackgroundColor="#f5f3f4"
-                                                   Command="{Binding DeletePersonalTaskCommand}"/>
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
-
-                                <Border StrokeShape="RoundRectangle 15,15,15,15"
+                        <DataTemplate x:DataType="{x:Type models:PersonalTask}">
+                            <Border StrokeShape="RoundRectangle 15,15,15,15"
                                         Margin="20,5,20,0"
                                         HeightRequest="50"
                                         BackgroundColor="White"
                                         StrokeThickness="0">
-                                    <HorizontalStackLayout>
-                                        <Label Text="{Binding TaskBody}"
-                                               Style="{StaticResource HeaderStyle}"
-                                           
-                                                   Margin="15,0,0,0"
-                                                   FontSize="15"/>
-                                    </HorizontalStackLayout>
-                                </Border>
-                            </SwipeView>
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=DeletePersonalTaskCommand}"
+                                        CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding TaskBody}"
+                                               Style="{StaticResource HeaderStyle}"                                                
+                                               Margin="15,0,20,0"
+                                               FontSize="15"/>
+                                </HorizontalStackLayout>
+                            </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
