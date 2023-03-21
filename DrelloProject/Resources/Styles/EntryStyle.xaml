@@ -8,7 +8,7 @@
         <Setter Property="BackgroundColor" Value="#ffffff"/>
         <Setter Property="FontFamily" Value="ROBOTO-MEDIUM.TTF"/>
         <Setter Property="Margin" Value="15, 1, 15, 1"/>
-        <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+        <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
         <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
         <Setter Property="HorizontalTextAlignment" Value="Start"/>
     </Style>

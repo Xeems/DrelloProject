@@ -38,18 +38,17 @@ namespace API.Controllers
             }                           
         }
 
-        [HttpPost("AddUser")]
-        public async Task<ActionResult<UserInBoard>> AddUser(int boardId, int userId, int roleId)
+        [HttpPost("{boardId}/AddUser/{userId}")]
+        public async Task<ActionResult<UserInBoard>> AddUser(int userId, int boardId)
         {
 
             using (AppDbContext context = new AppDbContext())
             {
-                var board = await context.Boards.FindAsync(boardId);
                 var user = await context.Users.FindAsync(userId);
-                var role = await context.Roles.FindAsync(roleId);
-                if (board != null && user != null && role != null && board.Id == role.Id)
+                var board = await context.Boards.FindAsync(boardId);
+                if (board != null && user != null)
                 {
-                    var userInBoard = new UserInBoard() { User = user, BoardRole = role };
+                    var userInBoard = new UserInBoard() { User = user, Board = board};
                     await context.UserInBoards.AddAsync(userInBoard);
                     await context.SaveChangesAsync();
                 }
@@ -63,20 +62,38 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpPost("/{boardId}/AddRoles")]
-        public async Task<ActionResult<BoardRole>> AddRoles(ICollection<BoardRole> roles, [FromRoute]int boardId)
+        [HttpPost("{boardId}/AddRoles")]
+        public async Task<ActionResult<BoardRole>> AddRoles(ICollection<string> roles, [FromRoute]int boardId)
         {
             using (AppDbContext context = new AppDbContext())
             {
+                List<BoardRole> boardRoles = new List<BoardRole>();
                 board = await context.Boards.FindAsync(boardId);
-                foreach (BoardRole role in roles)
-                    role.BoardId = board.Id;
 
-                await context.Roles.AddRangeAsync(roles);
+                foreach (string role in roles)
+                {
+                    BoardRole boardRole = new BoardRole() {Name = role, Board = board };
+                    boardRoles.Add(boardRole);
+                }
+
+                await context.Roles.AddRangeAsync(boardRoles);
                 await context.SaveChangesAsync();
 
-                return Ok(roles);
+                return Ok(boardRoles);
             }            
+        }
+
+        [HttpGet("{boardId}/GetBoardMembers")]
+        public async Task<ActionResult<List<UserInBoard>>> GetBoardMembers([FromRoute] int boardId)
+        {
+            List<UserInBoard> boardMembers = null;
+
+            using (AppDbContext context = new AppDbContext())
+            {
+
+            }
+
+            return Ok(boardMembers);
         }
 
     }

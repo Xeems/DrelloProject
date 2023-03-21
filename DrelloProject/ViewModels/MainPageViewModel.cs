@@ -37,17 +37,13 @@ namespace DrelloProject.ViewModels
         }
 
         [RelayCommand]
-        async Task DeletePersonalTask(PersonalTask personalTask) 
+        async Task TapBoard(Board board)
         {
-            personalTasks.Remove(personalTask);
-            await _personalTaskDataService.DeletePersonalTask(personalTask.Id);
-        }
-
-        [RelayCommand]
-        async Task TapBoardAsync()
-        {
-           await Shell.Current.GoToAsync("BoardPage");
-
+           await Shell.Current.GoToAsync($"{nameof(BoardPage)}",
+                        new Dictionary<string, object>
+                        {
+                            ["Board"] = board
+                        });
         }
 
         [RelayCommand]
@@ -66,6 +62,12 @@ namespace DrelloProject.ViewModels
                 GetPersonalTasks(1);
         }
 
+        [RelayCommand]
+        async Task DeletePersonalTask(PersonalTask personalTask)
+        {
+            personalTasks.Remove(personalTask);
+            await _personalTaskDataService.DeletePersonalTask(personalTask.Id);
+        }
         public async void GetPersonalTasks(int userId)
         {
             var Tasks = await _personalTaskDataService.GetPersonalTasks(userId);

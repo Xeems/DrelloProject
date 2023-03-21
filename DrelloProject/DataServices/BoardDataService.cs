@@ -63,7 +63,6 @@ namespace DrelloProject.DataServices
         {
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
                 Debug.WriteLine("---> No internet access...");
-
             try
             {
                 string jsonContent = JsonSerializer.Serialize(boardRoles, _jsonSerializerOptions);   
@@ -97,6 +96,32 @@ namespace DrelloProject.DataServices
         public Task<ICollection<Board>> GetBoardsByUser(int UserId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ObservableCollection<UserInBoard>> GetUsersInBoard(int BoardId)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                Debug.WriteLine("---> No internet access...");
+
+            try
+            {
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_url}/{BoardId}/AddRoles");
+
+                if (response.IsSuccessStatusCode)
+                {
+
+                }
+                else
+                {
+                    Debug.WriteLine("Non Http 2xx response");
+                    return null;
+                }
+
+            }
+            catch (Exception ex)
+            { Debug.WriteLine($"Whoops exception: {ex.Message}"); }
+
+            return null;
         }
     }
 }

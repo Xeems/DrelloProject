@@ -9,7 +9,7 @@ namespace DrelloApi
         public DbSet<User> Users => Set<User>();
         public DbSet<Board> Boards => Set<Board>();
         public DbSet<BoardRole> Roles => Set<BoardRole>();
-        public DbSet<ATask> Tasks => Set<ATask>();
+        public DbSet<ATask> ATasks => Set<ATask>();
         public DbSet<PersonalTask> PersonalTasks=> Set<PersonalTask>();
         public DbSet<UserInBoard> UserInBoards=> Set<UserInBoard>();
 
@@ -22,5 +22,7 @@ namespace DrelloApi
         {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=DrelloDB;Trusted_Connection=True;");
         }
+
+
     }
 }

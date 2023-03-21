@@ -9,7 +9,7 @@
              BackgroundColor="White"
              Title="User name"
              Shell.NavBarIsVisible="False">
-
+    
     <ContentPage.Resources>
 
         <Style TargetType="Border" x:Key="BoardBorderStyle">
@@ -98,34 +98,32 @@
                             HorizontalScrollBarVisibility="Never">
                     <HorizontalStackLayout>
                         <CollectionView ItemsSource="{Binding Boards}"
-                                        SelectedItem="{Binding SelectedBoard}"
                                         ItemsLayout="HorizontalList"
                                         Margin="20,0,20,0">
-                        <CollectionView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="10,0,10,0" WidthRequest="300" HeightRequest="260" IsClippedToBounds="True">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition/>
-                                            <RowDefinition/>
-                                        </Grid.RowDefinitions>
-                                        <Grid.GestureRecognizers>
-                                            <TapGestureRecognizer CommandParameter="{Binding .}" 
-                                                                  Command="{Binding Source={RelativeSource 
-                                                                  AncestorType={x:Type viewModels:MainPageViewModel}}, 
-                                                                  Path=TapBoardCommand}"/>
-                                        </Grid.GestureRecognizers>
-                                        <Frame Padding="0" IsClippedToBounds="True" BorderColor="Transparent" Grid.Row="0" Grid.RowSpan="2">
-                                            <Image Source="https://i.pinimg.com/originals/c1/07/2b/c1072b465b980e9eb218c3b446830653.jpg" HeightRequest="260" WidthRequest="300" Aspect="AspectFill" />
-                                        </Frame>
-                                        <Border StrokeThickness="0" Grid.Row="1" Background="Black" Opacity="0.75" StrokeShape="RoundRectangle 0,0,10,10">
-                                            <StackLayout>
-                                                <Label Text="{Binding Name}" Margin="15,20,0,0" TextColor="White" FontSize="20" FontFamily="ROBOTO-BOLD" FontAttributes="Bold" MaxLines="2"/>
-                                                <Label Text="{Binding Description}" Margin="15,20,0,0" TextColor="White"/>
-                                            </StackLayout>                                  
-                                        </Border>
-                                    </Grid>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
+                            
+                            <CollectionView.ItemTemplate>
+                                    <DataTemplate x:DataType="{x:Type models:Board}">
+                                        <Grid Margin="10,0,10,0" WidthRequest="300" HeightRequest="260" IsClippedToBounds="True">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Frame Padding="0" IsClippedToBounds="True" BorderColor="Transparent" Grid.Row="0" Grid.RowSpan="2">
+                                                <Image Source="https://i.pinimg.com/originals/c1/07/2b/c1072b465b980e9eb218c3b446830653.jpg" HeightRequest="260" WidthRequest="300" Aspect="AspectFill" />
+                                            </Frame>
+                                            <Border StrokeThickness="0" Grid.Row="1" Background="Black" Opacity="0.75" StrokeShape="RoundRectangle 0,0,10,10">
+                                                <Border.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=TapBoardCommand}"
+                                                                          CommandParameter="{Binding .}" />
+                                                </Border.GestureRecognizers>
+                                                <StackLayout>
+                                                    <Label Text="{Binding Name}" Margin="15,20,0,0" TextColor="White" FontSize="20" FontFamily="ROBOTO-BOLD" FontAttributes="Bold" MaxLines="2"/>
+                                                    <Label Text="{Binding Description}" Margin="15,20,0,0" TextColor="White"/>
+                                                </StackLayout>                                  
+                                            </Border>
+                                        </Grid>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
                         </CollectionView>
                     </HorizontalStackLayout>
                 </ScrollView>

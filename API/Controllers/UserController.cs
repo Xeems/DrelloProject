@@ -69,5 +69,19 @@ namespace API.Controllers
             catch (Exception ex)
             { return BadRequest(false); }
         }
+
+        [HttpGet("FindUsers/{userName}")]
+        public async Task<ActionResult<List<User>>> FindUsers(string userName)
+        {
+            List<User> users;
+
+            using (AppDbContext context = new AppDbContext())
+            {
+                users = context.Users.Where(n => n.UserName == userName)
+                                     .Select(n => new User { UserName = n.UserName, Id = n.Id })   
+                                     .ToList();
+            }
+            return Ok(users);
+        }
     }
 }

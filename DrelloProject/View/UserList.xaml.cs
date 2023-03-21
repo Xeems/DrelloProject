@@ -2,10 +2,9 @@ using DrelloProject.ViewModels;
 
 namespace DrelloProject.View;
 
-[XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class BoardPage : ContentPage
+public partial class UserList : ContentPage
 {
-	public BoardPage(BoardPageViewModel vm)
+	public UserList(UserListViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;

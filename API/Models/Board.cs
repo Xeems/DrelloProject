@@ -13,5 +13,7 @@ namespace API.Models
         public string Description { get; set; }
         public int CreatorId { get; set; }
 
+        public ICollection<ATask>? Tasks { get; set; }
+
     }
 }

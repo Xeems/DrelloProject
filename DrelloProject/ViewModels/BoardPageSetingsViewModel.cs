@@ -2,15 +2,14 @@
 using CommunityToolkit.Mvvm.Input;
 using DrelloProject.DataServices;
 using DrelloProject.Models;
+using DrelloProject.View;
+using Microsoft.Maui.Controls.PlatformConfiguration;
 using System.Collections.ObjectModel;
 
 namespace DrelloProject.ViewModels
 {
     public partial class BoardPageSetingsViewModel : ObservableObject
     {
-        [ObservableProperty]
-        private ObservableCollection<BoardRole> roles = new ObservableCollection<BoardRole>();
-
         [ObservableProperty]
         private Board currentBoard = new Board();
 
@@ -24,15 +23,29 @@ namespace DrelloProject.ViewModels
         private string boardDescription;
 
         [ObservableProperty]
+        private ObservableCollection<BoardRole> roles = new ObservableCollection<BoardRole>();
+
+        [ObservableProperty]
         private string roleName;
 
         [ObservableProperty]
         private BoardRole selectedRole;
 
+        [ObservableProperty]
+        private ObservableCollection<UserInBoard> users = new ObservableCollection<UserInBoard>();
+
+        [ObservableProperty]
+        private User selectedUser = new User();
+
         BoardDataService boardDataService = new BoardDataService();
 
+        public BoardPageSetingsViewModel()
+        {
+            //Users = boardDataService.GetUsersInBoard(1);
+        }
+
         [RelayCommand]
-        async void NewRoleBtn()
+        async void NewRole()
         {
             roles.Add(new BoardRole { Name = roleName });
         }
@@ -46,7 +59,7 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void BackBtn()
         {
-
+            await Shell.Current.GoToAsync(nameof(MainPage));
         }
 
         [RelayCommand]
@@ -63,6 +76,12 @@ namespace DrelloProject.ViewModels
             
             else ; 
 
+        }
+
+        [RelayCommand]
+        async void AddUser()
+        {
+            await Shell.Current.GoToAsync(nameof(UserList));
         }
     }
 }

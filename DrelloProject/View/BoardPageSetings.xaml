@@ -5,6 +5,7 @@
              Title="BoardPageSetings"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local ="clr-namespace:DrelloProject.ViewModels"
+             xmlns:models ="clr-namespace:DrelloProject.Models"
              xmlns:services ="clr-namespace:DrelloProject.Services"
              BackgroundColor="#f5f3f4"
              Shell.NavBarIsVisible="False">
@@ -53,88 +54,98 @@
                          HorizontalOptions="End"    
                          Command="{Binding CheckBtnCommand}"/>
         </StackLayout>
-        
-    <ScrollView Grid.Row="1">
-        <StackLayout>
 
-            <Label Text="Название" 
-                   Style="{StaticResource HeaderStyle}"
-                   Margin="40,20,40,20"
-                   VerticalOptions="Start"/>
-            
-            <Border Style="{StaticResource BorderStyle}"
+        <ScrollView Grid.Row="1">
+            <StackLayout>
+
+                <Label Text="Название" 
+                       Style="{StaticResource HeaderStyle}"
+                       Margin="40,20,40,20"
+                       VerticalOptions="Start"/>
+
+                <Border Style="{StaticResource BorderStyle}"
                     HeightRequest="50"
                     Margin="40,0,40,0">
-                <Entry Style="{StaticResource EntryStyle}"
-                       Text="{Binding BoardName}"
-                       WidthRequest="100"/>
-            </Border>
-
-            <Label Text="Описание" 
-                   Style="{StaticResource HeaderStyle}"
-                   Margin="40,20,40,20"
-                   VerticalOptions="Start"/>
-            
-            <Border Style="{StaticResource BorderStyle}"
-                    HeightRequest="200"
-                    Margin="40,0,40,0">
-                <Editor HeightRequest="180"
-                        MinimumWidthRequest="100"
-                        Margin="10"
-                        VerticalOptions="StartAndExpand"
-                        HorizontalOptions="StartAndExpand"
-                        Text="{Binding BoardDescription}"/>
-            </Border>
-
-            <Label Text="Роли" 
-                   Style="{StaticResource HeaderStyle}"
-                   Margin="40,20,40,20"
-                   VerticalOptions="Start"/>
-
-            <HorizontalStackLayout Margin="0,0,0,0">
-                <Border Style="{StaticResource BorderStyle}"
-                        HeightRequest="50"
-                        WidthRequest="250"
-                        HorizontalOptions="Start">
-                    <Entry Style="{StaticResource EntryStyle}"
-                           Placeholder="Роль"
-                           Text="{Binding RoleName}"/>
+                    <StackLayout>
+                        <Entry Style="{StaticResource EntryStyle}"
+                           Text="{Binding BoardName}"
+                           MinimumWidthRequest="150"
+                           FontSize="20"/>
+                    </StackLayout>
                 </Border>
 
-                <ImageButton Source="plusicon.svg"
-                             HeightRequest="60"
-                             WidthRequest="60"
-                             Aspect="AspectFill"
-                             Padding="10"
-                             IsEnabled="True" IsOpaque="False"
-                             BackgroundColor="Transparent"
-                             HorizontalOptions="Fill"    
-                             Command="{Binding NewRoleBtnCommand}"/>
-            </HorizontalStackLayout>
+                <Label Text="Описание" 
+                   Style="{StaticResource HeaderStyle}"
+                   Margin="40,20,40,20"
+                   VerticalOptions="Start"/>
 
-            <ScrollView Orientation="Horizontal"
-                        HorizontalScrollBarVisibility="Never">
-                <HorizontalStackLayout>
-                    <CollectionView ItemsSource="{Binding Roles}"
-                                    SelectedItem="{Binding SelectedRole}"
-                                    ItemsLayout="HorizontalList"
-                                    Margin="20,10,20,0">
-                        <CollectionView.ItemTemplate>
-                            
-                            <DataTemplate>
-                                <Border HeightRequest="45"
+                <Border Style="{StaticResource BorderStyle}"
+                    HeightRequest="100"
+                    Margin="40,0,40,0">
+                    <StackLayout>
+                        <Editor HeightRequest="180"
+                                MinimumWidthRequest="100"
+                                Margin="10,0,10,0"
+                                VerticalOptions="StartAndExpand"
+                                Text="{Binding BoardDescription}"
+                                Style="{StaticResource EntryStyle}"/> 
+                    </StackLayout>
+                </Border>
+
+                <Label Text="Роли" 
+                   Style="{StaticResource HeaderStyle}"
+                   Margin="40,20,40,20"
+                   VerticalOptions="Start"/>
+
+                <StackLayout Margin="0,0,0,0"
+                             Orientation="Horizontal">
+                    <Border Style="{StaticResource BorderStyle}"
+                            HeightRequest="50"
+                            WidthRequest="250"
+                            HorizontalOptions="Start"
+                            Margin="40,0,0,0">
+                        <StackLayout>
+                            <Entry Style="{StaticResource EntryStyle}"
+                                   Placeholder="Роль"
+                                   Text="{Binding RoleName}"/>
+                        </StackLayout>
+                    </Border>
+
+                    <ImageButton Source="plusicon.svg"
+                                 HeightRequest="60"
+                                 WidthRequest="60"
+                                 Aspect="AspectFill"
+                                 Padding="10"
+                                 IsEnabled="True" IsOpaque="False"
+                                 BackgroundColor="Transparent"
+                                 HorizontalOptions="End"    
+                                 Command="{Binding NewRoleCommand}"
+                                 Margin="0,0,40,0"/>
+                </StackLayout>
+
+                <ScrollView Orientation="Horizontal"
+                            HorizontalScrollBarVisibility="Never">
+                    <HorizontalStackLayout>
+                        <CollectionView ItemsSource="{Binding Roles}"
+                                        SelectedItem="{Binding SelectedRole}"
+                                        ItemsLayout="HorizontalList"
+                                        Margin="40,10,40,0">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    
+                                    <Border HeightRequest="45"
                                         StrokeShape="RoundRectangle 10,10,10,10"
                                         StrokeThickness="0"
                                         Margin="3,0,3,0">
-                                    <HorizontalStackLayout>
-                                        <Label HorizontalOptions="StartAndExpand"
+                                        <HorizontalStackLayout>
+                                            <Label HorizontalOptions="StartAndExpand"
                                                Text="{Binding Name}"
                                                FontFamily="RobotoRegular"
                                                FontSize="16"
                                                Margin="15,0,0,0"
                                                VerticalOptions="Center"/>
 
-                                        <ImageButton Source="close.svg"
+                                            <ImageButton Source="close.svg"
                                                      HeightRequest="55"
                                                      WidthRequest="55"
                                                      Aspect="AspectFill"
@@ -144,22 +155,81 @@
                                                      HorizontalOptions="End"
                                                      Margin="0,0,-10,0"
                                                      Command="{Binding DeleteRoleBtnCommand}"/>
+                                        </HorizontalStackLayout>
+                                    </Border>
+                                    
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+                <StackLayout Margin="40,10,40,0"
+                             Orientation="Horizontal">
+                    <Label Text="Участники" 
+                           Style="{StaticResource HeaderStyle}"                       
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           Margin="5"/>
+                    <ImageButton Source="plusicon.svg"
+                                 HeightRequest="60"
+                                 WidthRequest="60"
+                                 VerticalOptions="Center"
+                                 Aspect="AspectFill"
+                                 Padding="10"
+                                 IsEnabled="True" IsOpaque="False"
+                                 BackgroundColor="Transparent"  
+                                 HorizontalOptions="EndAndExpand"
+                                 Command="{Binding AddUserCommand}"/>
+                </StackLayout>
+                <ScrollView>
+                    <StackLayout>
+                        <CollectionView 
+                                        SelectedItem="{Binding SelectedUser}"
+                                        Margin="40,10,40,0">
+                            <CollectionView.ItemsSource>
+                                <x:Array Type="{x:Type models:UserInBoard}">
+                                    <models:UserInBoard/>
+                                    <models:UserInBoard/>
+                                    <models:UserInBoard/>
+                                    <models:UserInBoard/>
+                                    <models:UserInBoard/>
+
+                                </x:Array>
+                            </CollectionView.ItemsSource>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+
+                                    <HorizontalStackLayout BackgroundColor="Transparent"
+                                                           WidthRequest="60"
+                                                           HorizontalOptions="StartAndExpand"
+                                                           Margin="0,5,0,5">
+                                        <Frame WidthRequest="40"
+                                               HeightRequest="40"
+                                               CornerRadius="20"
+                                               HorizontalOptions="Start"
+                                               Padding="1"
+                                               Margin="5,5,5,5">
+
+                                               <Label Text="RK"
+                                                      HorizontalOptions="Center"
+                                                      VerticalOptions="Center"
+                                                      HorizontalTextAlignment="Center"
+                                                      VerticalTextAlignment="Center"
+                                                      WidthRequest="40"
+                                                      HeightRequest="40"
+                                                      FontSize="20"
+                                                      FontFamily="RobotoBold"/>    
+
+                                        </Frame>
                                     </HorizontalStackLayout>
-                                </Border>
-                            </DataTemplate>
-                            
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </HorizontalStackLayout>
-            </ScrollView>
 
-            <Label Text="Участники" 
-                   Style="{StaticResource HeaderStyle}"
-                   Margin="40,20,40,20"
-                   VerticalOptions="Start"/>
-
-        </StackLayout>
-    </ScrollView>
-        
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+        </ScrollView>
     </Grid>
 </ContentPage>

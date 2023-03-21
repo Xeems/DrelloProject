@@ -77,6 +77,7 @@
 	  <None Remove="Resources\Images\close.png" />
 	  <None Remove="Resources\Images\plusicon.svg" />
 	  <None Remove="Resources\Images\right_arrow.svg" />
+	  <None Remove="Resources\Images\search.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -106,6 +107,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\MainPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\UserList.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

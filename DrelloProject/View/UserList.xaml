@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrelloProject.View.UserList"
+             Title="UserList"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local ="clr-namespace:DrelloProject.ViewModels"
+             xmlns:models ="clr-namespace:DrelloProject.Models"
+             xmlns:services ="clr-namespace:DrelloProject.Services"
+             BackgroundColor="#f5f3f4"
+             Shell.NavBarIsVisible="False">
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <ImageButton HorizontalOptions="Start"
+                         HeightRequest="50"
+                         WidthRequest="50"
+                         Aspect="AspectFill"
+                         Source="right_arrow.svg"
+                         Padding="3" 
+                         Margin="10,10,0,10"
+                         Rotation="180"
+                         Command="{Binding BackToSettingsCommand}"/>
+            <Border Style="{StaticResource BorderStyle}"
+                    HeightRequest="45"
+                    HorizontalOptions="FillAndExpand"
+                    Margin="10,10,40,10">
+                <StackLayout Orientation="Horizontal">
+                    <Entry x:Name="UserName"
+                           Placeholder="Имя пользовятеля"
+                           Style="{StaticResource EntryStyle}"
+                           Text="{Binding UserName}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="FillAndExpand"/>
+                    <ImageButton 
+                             HorizontalOptions="End"
+                             HeightRequest="50"
+                             WidthRequest="50"
+                             Aspect="AspectFill"
+                             CornerRadius="20"
+                             Source="search.png"
+                             Padding="7" IsEnabled="True"
+                             Command="{Binding FindUsersCommand}"
+                             Margin="0,5,5,5"/>
+                </StackLayout>
+            </Border>
+        </StackLayout>
+        <VerticalStackLayout>
+            <CollectionView BindingContext="{Binding UserList}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal">
+                            
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </StackLayout>
+</ContentPage>

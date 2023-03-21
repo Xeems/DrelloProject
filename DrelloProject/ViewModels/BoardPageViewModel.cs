@@ -9,8 +9,12 @@ using System.Threading.Tasks;
 
 namespace DrelloProject.ViewModels
 {
+    [QueryProperty(nameof(Board), nameof(Board))]
     public partial class BoardPageViewModel : ObservableObject
     {
+        [ObservableProperty]
+        private Board board;
+
         [ObservableProperty]
         private ObservableCollection<ATask> aTasks = new ObservableCollection<ATask>();
 

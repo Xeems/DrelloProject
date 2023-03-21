@@ -6,6 +6,6 @@ namespace DrelloProject.Models
     {
         public int Id { get; set; }
         public User User { get; set; }
-        public BoardRole BoardRole { get; set; }
+        public List<BoardRole> BoardRoles { get; set; }
     }
 }
