@@ -1,6 +1,8 @@
-﻿using DrelloProject.Models;
+﻿using DrelloProject.IDataService;
+using DrelloProject.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http.Json;
@@ -36,7 +38,6 @@ namespace DrelloProject.DataServices
             {
                 Debug.WriteLine("---> No internet access...");                
             }
-
             try
             {
                 string jsonUser = JsonSerializer.Serialize<User>(user, _jsonSerializerOptions);
@@ -58,9 +59,7 @@ namespace DrelloProject.DataServices
             {
                 Debug.WriteLine($"Whoops exception: {ex.Message}");
             }
-
             return;
-
         }
     
         public async Task DeleteUserAsync(int id)
@@ -90,6 +89,34 @@ namespace DrelloProject.DataServices
             }
 
             return;
+        }
+
+        public async Task<ObservableCollection<User>> FindUsers(string userName)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+            {
+                Debug.WriteLine("No internet");
+                return null;
+            }
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_url}/User/FindUsers/{userName}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var users = await response.Content.ReadFromJsonAsync<ObservableCollection<User>>();
+                    return users;
+                }
+                else
+                {
+                    Debug.WriteLine("Non Http 2xx response");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Oppa, exeption" + ex.Message);
+                return null;
+            }
         }
 
         public async Task<string> GetUserAsync(User user)

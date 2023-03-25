@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DrelloProject.DataServices
+namespace DrelloProject.IDataService
 {
     public interface IPersonalTaskDataSevice
     {

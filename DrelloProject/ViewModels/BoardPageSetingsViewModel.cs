@@ -81,7 +81,11 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void AddUser()
         {
-            await Shell.Current.GoToAsync(nameof(UserList));
+            await Shell.Current.GoToAsync($"{nameof(UserList)}",
+                        new Dictionary<string, object>
+                        {
+                            ["CurrentBoard"] = currentBoard
+                        });
         }
     }
 }

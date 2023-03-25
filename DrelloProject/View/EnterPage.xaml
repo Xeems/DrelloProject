@@ -52,9 +52,11 @@
                    Text="{Binding Login}"/>
         </Border>
 
-        <Border Style="{StaticResource BorderStyle}">
+        <Border Style="{StaticResource BorderStyle}"
+                IsVisible="False"
+                x:Name="UserNameBorder">
             <Entry x:Name="UserName"
-                   Placeholder="User Name"
+                   Placeholder="User Name"                   
                    Style="{StaticResource EntryStyle}"
                    Text="{Binding UserName}"/>
         </Border>
@@ -67,7 +69,9 @@
                    Text="{Binding Password}"/>
         </Border>
 
-        <Border Style="{StaticResource BorderStyle}">
+        <Border Style="{StaticResource BorderStyle}"
+                IsVisible="False"
+                x:Name="PasswordConfirmBorder">
             <Entry x:Name="PasswordConfirm"
                    IsPassword="True"
                    Placeholder="Password confirm"
@@ -89,14 +93,14 @@
                      Command="{Binding LogInBtnCommand}"
                      CommandParameter="{Binding IsLogin}"/>
 
-        <Button VerticalOptions="EndAndExpand"
+        <Button x:Name="ChangeScenarioButton"
+                VerticalOptions="EndAndExpand"
                 HorizontalOptions="Center"
                 Margin="10"
                 Background="#0000"
                 Text="Нет аккаунта? Создай!"
                 FontFamily="ROBOTOCONDENSED-LIGHT.TTF"
                 TextColor="Black"
-                Clicked="NewAccountBtn_Clicked"
                 Command="{Binding ChangeScenarioCommand}"/>
 
     </StackLayout>

@@ -161,9 +161,9 @@
                                 </Border.GestureRecognizers>
                                 <HorizontalStackLayout>
                                     <Label Text="{Binding TaskBody}"
-                                               Style="{StaticResource HeaderStyle}"                                                
-                                               Margin="15,0,20,0"
-                                               FontSize="15"/>
+                                           Style="{StaticResource HeaderStyle}"                                                
+                                           Margin="15,0,20,0"
+                                           FontSize="15"/>
                                 </HorizontalStackLayout>
                             </Border>
                         </DataTemplate>

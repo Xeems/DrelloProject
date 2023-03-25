@@ -1,6 +1,7 @@
 ﻿using API.Models;
 using DrelloApi;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -77,7 +78,7 @@ namespace API.Controllers
 
             using (AppDbContext context = new AppDbContext())
             {
-                users = context.Users.Where(n => n.UserName == userName)
+                users = context.Users.Where(n =>EF.Functions.Like(n.UserName, $"%{userName}%"))
                                      .Select(n => new User { UserName = n.UserName, Id = n.Id })   
                                      .ToList();
             }

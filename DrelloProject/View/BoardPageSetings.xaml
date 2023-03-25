@@ -184,8 +184,7 @@
                 </StackLayout>
                 <ScrollView>
                     <StackLayout>
-                        <CollectionView 
-                                        SelectedItem="{Binding SelectedUser}"
+                        <CollectionView SelectedItem="{Binding SelectedUser}"
                                         Margin="40,10,40,0">
                             <CollectionView.ItemsSource>
                                 <x:Array Type="{x:Type models:UserInBoard}">

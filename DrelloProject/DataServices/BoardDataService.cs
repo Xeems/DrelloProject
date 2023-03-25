@@ -1,4 +1,5 @@
-﻿using DrelloProject.Models;
+﻿using DrelloProject.IDataService;
+using DrelloProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -122,6 +123,30 @@ namespace DrelloProject.DataServices
             { Debug.WriteLine($"Whoops exception: {ex.Message}"); }
 
             return null;
+        }
+
+        public async Task<bool> AddUserToBoard(int UserId, int BoardId)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                Debug.WriteLine("---> No internet access...");
+
+            try
+            {
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_url}/{BoardId}/AddUserToBoard/{UserId}");
+
+                if (response.IsSuccessStatusCode)
+                    return true;
+                else
+                {
+                    Debug.WriteLine("Non Http 2xx response");
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            { Debug.WriteLine($"Whoops exception: {ex.Message}"); }
+
+            return false;
         }
     }
 }

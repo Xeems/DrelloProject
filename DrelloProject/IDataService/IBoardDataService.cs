@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DrelloProject.DataServices
+namespace DrelloProject.IDataService
 {
     public interface IBoardDataService
     {
@@ -16,5 +16,6 @@ namespace DrelloProject.DataServices
         Task<BoardRole> AddBoardRoles(ICollection<BoardRole> boardRoles, Board board);
         Task<ObservableCollection<UserInBoard>> GetUsersInBoard(int BoardId);
         Task<Board> GetBoard(int id);
+        Task<bool> AddUserToBoard(int UserId, int BoardId);
     }
 }

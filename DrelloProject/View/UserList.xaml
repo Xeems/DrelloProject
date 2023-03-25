@@ -4,16 +4,22 @@
              x:Class="DrelloProject.View.UserList"
              Title="UserList"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:local ="clr-namespace:DrelloProject.ViewModels"
+             xmlns:viewModels ="clr-namespace:DrelloProject.ViewModels"
              xmlns:models ="clr-namespace:DrelloProject.Models"
              xmlns:services ="clr-namespace:DrelloProject.Services"
              BackgroundColor="#f5f3f4"
              Shell.NavBarIsVisible="False">
-    <StackLayout>
-        <StackLayout Orientation="Horizontal">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <StackLayout Orientation="Horizontal"
+                     Grid.Row="0">
             <ImageButton HorizontalOptions="Start"
-                         HeightRequest="50"
-                         WidthRequest="50"
+                         HeightRequest="40"
+                         WidthRequest="40"
                          Aspect="AspectFill"
                          Source="right_arrow.svg"
                          Padding="3" 
@@ -44,16 +50,56 @@
                 </StackLayout>
             </Border>
         </StackLayout>
-        <VerticalStackLayout>
-            <CollectionView BindingContext="{Binding UserList}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Orientation="Horizontal">
-                            
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </VerticalStackLayout>
-    </StackLayout>
+        
+        <ScrollView Grid.Row="1">
+            <StackLayout>
+                <CollectionView ItemsSource="{Binding UserList}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type models:User}">
+                            <Border Style="{StaticResource BorderStyle}">
+                                <StackLayout Orientation="Horizontal">
+                                    <Frame WidthRequest="40"
+                                                HeightRequest="40"
+                                                CornerRadius="20"
+                                                HorizontalOptions="Start"
+                                                Padding="1"
+                                                Margin="5,5,5,5">
+
+                                        <Label Text="RK"
+                                                        HorizontalOptions="Center"
+                                                        VerticalOptions="Center"
+                                                        HorizontalTextAlignment="Center"
+                                                        VerticalTextAlignment="Center"
+                                                        WidthRequest="40"
+                                                        HeightRequest="40"
+                                                        FontSize="20"
+                                                        FontFamily="RobotoBold"/>
+
+                                    </Frame>
+
+                                    <Label Text="{Binding UserName}"
+                                            Style="{StaticResource HeaderStyle}"                                                
+                                            Margin="15,0,20,0"
+                                            FontSize="15"/>
+
+                                    <ImageButton Source="plusicon.svg"
+                                                    HeightRequest="60"
+                                                    WidthRequest="60"
+                                                    VerticalOptions="Center"
+                                                    Aspect="AspectFill"
+                                                    Padding="10"
+                                                    IsEnabled="True" IsOpaque="False"
+                                                    BackgroundColor="Transparent"  
+                                                    HorizontalOptions="EndAndExpand"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:UserListViewModel}}, Path=AddUserCommand}"
+                                                    CommandParameter="{Binding .}"/>
+                                </StackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+        
+    </Grid>
 </ContentPage>

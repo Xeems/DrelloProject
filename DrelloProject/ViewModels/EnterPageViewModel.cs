@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using DrelloProject.DataServices;
 using DrelloProject.Models;
 using DrelloProject.View;
+using Microsoft.Maui.Controls;
 
 namespace DrelloProject.ViewModels
 {
@@ -57,6 +58,24 @@ namespace DrelloProject.ViewModels
         async void ChangeScenario()
         {
             isLogin = !isLogin;
+            var UserNameEntry = Shell.Current.FindByName<Border>("UserNameBorder");
+            var PasswordConfirmEntry = Shell.Current.FindByName<Border>("PasswordConfirmBorder");
+            var ChangeScenarioButton = Shell.Current.FindByName<Button>("ChangeScenarioButton");
+            /////////////////////////
+            switch (isLogin)
+            {
+                case true:
+                    UserNameEntry.IsVisible = true;
+                    PasswordConfirmEntry.IsVisible = true;
+                    ChangeScenarioButton.Text = "Регистрация";
+                    break;
+                case false:
+                    UserNameEntry.IsVisible = false;
+                    PasswordConfirmEntry.IsVisible = false;
+                    ChangeScenarioButton.Text = "Вход";
+                    break;
+                    
+            }
         }
 
     }

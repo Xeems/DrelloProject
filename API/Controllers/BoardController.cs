@@ -38,8 +38,8 @@ namespace API.Controllers
             }                           
         }
 
-        [HttpPost("{boardId}/AddUser/{userId}")]
-        public async Task<ActionResult<UserInBoard>> AddUser(int userId, int boardId)
+        [HttpGet("{boardId}/AddUserToBoard/{userId}")]
+        public async Task<ActionResult<UserInBoard>> AddUserToBoard(int userId, int boardId)
         {
 
             using (AppDbContext context = new AppDbContext())
