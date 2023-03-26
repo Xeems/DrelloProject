@@ -53,8 +53,7 @@
         </Border>
 
         <Border Style="{StaticResource BorderStyle}"
-                IsVisible="False"
-                x:Name="UserNameBorder">
+                IsVisible="{Binding IsRegister}">
             <Entry x:Name="UserName"
                    Placeholder="User Name"                   
                    Style="{StaticResource EntryStyle}"
@@ -70,8 +69,7 @@
         </Border>
 
         <Border Style="{StaticResource BorderStyle}"
-                IsVisible="False"
-                x:Name="PasswordConfirmBorder">
+                IsVisible="{Binding IsRegister}">
             <Entry x:Name="PasswordConfirm"
                    IsPassword="True"
                    Placeholder="Password confirm"

@@ -1,11 +1,11 @@
 ﻿using API.Models;
 using DrelloApi;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
@@ -50,19 +50,22 @@ namespace API.Controllers
         }
 
         [HttpPost("logIn")]
-        public async Task<ActionResult<string>> LogIn(UserLogin request)
+        public async Task<ActionResult<UserLogin>> LogIn(UserLogin request)
         {
             using (AppDbContext dbContext = new AppDbContext())
             {
-                if ((user = dbContext.Users.FirstOrDefault(u => u.Login == request.Login)) == null)
+                user = dbContext.Users.First(u => u.Login == request.Login);
+
+                if(user == null) 
                     return BadRequest("User not found");
 
                 if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
                     return BadRequest("Wrong password");
 
                 string token = CreateToken(user);
-                return Ok(token);
-
+                
+                UserLogin response = new UserLogin() {Id = user.Id, UserName = user.UserName, Login = user.Login, UserHEXColor = user.UserHEXColor, JwtToken = token };
+                return Ok(response);
             }
         
         }

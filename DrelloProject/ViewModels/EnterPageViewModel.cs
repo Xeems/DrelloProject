@@ -25,7 +25,7 @@ namespace DrelloProject.ViewModels
         string test;
 
         [ObservableProperty]
-        bool isLogin = true;
+        bool isRegister = false;
 
         private RestDataService _restDataService = new RestDataService();
 
@@ -34,15 +34,15 @@ namespace DrelloProject.ViewModels
         {
             User user = new User() { UserName = userName, Login = login, Password = password };
            
-            if (isLogin)
+            if (!IsRegister)
             {
-                var Token = await _restDataService.GetUserAsync(user);
+                var currentUser = await _restDataService.GetUserAsync(user);
 
-                if (Token != null)
+                if (currentUser != null)
                     await Shell.Current.GoToAsync($"{nameof(MainPage)}",
                         new Dictionary<string, object>
                         {
-                            ["Token"] = Token
+                            ["CurrentUser"] = currentUser
                         });
                 else
                     App.AlertSvc.ShowAlert("Ошибка","Не удалось войти","ОК");
@@ -57,25 +57,7 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void ChangeScenario()
         {
-            isLogin = !isLogin;
-            var UserNameEntry = Shell.Current.FindByName<Border>("UserNameBorder");
-            var PasswordConfirmEntry = Shell.Current.FindByName<Border>("PasswordConfirmBorder");
-            var ChangeScenarioButton = Shell.Current.FindByName<Button>("ChangeScenarioButton");
-            /////////////////////////
-            switch (isLogin)
-            {
-                case true:
-                    UserNameEntry.IsVisible = true;
-                    PasswordConfirmEntry.IsVisible = true;
-                    ChangeScenarioButton.Text = "Регистрация";
-                    break;
-                case false:
-                    UserNameEntry.IsVisible = false;
-                    PasswordConfirmEntry.IsVisible = false;
-                    ChangeScenarioButton.Text = "Вход";
-                    break;
-                    
-            }
+            IsRegister = !IsRegister;            
         }
 
     }

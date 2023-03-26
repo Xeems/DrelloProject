@@ -8,11 +8,11 @@ using System.Diagnostics;
 
 namespace DrelloProject.ViewModels
 {
-    [QueryProperty(nameof(Token), nameof(Token))]
+    [QueryProperty(nameof(CurrentUser), nameof(CurrentUser))]
     public partial class MainPageViewModel : ObservableObject
     {
         [ObservableProperty]
-        private string token;
+        private User currentUser;
 
         [ObservableProperty]
         private ObservableCollection<Board> boards = new ObservableCollection<Board>();
@@ -25,15 +25,16 @@ namespace DrelloProject.ViewModels
         [ObservableProperty]
         private Board selectedBoard;
 
-        public MainPageViewModel() 
+        [RelayCommand]
+        async void PageLoaded() 
         {
-            GetPersonalTasks(1);
+            GetPersonalTasks(CurrentUser.Id);
 
-            Board board = new Board { Name = "Имя", Description = "Очень длинное описание для проверки на многострочность " };
+            Board board = new Board { Name = "Имя", Description = "Очень длинное описание для проверки на многострочность" };
             for (int i = 0; i < 10; i++)
             {
                 boards.Add(board);
-            }            
+            }
         }
 
         [RelayCommand]
@@ -57,9 +58,9 @@ namespace DrelloProject.ViewModels
         {
             string personalTaskName = await Shell.Current.DisplayPromptAsync("Новая задача", "Введите название:", "OK", "Отмена");
             PersonalTask task = new PersonalTask() { TaskBody = personalTaskName};
-            bool response = await _personalTaskDataService.AddPesonalTask(task, 1);
+            bool response = await _personalTaskDataService.AddPesonalTask(task, CurrentUser.Id);
             if(response == true)
-                GetPersonalTasks(1);
+                GetPersonalTasks(CurrentUser.Id);
         }
 
         [RelayCommand]

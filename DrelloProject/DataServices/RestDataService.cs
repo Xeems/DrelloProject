@@ -119,7 +119,7 @@ namespace DrelloProject.DataServices
             }
         }
 
-        public async Task<string> GetUserAsync(User user)
+        public async Task<User> GetUserAsync(User user)
         {
             string jsonUser = JsonSerializer.Serialize<User>(user, _jsonSerializerOptions);
             StringContent content = new StringContent(jsonUser, Encoding.UTF8, "application/json");
@@ -134,8 +134,8 @@ namespace DrelloProject.DataServices
                 var response = await _httpClient.PostAsync($"{_url}/logIn", content);
                 if (response.IsSuccessStatusCode)
                 {
-                    string token = await response.Content.ReadAsStringAsync();
-                    return token;
+                    User currentUser = await response.Content.ReadFromJsonAsync<User>();
+                    return currentUser;
                 }   
                 else
                 {
