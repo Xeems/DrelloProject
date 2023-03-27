@@ -94,10 +94,33 @@ namespace DrelloProject.DataServices
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<Board>> GetBoardsByUser(int UserId)
+        public async Task<ObservableCollection<Board>> GetBoardsByUser(int UserId)
         {
-            throw new NotImplementedException();
+            if(Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                Debug.WriteLine("---> No internet access...");
+
+            try
+            {
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_url}/{UserId}/GetBoardsByUser");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var boards = await response.Content.ReadFromJsonAsync<ObservableCollection<Board>>();
+                    return boards;
+                }
+                else
+                {
+                    Debug.WriteLine("Non Http 2xx response");
+                    return null;
+                }
+
+            }
+            catch (Exception ex)
+            { Debug.WriteLine($"Whoops exception: {ex.Message}"); }
+
+            return null;
         }
+    
 
         public async Task<ObservableCollection<UserInBoard>> GetUsersInBoard(int BoardId)
         {
@@ -150,3 +173,4 @@ namespace DrelloProject.DataServices
         }
     }
 }
+

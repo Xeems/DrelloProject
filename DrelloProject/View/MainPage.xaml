@@ -9,7 +9,12 @@
              BackgroundColor="White"
              Title="User name"
              Shell.NavBarIsVisible="False">
-    
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding PageLoadedCommand}"/>
+    </ContentPage.Behaviors>
+
     <ContentPage.Resources>
 
         <Style TargetType="Border" x:Key="BoardBorderStyle">
@@ -37,11 +42,7 @@
         </MenuBarItem>
     </ContentPage.MenuBarItems>
 
-    <Grid Loaded="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MainPageViewModel}}, Path=PageLoadedCommand}">
-        <Grid.Behaviors>
-            <
-        </Grid.Behaviors>
-
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>

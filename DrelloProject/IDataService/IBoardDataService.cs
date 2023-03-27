@@ -11,11 +11,11 @@ namespace DrelloProject.IDataService
 {
     public interface IBoardDataService
     {
-        Task<ICollection<Board>> GetBoardsByUser(int UserId);
+        Task<ObservableCollection<Board>> GetBoardsByUser(int UserId);
         Task<Board> AddBoard(Board board);
         Task<BoardRole> AddBoardRoles(ICollection<BoardRole> boardRoles, Board board);
         Task<ObservableCollection<UserInBoard>> GetUsersInBoard(int BoardId);
-        Task<Board> GetBoard(int id);
+        Task<Board> GetBoard(int Boardid);
         Task<bool> AddUserToBoard(int UserId, int BoardId);
     }
 }

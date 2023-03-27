@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Maui.Core;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
 using DrelloProject.DataServices;
 using DrelloProject.IDataService;
 using DrelloProject.Services;
@@ -14,7 +15,8 @@ public static class MauiProgram
 	{
 		var builder = MauiApp.CreateBuilder();
         builder
-			.UseMauiApp<App>()
+            .UseMauiApp<App>()
+            .UseMauiCommunityToolkit()
             .RegisterAppServices()
             .RegisterViewModels()
             .ConfigureFonts(fonts =>
@@ -28,7 +30,7 @@ public static class MauiProgram
                 fonts.AddFont("ROBOTO-MEDIUM.TTF", "RobotoMedium");
                 fonts.AddFont("ROBOTO-REGULAR.TTF", "RobotoRegular");
                 fonts.AddFont("ROBOTO-THIN.TT", "RobotoThin");
-            }).UseMauiCommunityToolkitCore();
+            });
         return builder.Build();
 	}
     public static MauiAppBuilder RegisterAppServices(this MauiAppBuilder Appbuilder)

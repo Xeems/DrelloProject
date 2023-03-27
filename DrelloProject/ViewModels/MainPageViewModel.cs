@@ -15,6 +15,9 @@ namespace DrelloProject.ViewModels
         private User currentUser;
 
         [ObservableProperty]
+        private bool isBusy;
+
+        [ObservableProperty]
         private ObservableCollection<Board> boards = new ObservableCollection<Board>();
 
         [ObservableProperty]

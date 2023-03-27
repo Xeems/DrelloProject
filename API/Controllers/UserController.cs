@@ -13,15 +13,7 @@ namespace API.Controllers
         public UserController(IConfiguration configuration)
         {
             _configuration = configuration;
-        }
-
-        [HttpGet("GetBoards")]
-        public async Task<ActionResult<List<Board>>> GetBoards(int userId)
-        {
-            List<Board> boards = null;
-
-            return Ok(boards);
-        }
+        }        
 
         [HttpGet("{userId}/GetPersonalTasks")]
         public async Task<ActionResult<List<PersonalTask>>> GetPersonalTasks([FromRoute]int userId)

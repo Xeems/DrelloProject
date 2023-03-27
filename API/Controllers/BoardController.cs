@@ -96,5 +96,17 @@ namespace API.Controllers
             return Ok(boardMembers);
         }
 
+        [HttpGet("{userId}/GetBoardsByUser")]
+        public async Task<ActionResult<List<Board>>> GetBoards(int userId)
+        {
+            List<Board> boards = null;
+            using (AppDbContext context = new AppDbContext()) 
+            {
+                boards = await context.Boards.Where(u => u. == userId).ToList();
+            }
+
+            return Ok(boards);
+        }
+
     }
 }
