@@ -30,7 +30,7 @@ namespace DrelloProject.ViewModels
         private RestDataService _restDataService = new RestDataService();
 
         [RelayCommand]
-        async Task LogInBtn() 
+        async Task LogIn() 
         {
             User user = new User() { UserName = userName, Login = login, Password = password };
            

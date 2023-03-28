@@ -97,12 +97,15 @@ namespace API.Controllers
         }
 
         [HttpGet("{userId}/GetBoardsByUser")]
-        public async Task<ActionResult<List<Board>>> GetBoards(int userId)
+        public async Task<ActionResult<List<Board>>> GetBoardsByUser(int userId)
         {
-            List<Board> boards = null;
+            List<Board> boards = new List<Board>();
             using (AppDbContext context = new AppDbContext()) 
             {
-                boards = await context.Boards.Where(u => u. == userId).ToList();
+               boards =  context.UserInBoards.Where(u => u.UserId == userId)
+                                              .Select(b => b.Board)
+                                              .ToList();
+
             }
 
             return Ok(boards);

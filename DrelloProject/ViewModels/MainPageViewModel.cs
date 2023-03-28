@@ -25,6 +25,8 @@ namespace DrelloProject.ViewModels
 
         private PersonalTaskDataService _personalTaskDataService = new PersonalTaskDataService();
 
+        private BoardDataService _boardDataService = new BoardDataService();
+
         [ObservableProperty]
         private Board selectedBoard;
 
@@ -32,12 +34,7 @@ namespace DrelloProject.ViewModels
         async void PageLoaded() 
         {
             GetPersonalTasks(CurrentUser.Id);
-
-            Board board = new Board { Name = "Имя", Description = "Очень длинное описание для проверки на многострочность" };
-            for (int i = 0; i < 10; i++)
-            {
-                boards.Add(board);
-            }
+            GetUserBoards(CurrentUser.Id);
         }
 
         [RelayCommand]
@@ -77,6 +74,11 @@ namespace DrelloProject.ViewModels
             var Tasks = await _personalTaskDataService.GetPersonalTasks(userId);
             if (Tasks != null)
                 PersonalTasks = Tasks;
+        }
+
+        public async void GetUserBoards(int UserId)
+        {
+            Boards = await _boardDataService.GetBoardsByUser(UserId);
         }
     }
 }

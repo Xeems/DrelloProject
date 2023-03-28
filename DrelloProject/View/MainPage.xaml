@@ -59,7 +59,8 @@
                    HorizontalOptions="Start"
                    Padding="1">
 
-                <Label Text="RK"
+                <Label BindingContext="{Binding CurrentUser}"
+                       Text="{Binding ShortName}"
                        HorizontalOptions="Center"
                        VerticalOptions="Center"
                        HorizontalTextAlignment="Center"

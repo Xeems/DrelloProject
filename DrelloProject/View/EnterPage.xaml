@@ -88,8 +88,7 @@
                      CornerRadius="24"
                      Source="right_arrow.svg"
                      Padding="10" IsEnabled="True" IsOpaque="False"
-                     Command="{Binding LogInBtnCommand}"
-                     CommandParameter="{Binding IsLogin}"/>
+                     Command="{Binding LogInCommand}"/>
 
         <Button x:Name="ChangeScenarioButton"
                 VerticalOptions="EndAndExpand"
