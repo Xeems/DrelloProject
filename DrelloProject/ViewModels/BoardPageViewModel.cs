@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using DrelloProject.Models;
+using DrelloProject.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,6 +23,12 @@ namespace DrelloProject.ViewModels
         public BoardPageViewModel() 
         {
             
+        }
+
+        [RelayCommand]
+        async void Back() 
+        {
+            await Shell.Current.GoToAsync(nameof(MainPage));
         }
     }
 }
