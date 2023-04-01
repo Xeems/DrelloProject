@@ -15,7 +15,7 @@ namespace API.Models
         public string Name { get; set; }
         public int? BoardId { get; set; }
         [ForeignKey("BoardId")]
-        public virtual Board? Board { get; set; }
+        public Board? Board { get; set; }
         public ICollection<UserInBoard>? Users { get; set; }
     }
 }

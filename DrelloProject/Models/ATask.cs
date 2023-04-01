@@ -9,8 +9,10 @@ namespace DrelloProject.Models
     public class ATask
     {
         public int Id { get; set; }
-        public BoardRole requiredRole { get; set; }
         public string Name { get; set; }
+        public Board Board { get; set; }
+        public BoardRole? requiredRole { get; set; }
+        public User? ExecutorUser { get; set; }
         public ATaskStatus Status { get; set; }
         
     }
@@ -19,6 +21,7 @@ namespace DrelloProject.Models
     {
         Done,
         Performed,
-        NotStarted
+        NotStarted,
+        Proposed
     }
 }

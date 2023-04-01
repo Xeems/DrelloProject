@@ -13,15 +13,24 @@ namespace API.Models
         public string Name { get; set; }
         public ATaskStatus Status { get; set; }
 
+        public int BoardId { get; set; }
+        [ForeignKey("BoardId")]
+        public Board? Board { get; set; }
+
+        public int? ExecutorUserId { get; set; }
+        [ForeignKey("ExecutorUserId")]
+        public User? ExecutorUser { get; set; }
+
         public int? RequiredRoleId { get; set; }
         [ForeignKey("RequiredRoleId")]
-        public virtual BoardRole RequiredRole { get; set; }
+        public BoardRole? RequiredRole { get; set; }
     }
 
     public enum ATaskStatus
     {
         Done,
         Performed,
-        NotStarted
+        NotStarted,
+        Proposed
     }
 }
