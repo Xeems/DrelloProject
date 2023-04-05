@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [Route("API/Tasks/")]
+    [Route("API/Tasks")]
     [ApiController]
     public class BoardTasksController : Controller
     {
@@ -30,14 +30,13 @@ namespace API.Controllers
         }
 
         [HttpGet("GetTasks/{BoardId}")]
-        public async Task<ActionResult<List<Task>>> GetTasks(int BoardId)
+        public async Task<ActionResult<List<ATask>>> GetTasks([FromRoute]int BoardId)
         {
-            List<ATask> tasks;
-            using (AppDbContext context = new AppDbContext())
+            List<ATask> tasks = new List<ATask>();
+            using (AppDbContext context = new())
             {
-               tasks = context.ATasks.Where(t => t.BoardId == BoardId)
-                                     .Select(t => new ATask { t.Id, t.Name, t.RequiredRole, t.BoardId})
-                                     .ToList();
+                tasks = await context.ATasks.Where(t => t.BoardId == BoardId)
+                                            .ToListAsync();
             }
             return Ok(tasks);
         }

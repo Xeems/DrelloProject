@@ -12,14 +12,58 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="TaskTempalte" 
+
+            <DataTemplate x:Key="TasksTempalte" 
                           x:DataType="{x:Type models:ATask}">
-                <Border>
-                    
-                </Border>
+
+                <StackLayout Margin="5">
+                    <Border Style="{StaticResource BorderStyle}"
+                            BackgroundColor="White"
+                            WidthRequest="300"
+                            HeightRequest="180"
+                            Stroke="Green"
+                            StrokeThickness="2">
+                        <StackLayout>
+                            <Label Text="{Binding Name}"
+                                   Style="{StaticResource HeaderStyle}"
+                                   VerticalOptions="Start"/>
+                            <Label Text="{Binding requiredRole.Name}"/>
+
+                            <StackLayout Orientation="Horizontal"
+                                         VerticalOptions="End">
+                                <Frame WidthRequest="40"
+                                       HeightRequest="40"
+                                       CornerRadius="20"
+                                       HorizontalOptions="Start"
+                                       Padding="1"
+                                       BackgroundColor="{Binding ExecutorUser.UserHEXColor}">
+
+                                    <Label Text="{Binding ExecutorUser.ShortName}"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"                                           
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center"
+                                           WidthRequest="30"
+                                           HeightRequest="30"
+                                           FontSize="20"
+                                           FontFamily="RobotoBold"/>
+                                </Frame>
+                                <Label Text="{Binding ExecutorUser.UserName}"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </Border>
+                </StackLayout>
+                
             </DataTemplate>
+            
         </ResourceDictionary>
+        
     </ContentPage.Resources>
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding PageLoadedCommand}"/>
+    </ContentPage.Behaviors>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -27,6 +71,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!--START [TOP BAR REGION]-->
         <StackLayout  Grid.Row="0"
                       Orientation="Horizontal"
                       HeightRequest="60"
@@ -56,16 +101,20 @@
                    HorizontalOptions="StartAndExpand"
                    FontSize="20"/>
         </StackLayout>
+        <!--END [TOP BAR REGION]-->
 
+        <!--START [TASKS LIST REGION]-->
         <ScrollView Orientation="Horizontal"
                     Grid.Row="1"
-                    VerticalOptions="FillAndExpand">
+                    VerticalOptions="FillAndExpand"
+                    Margin="5">
             <StackLayout Orientation="Horizontal"
                          Margin="1">
 
-                <ScrollView WidthRequest="100">
+                <ScrollView WidthRequest="310">
                     <StackLayout>
-                        <CollectionView ItemTemplate="{StaticResource TaskTempalte}">
+                        <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
+                                        ItemsSource="{Binding ATasks}">
 
                         </CollectionView>
                     </StackLayout>
@@ -73,6 +122,7 @@
 
             </StackLayout>
         </ScrollView>
+        <!--END [TASKS LIST REGION]-->
 
     </Grid>
 </ContentPage>

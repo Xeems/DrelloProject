@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DrelloProject.DataServices;
 using DrelloProject.Models;
 using DrelloProject.View;
 using System;
@@ -20,6 +21,8 @@ namespace DrelloProject.ViewModels
         [ObservableProperty]
         private ObservableCollection<ATask> aTasks = new ObservableCollection<ATask>();
 
+        private BoardTaskDataService _taskDataService = new BoardTaskDataService();
+
         public BoardPageViewModel() 
         {
             
@@ -29,6 +32,11 @@ namespace DrelloProject.ViewModels
         async void Back() 
         {
             await Shell.Current.GoToAsync(nameof(MainPage));
+        }
+        [RelayCommand]
+        async void PageLoaded() 
+        {
+            ATasks = await _taskDataService.GetTasks(Board.Id);
         }
     }
 }
