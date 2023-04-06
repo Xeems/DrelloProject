@@ -16,41 +16,65 @@
             <DataTemplate x:Key="TasksTempalte" 
                           x:DataType="{x:Type models:ATask}">
 
-                <StackLayout Margin="5">
+                <StackLayout>
                     <Border Style="{StaticResource BorderStyle}"
                             BackgroundColor="White"
-                            WidthRequest="300"
-                            HeightRequest="180"
+                            WidthRequest="280"
+                            HeightRequest="160"
                             Stroke="Green"
-                            StrokeThickness="2">
-                        <StackLayout>
-                            <Label Text="{Binding Name}"
-                                   Style="{StaticResource HeaderStyle}"
-                                   VerticalOptions="Start"/>
-                            <Label Text="{Binding requiredRole.Name}"/>
+                            StrokeThickness="2"
+                            Padding="15">
+                        <Grid VerticalOptions="StartAndExpand">
 
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            
+                            <Label Text="VERYVERYVERYVER YLONGSTRING"
+                                   Style="{StaticResource HeaderStyle}"
+                                   VerticalOptions="Start"
+                                   WidthRequest="264"
+                                   VerticalTextAlignment="Center"
+                                   LineBreakMode="WordWrap" 
+                                   LineHeight="1.2"
+                                   MaxLines="2"
+                                   Margin="1"
+                                   Grid.Row="0"/>
+                            
+                            <Border Padding="2"
+                                    HorizontalOptions="Start"
+                                    Grid.Row="1">
+                                <Label FontSize="12"
+                                       FontFamily="RobotoBold"
+                                       Text="roleName"
+                                       VerticalOptions="End"/>
+                            </Border>
+                            
                             <StackLayout Orientation="Horizontal"
-                                         VerticalOptions="End">
-                                <Frame WidthRequest="40"
-                                       HeightRequest="40"
+                                         VerticalOptions="EndAndExpand"
+                                         Grid.Row="2">
+                                <Frame WidthRequest="30"
+                                       HeightRequest="30"
                                        CornerRadius="20"
                                        HorizontalOptions="Start"
                                        Padding="1"
                                        BackgroundColor="{Binding ExecutorUser.UserHEXColor}">
 
-                                    <Label Text="{Binding ExecutorUser.ShortName}"
+                                    <Label Text="ST"
                                            HorizontalOptions="Center"
                                            VerticalOptions="Center"                                           
                                            HorizontalTextAlignment="Center"
                                            VerticalTextAlignment="Center"
-                                           WidthRequest="30"
-                                           HeightRequest="30"
-                                           FontSize="20"
+                                           WidthRequest="25"
+                                           HeightRequest="25"
+                                           FontSize="15"
                                            FontFamily="RobotoBold"/>
                                 </Frame>
                                 <Label Text="{Binding ExecutorUser.UserName}"/>
                             </StackLayout>
-                        </StackLayout>
+                        </Grid>
                     </Border>
                 </StackLayout>
                 
@@ -103,26 +127,41 @@
         </StackLayout>
         <!--END [TOP BAR REGION]-->
 
-        <!--START [TASKS LIST REGION]-->
-        <ScrollView Orientation="Horizontal"
+        <!--START [TASKS LISTS REGION]-->
+        <ScrollView Orientation="Both"
                     Grid.Row="1"
-                    VerticalOptions="FillAndExpand"
-                    Margin="5">
-            <StackLayout Orientation="Horizontal"
-                         Margin="1">
+                    VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Horizontal">
 
-                <ScrollView WidthRequest="310">
+                <ScrollView WidthRequest="320"
+                            Orientation="Vertical">
                     <StackLayout>
                         <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
-                                        ItemsSource="{Binding ATasks}">
-
-                        </CollectionView>
+                                        ItemsSource="{Binding ATasks}"/>
                     </StackLayout>
                 </ScrollView>
 
+                <ScrollView WidthRequest="320"
+                            Orientation="Vertical">
+                    <StackLayout>
+                        <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
+                                        ItemsSource="{Binding ATasks}"/>
+                    </StackLayout>
+                </ScrollView>
+
+                <ScrollView WidthRequest="320"
+                            Orientation="Vertical">
+                    <StackLayout>
+                        <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
+                                        ItemsSource="{Binding ATasks}"/>
+                    </StackLayout>
+                </ScrollView>
+                
+                
+
             </StackLayout>
         </ScrollView>
-        <!--END [TASKS LIST REGION]-->
+        <!--END [TASKS LISTS REGION]-->
 
     </Grid>
 </ContentPage>
