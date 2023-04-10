@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DrelloProject.DataServices;
 using DrelloProject.Models;
@@ -33,10 +34,21 @@ namespace DrelloProject.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(MainPage));
         }
+
         [RelayCommand]
         async void PageLoaded() 
         {
             ATasks = await _taskDataService.GetTasks(Board.Id);
+        }
+
+        [RelayCommand]
+        async void NewTask() 
+        { 
+           await Shell.Current.GoToAsync($"{nameof(NewTaskPage)}",
+                        new Dictionary<string, object>
+                        {
+                            ["Board"] = Board
+                        });
         }
     }
 }

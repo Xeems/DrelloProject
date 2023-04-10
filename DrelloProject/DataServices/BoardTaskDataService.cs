@@ -56,5 +56,26 @@ namespace DrelloProject.DataServices
 
             return null;
         }
+
+        public async Task<bool> NewTask(ATask aTask)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                return false;
+            try
+            {
+                string jsonContent = JsonSerializer.Serialize<ATask>(aTask, _jsonSerializerOptions);
+                StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var response = await _httpClient.PostAsync($"{_url}/AddTask", content);
+                if (response.IsSuccessStatusCode)
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Oppa, exeption" + ex.Message);
+                return false;
+            }
+            return false;
+        }
     }
 }

@@ -68,11 +68,10 @@ namespace API.Controllers
             using (AppDbContext context = new AppDbContext())
             {
                 List<BoardRole> boardRoles = new List<BoardRole>();
-                board = await context.Boards.FindAsync(boardId);
 
                 foreach (string role in roles)
                 {
-                    BoardRole boardRole = new BoardRole() {Name = role, Board = board };
+                    BoardRole boardRole = new BoardRole() {Name = role, BoardId = boardId };
                     boardRoles.Add(boardRole);
                 }
 
@@ -109,6 +108,18 @@ namespace API.Controllers
             }
 
             return Ok(boards);
+        }
+
+        [HttpGet("{boardId}/GetRoles")]
+        public async Task<ActionResult<List<BoardRole>>> GetRoles(int boardId)
+        {
+            List<BoardRole> roles;
+            using (AppDbContext context = new AppDbContext())
+            {              
+                roles = context.Roles.Where(r => r.BoardId == boardId).ToList();
+            }
+
+            return Ok(roles);
         }
 
     }

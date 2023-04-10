@@ -12,6 +12,8 @@ namespace DrelloProject.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int CreatorId { get; set; }
+        public ICollection<ATask>? Tasks { get; set; }
+        public ICollection<BoardRole>? Roles { get; set; }
 
     }
 }

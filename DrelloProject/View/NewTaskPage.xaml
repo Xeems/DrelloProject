@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrelloProject.View.NewTaskPage"
+             Title="BoardPage"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local ="clr-namespace:DrelloProject.ViewModels"
+             xmlns:models ="clr-namespace:DrelloProject.Models"
+             xmlns:services ="clr-namespace:DrelloProject.Services"
+             BackgroundColor="#f5f3f4"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior EventName="Loaded"
+                                        Command="{Binding PageLoadedCommand}"/>
+    </ContentPage.Behaviors>
+
+    <StackLayout Orientation="Vertical"
+                 VerticalOptions="Fill">
+        <Label Text="Задача"
+               Style="{StaticResource HeaderStyle}"
+               VerticalOptions="Start"
+               Margin="40,20,10,20"/>
+        <Border Style="{StaticResource BorderStyle}">
+            <Entry Placeholder="Название"
+                   Style="{StaticResource EntryStyle}"
+                   Text="{Binding TaskName}"/>
+        </Border>
+
+        <Label Text="Роли"
+               Style="{StaticResource HeaderStyle}"
+               VerticalOptions="Start"
+               Margin="40,10,10,10"/>
+
+        <ScrollView VerticalOptions="FillAndExpand">
+            <CollectionView ItemsSource="{Binding Roles}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedRole}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource BorderStyle}"
+                                Padding="0"
+                                HeightRequest="50"
+                                Margin="40,5,40,5">
+                            <StackLayout VerticalOptions="CenterAndExpand">
+                                <Label Text="{Binding Name}"
+                                       Style="{StaticResource HeaderStyle}"
+                                       VerticalOptions="Center"
+                                       Margin="15,0,0,0"
+                                       FontSize="Medium"/>
+                            </StackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        
+        <StackLayout Orientation="Horizontal"
+                     VerticalOptions="End"
+                     HorizontalOptions="CenterAndExpand">
+            <Button Text="Отмена"
+                    Margin="15,15,7,15"
+                    HorizontalOptions="FillAndExpand"
+                    Command="{Binding BackCommand}"/>
+            <Button Text="Сохранить"
+                    Margin="7,15,15,15"
+                    HorizontalOptions="FillAndExpand"
+                    Command="{Binding AcceptCommand}"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

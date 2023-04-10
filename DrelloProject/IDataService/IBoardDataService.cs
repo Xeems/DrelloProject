@@ -17,5 +17,6 @@ namespace DrelloProject.IDataService
         Task<ObservableCollection<UserInBoard>> GetUsersInBoard(int BoardId);
         Task<Board> GetBoard(int Boardid);
         Task<bool> AddUserToBoard(int UserId, int BoardId);
+        Task<ObservableCollection<BoardRole>> GetRoles(int BoardId);
     }
 }

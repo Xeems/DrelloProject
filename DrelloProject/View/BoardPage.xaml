@@ -22,29 +22,29 @@
                             WidthRequest="280"
                             HeightRequest="160"
                             Stroke="Green"
-                            StrokeThickness="2"
-                            Padding="15">
+                            StrokeThickness="2">
                         <Grid VerticalOptions="StartAndExpand">
 
                             <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
+                                <RowDefinition Height="80"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition Height="40"/>
                             </Grid.RowDefinitions>
                             
-                            <Label Text="VERYVERYVERYVER YLONGSTRING"
+                            <Label Text="VERYVERYVERYVERYLONGSTRING"
                                    Style="{StaticResource HeaderStyle}"
-                                   VerticalOptions="Start"
+                                   Margin="15"
+                                   VerticalOptions="FillAndExpand"
                                    WidthRequest="264"
-                                   VerticalTextAlignment="Center"
                                    LineBreakMode="WordWrap" 
                                    LineHeight="1.2"
                                    MaxLines="2"
-                                   Margin="1"
                                    Grid.Row="0"/>
                             
                             <Border Padding="2"
+                                    Margin="15,-5,15,0"
                                     HorizontalOptions="Start"
+                                    VerticalOptions="Start"
                                     Grid.Row="1">
                                 <Label FontSize="12"
                                        FontFamily="RobotoBold"
@@ -53,8 +53,9 @@
                             </Border>
                             
                             <StackLayout Orientation="Horizontal"
-                                         VerticalOptions="EndAndExpand"
-                                         Grid.Row="2">
+                                         VerticalOptions="Start"
+                                         Grid.Row="2"
+                                         Margin="15,0,15,20">
                                 <Frame WidthRequest="30"
                                        HeightRequest="30"
                                        CornerRadius="20"
@@ -133,29 +134,57 @@
                     VerticalOptions="FillAndExpand">
             <StackLayout Orientation="Horizontal">
 
-                <ScrollView WidthRequest="320"
-                            Orientation="Vertical">
-                    <StackLayout>
-                        <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
-                                        ItemsSource="{Binding ATasks}"/>
+                <StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Не начаты"
+                               Style="{StaticResource HeaderStyle}"
+                               Margin="25,0,0,0"/>
+                        <ImageButton Source="plusicon.svg"
+                                 HeightRequest="60"
+                                 WidthRequest="60"
+                                 Margin="0, 5, 20, 0"
+                                 Aspect="AspectFill"
+                                 Padding="10"
+                                 IsEnabled="True" IsOpaque="False"
+                                 BackgroundColor="Transparent"
+                                 Command="{Binding NewTaskCommand}"/>
                     </StackLayout>
-                </ScrollView>
+                    <ScrollView WidthRequest="320"
+                                Orientation="Vertical">
+                        <StackLayout>
+                            <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
+                                            ItemsSource="{Binding ATasks}"/>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
 
-                <ScrollView WidthRequest="320"
-                            Orientation="Vertical">
-                    <StackLayout>
-                        <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
-                                        ItemsSource="{Binding ATasks}"/>
-                    </StackLayout>
-                </ScrollView>
+                <StackLayout>
+                    <Label Text="Выполняются"
+                           Style="{StaticResource HeaderStyle}"
+                           Margin="25,20,0,0"
+                           VerticalOptions="Start"/>
+                    <ScrollView WidthRequest="320"
+                                Orientation="Vertical">
+                        <StackLayout>
+                            <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
+                                            ItemsSource="{Binding ATasks}"/>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
 
-                <ScrollView WidthRequest="320"
-                            Orientation="Vertical">
-                    <StackLayout>
-                        <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
-                                        ItemsSource="{Binding ATasks}"/>
-                    </StackLayout>
-                </ScrollView>
+                <StackLayout>
+                    <Label Text="Закончены"
+                           Style="{StaticResource HeaderStyle}"
+                           Margin="25,20,0,0"
+                           VerticalOptions="Start"/>
+                    <ScrollView WidthRequest="320"
+                                Orientation="Vertical">
+                        <StackLayout>
+                            <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
+                                            ItemsSource="{Binding ATasks}"/>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
                 
                 
 

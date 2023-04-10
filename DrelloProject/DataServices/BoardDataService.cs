@@ -121,7 +121,6 @@ namespace DrelloProject.DataServices
             return null;
         }
     
-
         public async Task<ObservableCollection<UserInBoard>> GetUsersInBoard(int BoardId)
         {
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
@@ -170,6 +169,33 @@ namespace DrelloProject.DataServices
             { Debug.WriteLine($"Whoops exception: {ex.Message}"); }
 
             return false;
+        }
+
+        public async Task<ObservableCollection<BoardRole>> GetRoles(int BoardId)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                Debug.WriteLine("---> No internet access...");
+
+            try
+            {
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_url}/{BoardId}/GetRoles");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var roles = await response.Content.ReadFromJsonAsync<ObservableCollection<BoardRole>>();
+                    return roles;
+                }
+                else
+                {
+                    Debug.WriteLine("Non Http 2xx response");
+                    return null;
+                }
+
+            }
+            catch (Exception ex)
+            { Debug.WriteLine($"Whoops exception: {ex.Message}"); }
+
+            return null;
         }
     }
 }

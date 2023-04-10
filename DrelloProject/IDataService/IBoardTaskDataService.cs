@@ -11,5 +11,6 @@ namespace DrelloProject.IDataService
     public interface IBoardTaskDataService
     {
         public Task<ObservableCollection<ATask>> GetTasks(int BoardId);
+        public Task<bool> NewTask(ATask aTask);
     }
 }

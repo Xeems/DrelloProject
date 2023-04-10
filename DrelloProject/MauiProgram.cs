@@ -55,6 +55,9 @@ public static class MauiProgram
         Appbuilder.Services.AddTransient<BoardPage>();
         Appbuilder.Services.AddTransient<BoardPageViewModel>();
 
+        Appbuilder.Services.AddTransient<NewTaskPage>();
+        Appbuilder.Services.AddTransient<NewTaskPageViewModel>();
+
         Appbuilder.Services.AddSingleton<UserList>();
         Appbuilder.Services.AddSingleton<UserListViewModel>();
 

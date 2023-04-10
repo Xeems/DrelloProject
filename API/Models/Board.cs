@@ -14,6 +14,7 @@ namespace API.Models
         public int CreatorId { get; set; }
         public List<UserInBoard>? UsersInBoard { get; set; }
         public ICollection<ATask>? Tasks { get; set; }
+        public ICollection<BoardRole>? Roles { get; set; }
 
     }
 }
