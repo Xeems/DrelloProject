@@ -50,14 +50,18 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async Task NewKanBoardBtn()
         {
-            await Shell.Current.GoToAsync(nameof(BoardPageSetings));
+            await Shell.Current.GoToAsync($"{nameof(BoardPageSetings)}",
+                        new Dictionary<string, object>
+                        {
+                            ["CurrentUser"] = CurrentUser
+                        });
         }
 
         [RelayCommand]
         async Task NewPersonalTaskBtn()
         {
             string personalTaskName = await Shell.Current.DisplayPromptAsync("Новая задача", "Введите название:", "OK", "Отмена");
-            PersonalTask task = new PersonalTask() { TaskBody = personalTaskName};
+            PersonalTask task = new PersonalTask() { Task = personalTaskName};
             bool response = await _personalTaskDataService.AddPesonalTask(task, CurrentUser.Id);
             if(response == true)
                 GetPersonalTasks(CurrentUser.Id);

@@ -16,6 +16,5 @@ namespace API.Models
         public int? BoardId { get; set; }
         [ForeignKey("BoardId")]
         public Board? Board { get; set; }
-        public ICollection<UserInBoard>? Users { get; set; }
     }
 }

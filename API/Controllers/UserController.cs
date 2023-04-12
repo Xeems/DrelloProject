@@ -22,7 +22,7 @@ namespace API.Controllers
 
             using(AppDbContext context = new AppDbContext())
             {
-                tasks = context.PersonalTasks.Where(u => u.PersonalTaskOwnerId == userId).ToList();
+                tasks = context.PersonalTasks.Where(u => u.UserId == userId).ToList();
             }
 
             return Ok(tasks);
@@ -31,7 +31,7 @@ namespace API.Controllers
         [HttpPost("{userId}/AddPersonalTask")]
         public async Task<ActionResult<bool>> AddPersonalTasks([FromRoute] int userId, PersonalTask task)
         {
-            task.PersonalTaskOwnerId = userId;
+            task.UserId = userId;
 
             try 
             {

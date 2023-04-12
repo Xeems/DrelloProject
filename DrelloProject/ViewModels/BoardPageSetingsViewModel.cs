@@ -8,10 +8,14 @@ using System.Collections.ObjectModel;
 
 namespace DrelloProject.ViewModels
 {
+    [QueryProperty(nameof(CurrentUser), nameof(CurrentUser))]
     public partial class BoardPageSetingsViewModel : ObservableObject
     {
         [ObservableProperty]
         private Board currentBoard = new Board();
+
+        [ObservableProperty]
+        private User currentUser = new User();
 
         [ObservableProperty]
         private string boardName;
@@ -37,12 +41,9 @@ namespace DrelloProject.ViewModels
         [ObservableProperty]
         private User selectedUser = new User();
 
+
         BoardDataService boardDataService = new BoardDataService();
 
-        public BoardPageSetingsViewModel()
-        {
-            //Users = boardDataService.GetUsersInBoard(1);
-        }
 
         [RelayCommand]
         async void NewRole()
@@ -68,10 +69,12 @@ namespace DrelloProject.ViewModels
             if (BoardId == 0)
             {
                 int creatorId = 1;
-                Board board = new Board() { Name = BoardName, Description = BoardDescription, CreatorId = creatorId };
+                Board board = new Board() { Name = BoardName, Description = BoardDescription, CreatorId = CurrentUser.Id };
                 CurrentBoard = await boardDataService.AddBoard(board);
 
                 var roles = await boardDataService.AddBoardRoles(Roles, currentBoard);
+
+                await boardDataService.AddUserToBoard(CurrentUser.Id,CurrentBoard.Id);
             }
             
             else ; 

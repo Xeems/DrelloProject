@@ -12,7 +12,7 @@ namespace API.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int CreatorId { get; set; }
-        public List<UserInBoard>? UsersInBoard { get; set; }
+        public ICollection<UserInBoard>? UsersInBoard { get; set; }
         public ICollection<ATask>? Tasks { get; set; }
         public ICollection<BoardRole>? Roles { get; set; }
 

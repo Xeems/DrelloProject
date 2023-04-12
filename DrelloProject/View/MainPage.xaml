@@ -164,7 +164,7 @@
                                         CommandParameter="{Binding .}"/>
                                 </Border.GestureRecognizers>
                                 <HorizontalStackLayout>
-                                    <Label Text="{Binding TaskBody}"
+                                    <Label Text="{Binding Task}"
                                            Style="{StaticResource HeaderStyle}"                                                
                                            Margin="15,0,20,0"
                                            FontSize="15"/>
