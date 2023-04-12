@@ -68,7 +68,6 @@ namespace DrelloProject.ViewModels
         {
             if (BoardId == 0)
             {
-                int creatorId = 1;
                 Board board = new Board() { Name = BoardName, Description = BoardDescription, CreatorId = CurrentUser.Id };
                 CurrentBoard = await boardDataService.AddBoard(board);
 
