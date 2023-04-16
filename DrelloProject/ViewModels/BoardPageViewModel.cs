@@ -24,10 +24,6 @@ namespace DrelloProject.ViewModels
 
         private BoardTaskDataService _taskDataService = new BoardTaskDataService();
 
-        public BoardPageViewModel() 
-        {
-            
-        }
 
         [RelayCommand]
         async void Back() 
@@ -39,6 +35,16 @@ namespace DrelloProject.ViewModels
         async void PageLoaded() 
         {
             ATasks = await _taskDataService.GetTasks(Board.Id);
+        }
+
+        [RelayCommand]
+        async void Settings()
+        {///////////////////////////////////
+            await Shell.Current.GoToAsync($"{nameof(BoardPageSetings)}",
+                        new Dictionary<string, object>
+                        {
+                            ["CurrentBoard"] = Board
+                        });
         }
 
         [RelayCommand]

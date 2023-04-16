@@ -55,7 +55,7 @@ namespace DrelloProject.ViewModels
         }
 
         [RelayCommand]
-        async void ChangeScenario()
+        void ChangeScenario()
         {
             IsRegister = !IsRegister;            
         }

@@ -125,6 +125,16 @@
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="StartAndExpand"
                    FontSize="20"/>
+
+            <ImageButton Source="settings.png"
+                         HeightRequest="60"
+                         WidthRequest="60"
+                         Aspect="AspectFill"
+                         Padding="10"
+                         IsEnabled="True" IsOpaque="False"
+                         BackgroundColor="Transparent"
+                         HorizontalOptions="Fill"    
+                         Command="{Binding SettingsCommand}"/>
         </StackLayout>
         <!--END [TOP BAR REGION]-->
 

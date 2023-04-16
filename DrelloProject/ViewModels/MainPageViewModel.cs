@@ -31,10 +31,10 @@ namespace DrelloProject.ViewModels
         private Board selectedBoard;
 
         [RelayCommand]
-        async void PageLoaded() 
+        async Task PageLoaded() 
         {
-            GetPersonalTasks(CurrentUser.Id);
-            GetUserBoards(CurrentUser.Id);
+            await GetPersonalTasks(CurrentUser.Id);
+            await GetUserBoards(CurrentUser.Id);
         }
 
         [RelayCommand]
@@ -64,7 +64,7 @@ namespace DrelloProject.ViewModels
             PersonalTask task = new PersonalTask() { Task = personalTaskName};
             bool response = await _personalTaskDataService.AddPesonalTask(task, CurrentUser.Id);
             if(response == true)
-                GetPersonalTasks(CurrentUser.Id);
+                await GetPersonalTasks(CurrentUser.Id);
         }
 
         [RelayCommand]
@@ -73,14 +73,14 @@ namespace DrelloProject.ViewModels
             personalTasks.Remove(personalTask);
             await _personalTaskDataService.DeletePersonalTask(personalTask.Id);
         }
-        public async void GetPersonalTasks(int userId)
+        public async Task GetPersonalTasks(int userId)
         {
             var Tasks = await _personalTaskDataService.GetPersonalTasks(userId);
             if (Tasks != null)
                 PersonalTasks = Tasks;
         }
 
-        public async void GetUserBoards(int UserId)
+        public async Task GetUserBoards(int UserId)
         {
             Boards = await _boardDataService.GetBoardsByUser(UserId);
         }

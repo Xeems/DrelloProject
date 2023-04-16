@@ -128,11 +128,12 @@ namespace DrelloProject.DataServices
 
             try
             {
-                HttpResponseMessage response = await _httpClient.GetAsync($"{_url}/{BoardId}/AddRoles");
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_url}/{BoardId}/GetUsersInBoard");
 
                 if (response.IsSuccessStatusCode)
                 {
-
+                    var users = await response.Content.ReadFromJsonAsync<ObservableCollection<UserInBoard>>();
+                    return users;
                 }
                 else
                 {
@@ -195,6 +196,60 @@ namespace DrelloProject.DataServices
             catch (Exception ex)
             { Debug.WriteLine($"Whoops exception: {ex.Message}"); }
 
+            return null;
+        }
+
+        public async Task<ObservableCollection<BoardRole>> AddRole(int boardId, BoardRole boardRole)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                Debug.WriteLine("---> No internet access...");
+
+            try
+            {
+                string jsonContent = JsonSerializer.Serialize<BoardRole>(boardRole, _jsonSerializerOptions);
+                StringContent content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await _httpClient.PostAsync($"{_url}/{boardId}/AddRole", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var roles = await response.Content.ReadFromJsonAsync<ObservableCollection<BoardRole>>();
+                    return roles;
+                }
+                else
+                {
+                    Debug.WriteLine("Non Http 2xx response");
+                    return null;
+                }
+
+            }
+            catch (Exception ex)
+            { Debug.WriteLine($"Whoops exception: {ex.Message}"); }
+
+            return null;
+        }
+
+        public async Task<ObservableCollection<UserInBoard>> GiveRole(int BoardId, int UserInBoardId, int RoleId)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                Debug.WriteLine("---> No internet access...");
+            try
+            {
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_url}/{BoardId}/{UserInBoardId}/GiveRole/{RoleId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var users = await response.Content.ReadFromJsonAsync<ObservableCollection<UserInBoard>>();
+                    return users;
+                }
+                else
+                {
+                    Debug.WriteLine("Non Http 2xx response");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            { Debug.WriteLine($"Whoops exception: {ex.Message}"); }
             return null;
         }
     }

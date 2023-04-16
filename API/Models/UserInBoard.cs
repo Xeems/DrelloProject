@@ -15,7 +15,7 @@ namespace API.Models
         public User? User { get; set; }
 
         public int? RoleId { get; set; }
-        [ForeignKey("UserId")]
+        [ForeignKey("RoleId")]
         public BoardRole? BoardRole { get; set; }
     }
 }

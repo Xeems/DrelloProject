@@ -41,24 +41,22 @@ namespace API.Controllers
         [HttpGet("{boardId}/AddUserToBoard/{userId}")]
         public async Task<ActionResult<UserInBoard>> AddUserToBoard(int userId, int boardId)
         {
-
             using (AppDbContext context = new AppDbContext())
             {
-                var user = await context.Users.FindAsync(userId);
-                var board = await context.Boards.FindAsync(boardId);
-                if (board != null && user != null)
+                UserInBoard exsitingUser = await context.UserInBoards.FirstOrDefaultAsync(u => u.UserId == userId && u.BoardId == boardId);
+
+                if (exsitingUser == null)
                 {
-                    var userInBoard = new UserInBoard() { User = user, Board = board};
+                    var userInBoard = new UserInBoard() { UserId = userId, BoardId = boardId};
                     await context.UserInBoards.AddAsync(userInBoard);
                     await context.SaveChangesAsync();
                 }
                 else
                 { 
                     await context.Database.CloseConnectionAsync();
-                    return BadRequest();
+                    return BadRequest("Пользователь уже добавлен на доску");
                 }
             }
-
             return Ok();
         }
 
@@ -82,13 +80,23 @@ namespace API.Controllers
             }            
         }
 
-        [HttpGet("{boardId}/GetBoardMembers")]
-        public async Task<ActionResult<List<UserInBoard>>> GetBoardMembers([FromRoute] int boardId)
+        [HttpGet("{boardId}/GetUsersInBoard")]
+        public async Task<ActionResult<List<UserInBoard>>> GetUsersInBoard([FromRoute] int boardId)
         {
-            List<UserInBoard> boardMembers = null;
+            List<UserInBoard> boardMembers = new List<UserInBoard>();
 
             using (AppDbContext context = new AppDbContext())
             {
+                boardMembers = await context.UserInBoards.Include(u => u.User)
+                                                         .Include(u => u.BoardRole)
+                                                         .Where(u => u.BoardId == boardId)
+                                                         .ToListAsync();
+            }
+            foreach (UserInBoard user in boardMembers)
+            {
+                user.User.PasswordSalt = null;
+                user.User.PasswordHash = null;
+                user.User.Login = null;
 
             }
 
@@ -101,9 +109,9 @@ namespace API.Controllers
             List<Board> boards = new List<Board>();
             using (AppDbContext context = new AppDbContext()) 
             {
-               boards =  context.UserInBoards.Where(u => u.UserId == userId)
+               boards = await context.UserInBoards.Where(u => u.UserId == userId)
                                               .Select(b => b.Board)
-                                              .ToList();
+                                              .ToListAsync();
 
             }
 
@@ -116,10 +124,47 @@ namespace API.Controllers
             List<BoardRole> roles;
             using (AppDbContext context = new AppDbContext())
             {              
-                roles = context.Roles.Where(r => r.BoardId == boardId).ToList();
+                roles = await context.Roles.Where(r => r.BoardId == boardId).ToListAsync();
             }
 
             return Ok(roles);
+        }
+
+        [HttpPost("{boardId}/AddRole")]
+        public async Task<ActionResult<List<BoardRole>>> AddRole(BoardRole role, int boardId)
+        {
+            List<BoardRole> roles;
+            using (AppDbContext context = new AppDbContext())
+            {
+                context.Roles.Add(role);
+                context.SaveChanges();
+                roles = await context.Roles.Where(r => r.BoardId == boardId).ToListAsync();
+            }
+            return Ok(roles);
+        }
+
+        [HttpGet("{boardId}/{userInBoardId}/GiveRole/{boardRoleId}")]
+        public async Task<ActionResult<List<UserInBoard>>> GiveRole(int boardId, int userInBoardId, int boardRoleId )
+        { 
+            List<UserInBoard> users;
+            using(AppDbContext context = new AppDbContext())
+            {
+                var UserInBoard = await context.UserInBoards.FindAsync(userInBoardId);
+                UserInBoard.RoleId = boardRoleId;
+                context.SaveChanges();
+
+                users = await context.UserInBoards.Include(u => u.User)
+                                                  .Include(u => u.BoardRole)
+                                                  .Where(u => u.BoardId == boardId)
+                                                  .ToListAsync();
+                foreach (var user in users) 
+                {
+                    user.User.PasswordHash = null;
+                    user.User.PasswordSalt = null;
+                    user.User.Login = null;
+                }
+            }
+            return Ok(users);
         }
 
     }

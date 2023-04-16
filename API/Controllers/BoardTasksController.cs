@@ -19,10 +19,10 @@ namespace API.Controllers
         public async Task<ActionResult<ATask>> AddTask(ATask atask)
         {
             ATask task = atask;
-
+            task.ExecutorUserId = null;
             using (AppDbContext context = new AppDbContext())
             {
-                await context.AddAsync(task);
+                await context.ATasks.AddAsync(task);
                 await context.SaveChangesAsync();
             }
 

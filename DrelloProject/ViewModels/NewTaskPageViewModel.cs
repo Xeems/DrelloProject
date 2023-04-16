@@ -45,7 +45,7 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void Accept()
         {
-            ATask aTask = new ATask() {Board = Board, Name = TaskName, RequiredRole = SelectedRole };
+            ATask aTask = new ATask() {BoardId = Board.Id, Name = TaskName, RequiredRoleId = SelectedRole.Id };
             await boardTaskDataService.NewTask(aTask);
         }
     }

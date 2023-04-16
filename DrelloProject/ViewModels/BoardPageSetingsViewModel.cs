@@ -1,14 +1,16 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DrelloProject.DataServices;
 using DrelloProject.Models;
 using DrelloProject.View;
-using Microsoft.Maui.Controls.PlatformConfiguration;
 using System.Collections.ObjectModel;
 
 namespace DrelloProject.ViewModels
 {
-    [QueryProperty(nameof(CurrentUser), nameof(CurrentUser))]
+    [QueryProperty(nameof(CurrentUser), nameof(CurrentUser)), 
+     QueryProperty(nameof(CurrentBoard),nameof(CurrentBoard))]
     public partial class BoardPageSetingsViewModel : ObservableObject
     {
         [ObservableProperty]
@@ -39,16 +41,35 @@ namespace DrelloProject.ViewModels
         private ObservableCollection<UserInBoard> users = new ObservableCollection<UserInBoard>();
 
         [ObservableProperty]
-        private User selectedUser = new User();
+        private UserInBoard selectedUser = new UserInBoard();
 
 
         BoardDataService boardDataService = new BoardDataService();
 
+        [RelayCommand]
+        async void PageLoaded()
+        {
+            if(CurrentBoard.Id != 0)
+            {
+                Users = await boardDataService.GetUsersInBoard(CurrentBoard.Id);
+                BoardName = currentBoard.Name;
+                BoardDescription = currentBoard.Description;
+                BoardId = currentBoard.Id;
+                Roles = await boardDataService.GetRoles(CurrentBoard.Id);
+            }
+        
+        }
 
         [RelayCommand]
         async void NewRole()
-        {
-            roles.Add(new BoardRole { Name = roleName });
+        { 
+            if (CurrentBoard.Id == 0)
+                roles.Add(new BoardRole { Name = roleName });
+            else
+            {
+                var role = new BoardRole { Name = roleName, BoardId = CurrentBoard.Id };
+                Roles = await boardDataService.AddRole(currentBoard.Id, role);
+            }
         }
         
         [RelayCommand]
@@ -66,7 +87,7 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void CheckBtn()
         {
-            if (BoardId == 0)
+            if (CurrentBoard.Id == 0)
             {
                 Board board = new Board() { Name = BoardName, Description = BoardDescription, CreatorId = CurrentUser.Id };
                 CurrentBoard = await boardDataService.AddBoard(board);
@@ -83,11 +104,48 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void AddUser()
         {
-            await Shell.Current.GoToAsync($"{nameof(UserList)}",
+            if (CurrentBoard.Id == 0)
+            {
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
+                string text = "Сначала сохраните настройки доски";
+                ToastDuration duration = ToastDuration.Short;
+                double fontSize = 14;
+
+                var toast = Toast.Make(text, duration, fontSize);
+
+                await toast.Show(cancellationTokenSource.Token);
+            }
+            else
+            {
+                await Shell.Current.GoToAsync($"{nameof(UserList)}",
                         new Dictionary<string, object>
                         {
                             ["CurrentBoard"] = currentBoard
                         });
+            }
         }
+
+        [RelayCommand]
+        async void SelectRole()
+        {
+            if(SelectedUser != null)
+            {
+                Users = await boardDataService.GiveRole(CurrentBoard.Id, SelectedUser.Id, SelectedRole.Id);
+
+                SelectedUser = null;                               
+            }
+            if (SelectedRole == null)
+                return;
+        }
+        [RelayCommand]
+        async void SelectUser()
+        {
+            if (SelectedUser == null)
+            {
+                SelectedRole = null;
+            }
+        }
+
     }
 }

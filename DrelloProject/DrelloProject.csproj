@@ -80,6 +80,7 @@
 	  <None Remove="Resources\Images\plusicon.svg" />
 	  <None Remove="Resources\Images\right_arrow.svg" />
 	  <None Remove="Resources\Images\search.png" />
+	  <None Remove="Resources\Images\settings.png" />
 	</ItemGroup>
 
 	<ItemGroup>
