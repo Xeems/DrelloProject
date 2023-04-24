@@ -17,6 +17,8 @@
 
     <ContentPage.Resources>
 
+        <services:ColorConvertor x:Key="StringToColor"/>
+
         <Style TargetType="Border" x:Key="BoardBorderStyle">
             <Setter Property="StrokeShape" Value="RoundRectangle 10, 10, 10, 10"/>
             <Setter Property="Margin" Value="40, 7, 40, 7"/>
@@ -52,27 +54,33 @@
                HeightRequest="60"
                Margin="0"
                Padding="20, 0, 10, 0">
-            
-            <Frame WidthRequest="45"
-                   HeightRequest="45"
-                   CornerRadius="20"
-                   HorizontalOptions="Start"
-                   Padding="1">
 
-                <Label BindingContext="{Binding CurrentUser}"
-                       Text="{Binding ShortName}"
-                       HorizontalOptions="Center"
-                       VerticalOptions="Center"
-                       HorizontalTextAlignment="Center"
-                       VerticalTextAlignment="Center"
-                       WidthRequest="40"
-                       HeightRequest="40"
-                       FontSize="25"
-                       FontFamily="RobotoBold"/>
+            <HorizontalStackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding UserSettingsCommand}"/>
+            </HorizontalStackLayout.GestureRecognizers>
 
-            </Frame>
+            <Border WidthRequest="50"
+                    HeightRequest="50"
+                    StrokeShape="RoundRectangle 40,40,40,40"
+                    BindingContext="{Binding CurrentUser}"
+                    BackgroundColor="{Binding Path=UserHEXColor, Converter={StaticResource StringToColor}}">
+                <StackLayout VerticalOptions="Center">
+                    <Label BindingContext="{Binding CurrentUser}"
+                           Text="{Binding ShortName}"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Center"
+                           VerticalTextAlignment="Center"
+                           HorizontalTextAlignment="Center"
+                           TextColor="White"
+                           FontSize="25"
+                           FontFamily="RobotoLight"
+                           Margin="1,1,2,3"/>
+                </StackLayout>
+            </Border>
 
-            <Label Text="User name"
+
+            <Label BindingContext="{Binding CurrentUser}"
+                   Text="{Binding UserName}"
                    VerticalOptions="Center"
                    Margin="20, 0, 0, 0"
                    FontFamily="RobotoMedium"

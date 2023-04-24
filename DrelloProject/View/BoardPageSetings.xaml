@@ -14,6 +14,12 @@
         <toolkit:EventToCommandBehavior EventName="Loaded"
                                         Command="{Binding PageLoadedCommand}"/>
     </ContentPage.Behaviors>
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <services:ColorConvertor x:Key="StringToColor"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid>
 
@@ -142,16 +148,18 @@
                                         x:Name="RolesCollectionView">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Border HeightRequest="45"
+                                    <Border HeightRequest="40"
                                         StrokeShape="RoundRectangle 10,10,10,10"
                                         StrokeThickness="0"
-                                        Margin="3,0,3,0">
+                                        Margin="3,0,3,0"
+                                        BackgroundColor="{Binding Path=RoleHEXColor, Converter={StaticResource StringToColor}}">
                                         <HorizontalStackLayout>
                                             <Label HorizontalOptions="StartAndExpand"
                                                Text="{Binding Name}"
+                                               TextColor="White"
                                                FontFamily="RobotoRegular"
-                                               FontSize="16"
-                                               Margin="15,0,0,0"
+                                               FontSize="18"
+                                               Margin="10,0,0,0"
                                                VerticalOptions="Center"/>
 
                                             <ImageButton Source="close.svg"
@@ -217,7 +225,7 @@
                                                Padding="1"
                                                Margin="5,5,5,5">
 
-                                               <Label Text="RK"
+                                               <Label Text="{Binding ShortUserName}"
                                                       HorizontalOptions="Center"
                                                       VerticalOptions="Center"
                                                       HorizontalTextAlignment="Center"
@@ -236,11 +244,17 @@
                                                    Margin="1,1,1,1"
                                                    HorizontalOptions="StartAndExpand"/>
                                                 <Border StrokeThickness="0"
-                                                        HorizontalOptions="Start">
+                                                        HorizontalOptions="FillAndExpand"
+                                                        StrokeShape="RoundRectangle 40,40,40,40"
+                                                        Margin="4,0,0,0"
+                                                        Padding ="5,1,5,1">
                                                     <Label Text="{Binding BoardRole.Name}"
-                                                           HorizontalOptions="Center"/>
+                                                           BackgroundColor="{Binding Path=BoardRole.RoleHEXColor, Converter={StaticResource StringToColor}}"
+                                                           HorizontalOptions="Center"
+                                                           TextColor="White"/>
                                                 </Border>
                                             </StackLayout>
+                                            
                                         </StackLayout>
                                     </Border>
                                 </DataTemplate>

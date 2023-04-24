@@ -64,10 +64,10 @@ namespace DrelloProject.ViewModels
         async void NewRole()
         { 
             if (CurrentBoard.Id == 0)
-                roles.Add(new BoardRole { Name = roleName });
+                roles.Add(new BoardRole { Name = roleName, RoleHEXColor = ColorList.GetRandomColor() });
             else
             {
-                var role = new BoardRole { Name = roleName, BoardId = CurrentBoard.Id };
+                var role = new BoardRole { Name = roleName, BoardId = CurrentBoard.Id, RoleHEXColor = ColorList.GetRandomColor() };
                 Roles = await boardDataService.AddRole(currentBoard.Id, role);
             }
         }

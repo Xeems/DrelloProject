@@ -28,7 +28,7 @@ namespace DrelloProject.DataServices
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
             };
-        }
+        }       
 
         public async Task<ObservableCollection<ATask>> GetTasks(int BoardId)
         {
@@ -75,6 +75,31 @@ namespace DrelloProject.DataServices
                 Debug.WriteLine($"Oppa, exeption" + ex.Message);
                 return false;
             }
+            return false;
+        }
+    
+        public async Task<bool> TakeTask(int TaskId, int ExecutorId)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+                Debug.WriteLine("---> No internet access...");
+            try
+            {
+                HttpResponseMessage response = await _httpClient.GetAsync($"{_url}/{TaskId}/TakeTask/{ExecutorId}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    Debug.WriteLine("Non Http 2xx response");
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            { Debug.WriteLine($"Whoops exception: {ex.Message}"); }
+
             return false;
         }
     }

@@ -12,5 +12,7 @@ namespace DrelloProject.IDataService
     {
         public Task<ObservableCollection<ATask>> GetTasks(int BoardId);
         public Task<bool> NewTask(ATask aTask);
+
+        public Task<bool> TakeTask(int TaskId, int ExecutorId);
     }
 }

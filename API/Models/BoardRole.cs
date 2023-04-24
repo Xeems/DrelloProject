@@ -16,5 +16,6 @@ namespace API.Models
         public int? BoardId { get; set; }
         [ForeignKey("BoardId")]
         public Board? Board { get; set; }
+        public string? RoleHEXColor { get; set; }
     }
 }

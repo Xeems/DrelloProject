@@ -32,6 +32,7 @@ namespace API.Controllers
             user.Login = request.Login;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.UserHEXColor = ColorList.GetRandomColor();
 
             try
             {

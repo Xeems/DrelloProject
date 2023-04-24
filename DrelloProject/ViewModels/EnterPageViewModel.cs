@@ -38,6 +38,11 @@ namespace DrelloProject.ViewModels
             {
                 var currentUser = await _restDataService.GetUserAsync(user);
 
+                StaticUser.ShortName = currentUser.ShortName;
+                StaticUser.UserName = currentUser.UserName;
+                StaticUser.UserHEXColor = currentUser.UserHEXColor;
+                StaticUser.Id = currentUser.Id;
+
                 if (currentUser != null)
                     await Shell.Current.GoToAsync($"{nameof(MainPage)}",
                         new Dictionary<string, object>

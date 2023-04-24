@@ -35,10 +35,33 @@ namespace API.Controllers
             List<ATask> tasks = new List<ATask>();
             using (AppDbContext context = new())
             {
-                tasks = await context.ATasks.Where(t => t.BoardId == BoardId)
+                tasks = await context.ATasks.Include(t => t.RequiredRole)
+                                            .Include(t => t.ExecutorUser)
+                                            .Where(t => t.BoardId == BoardId)
                                             .ToListAsync();
             }
             return Ok(tasks);
+        }
+
+        [HttpGet("{TaskId}/TakeTask/{ExecutorId}")]
+        public async Task<ActionResult<ATask>> TakeTask(int TaskId, int ExecutorId)
+        {
+            ATask task = new ATask();
+            try
+            {
+                using (AppDbContext context = new())
+                {
+                    task = await context.ATasks.FirstOrDefaultAsync(t => t.Id == TaskId);
+                    task.ExecutorUserId = ExecutorId;
+                    task.Status += 1;
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            { 
+                return BadRequest(ex); 
+            }
+            return Ok();
         }
     }
 }

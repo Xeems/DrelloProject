@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +10,10 @@ namespace DrelloProject.Models
     public static class StaticUser
     {
         public static int Id { get; set; }
-        public static string Name { get; set; }
-        public static string ShortUserName { get; set; }
-        public static Color UserColor { get; set; }
-        public static string jwtToken { get; set; }
+        public static string UserName { get; set; }
+        public static string ShortName { get; set; }
+        public static string UserHEXColor { get; set; }
+
 
     }
 }

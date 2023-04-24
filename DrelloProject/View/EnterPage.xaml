@@ -13,6 +13,7 @@
             <SolidColorBrush Color="#f5f3f4"/>
         </StackLayout.Background>
 
+
         <Label x:Name="TestLabel"
                Text="{Binding Test}"
                TextColor="Black"
@@ -75,11 +76,12 @@
                    Placeholder="Password confirm"
                    Style="{StaticResource EntryStyle}"
                    Text="{Binding PasswordConfirm}"/>
+            
         </Border>
 
 
         <ImageButton x:Name="EnterSignUpBtn"
-                     BackgroundColor="#fd6b68"
+                     BackgroundColor="#FD6846"
                      Margin="60, 20, 60, 0"
                      HorizontalOptions="End"
                      HeightRequest="70"
@@ -88,7 +90,13 @@
                      CornerRadius="24"
                      Source="right_arrow.svg"
                      Padding="10" IsEnabled="True" IsOpaque="False"
-                     Command="{Binding LogInCommand}"/>
+                     Command="{Binding LogInCommand}">
+            <ImageButton.Shadow>
+                <Shadow  Offset="20,20"
+                        Radius="40"
+                        Opacity="0.4"/>
+            </ImageButton.Shadow>
+        </ImageButton>
 
         <Button x:Name="ChangeScenarioButton"
                 VerticalOptions="EndAndExpand"

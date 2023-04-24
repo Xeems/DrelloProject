@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
                 <ResourceDictionary Source="Resources/Styles/EntryStyle.xaml"/>
                 <ResourceDictionary Source="Resources/Styles/HeaderStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/ShadowStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

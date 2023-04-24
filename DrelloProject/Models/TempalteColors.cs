@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace DrelloProject.Models
 {
-    public class BoardRole
+    public class TempalteColors
     {
-        public int Id { get; set; }
-        public int BoardId { get; set; }
         public string Name { get; set; }
-        public string RoleHEXColor { get; set; }
+        public string Value { get; set; }
     }
 }

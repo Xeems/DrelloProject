@@ -12,20 +12,20 @@ namespace DrelloProject.ViewModels
     public partial class MainPageViewModel : ObservableObject
     {
         [ObservableProperty]
-        private User currentUser;
+        private User currentUser = new();
 
         [ObservableProperty]
         private bool isBusy;
 
         [ObservableProperty]
-        private ObservableCollection<Board> boards = new ObservableCollection<Board>();
+        private ObservableCollection<Board> boards = new();
 
         [ObservableProperty]
-        private ObservableCollection<PersonalTask> personalTasks = new ObservableCollection<PersonalTask>();
+        private ObservableCollection<PersonalTask> personalTasks = new();
 
-        private PersonalTaskDataService _personalTaskDataService = new PersonalTaskDataService();
+        private PersonalTaskDataService _personalTaskDataService = new();
 
-        private BoardDataService _boardDataService = new BoardDataService();
+        private BoardDataService _boardDataService = new();
 
         [ObservableProperty]
         private Board selectedBoard;
@@ -34,7 +34,8 @@ namespace DrelloProject.ViewModels
         async Task PageLoaded() 
         {
             await GetPersonalTasks(CurrentUser.Id);
-            await GetUserBoards(CurrentUser.Id);
+            await GetUserBoards(CurrentUser.Id);    
+
         }
 
         [RelayCommand]
@@ -43,7 +44,8 @@ namespace DrelloProject.ViewModels
            await Shell.Current.GoToAsync($"{nameof(BoardPage)}",
                         new Dictionary<string, object>
                         {
-                            ["Board"] = board
+                            ["Board"] = board,
+                            ["AUser"] = CurrentUser
                         });
         }
 
@@ -73,6 +75,17 @@ namespace DrelloProject.ViewModels
             personalTasks.Remove(personalTask);
             await _personalTaskDataService.DeletePersonalTask(personalTask.Id);
         }
+
+        [RelayCommand]
+        async Task UserSettings()
+        {
+            await Shell.Current.GoToAsync($"{nameof(UserSettingsPage)}",
+                        new Dictionary<string, object>
+                        {
+                            ["CurrentUser"] = CurrentUser
+                        });
+        }
+       
         public async Task GetPersonalTasks(int userId)
         {
             var Tasks = await _personalTaskDataService.GetPersonalTasks(userId);
@@ -83,6 +96,13 @@ namespace DrelloProject.ViewModels
         public async Task GetUserBoards(int UserId)
         {
             Boards = await _boardDataService.GetBoardsByUser(UserId);
+        }
+
+        public void LoadUser()
+        {
+            CurrentUser.Id = StaticUser.Id;
+            CurrentUser.UserName = StaticUser.UserName;
+            CurrentUser.UserHEXColor = StaticUser.UserHEXColor;
         }
     }
 }

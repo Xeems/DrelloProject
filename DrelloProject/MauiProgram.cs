@@ -49,6 +49,9 @@ public static class MauiProgram
         Appbuilder.Services.AddSingleton<MainPage>();
         Appbuilder.Services.AddSingleton<MainPageViewModel>();
 
+        Appbuilder.Services.AddSingleton<UserSettingsPage>();
+        Appbuilder.Services.AddSingleton<UserSettingsViewModel>();
+
         Appbuilder.Services.AddTransient<BoardPageSetings>();
         Appbuilder.Services.AddTransient<BoardPageSetingsViewModel>();
 

@@ -22,9 +22,9 @@ namespace DrelloProject.Models
 
     public enum ATaskStatus
     {
-        Done,
-        Performed,
         NotStarted,
-        Proposed
+        Performed,
+        Done
+                       
     }
 }
