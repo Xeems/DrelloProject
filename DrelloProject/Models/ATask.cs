@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace DrelloProject.Models
@@ -17,6 +18,9 @@ namespace DrelloProject.Models
         public BoardRole? RequiredRole { get; set; }
         public User? ExecutorUser { get; set; }
         public ATaskStatus Status { get; set; }
+        
+        [JsonIgnore]
+        public bool? IsAvailable { get; set; } = false;
         
     }
 

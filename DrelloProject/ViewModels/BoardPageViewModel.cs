@@ -105,6 +105,9 @@ namespace DrelloProject.ViewModels
             var ATasks = await taskDataService.GetTasks(Board.Id);
             foreach (var ATask in ATasks)
             {
+                if (ATask.RequiredRole.Id == CurrentUser.BoardRole.Id)
+                    ATask.IsAvailable = true;
+
                 switch (ATask.Status)
                 {
                     case ATaskStatus.NotStarted:
@@ -115,6 +118,7 @@ namespace DrelloProject.ViewModels
                         break;
                     case ATaskStatus.Done:
                         DoneTasks.Add(ATask);
+                        ATask.IsAvailable = false;
                         break;
                 }
             }
