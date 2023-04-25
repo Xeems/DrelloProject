@@ -206,8 +206,7 @@
                                         HorizontalOptions="FillAndExpand"
                                         SelectedItem="{Binding SelectedUser}"
                                         SelectionMode="Single"
-                                        SelectionChangedCommand="{Binding SelectUserCommand}"
-                                        SelectionChangedCommandParameter="{}">
+                                        SelectionChangedCommand="{Binding SelectUserCommand}">
                            
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
@@ -223,37 +222,53 @@
                                                CornerRadius="20"
                                                HorizontalOptions="Start"
                                                Padding="1"
-                                               Margin="5,5,5,5">
+                                               Margin="5,5,5,5"
+                                               BackgroundColor="{Binding Path=User.UserHEXColor, Converter={StaticResource StringToColor}}">
 
-                                               <Label Text="{Binding ShortUserName}"
+                                               <Label Text="{Binding Path=User.ShortName}"
+                                                      TextColor="White"
                                                       HorizontalOptions="Center"
+                                                      FontFamily="RobotoLight"
                                                       VerticalOptions="Center"
                                                       HorizontalTextAlignment="Center"
                                                       VerticalTextAlignment="Center"
                                                       WidthRequest="40"
                                                       HeightRequest="40"
-                                                      FontSize="20"
-                                                      FontFamily="RobotoBold"/>    
-
+                                                      FontSize="24"
+                                                      Margin="0,0,1,1"/>    
                                         </Frame>
 
-                                            <StackLayout>
+                                            <Grid HorizontalOptions="StartAndExpand"
+                                                  VerticalOptions="FillAndExpand">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                
                                                 <Label Text="{Binding User.UserName}"
-                                                   Style="{StaticResource HeaderStyle}"
-                                                   FontSize="Medium"
-                                                   Margin="1,1,1,1"
-                                                   HorizontalOptions="StartAndExpand"/>
-                                                <Border StrokeThickness="0"
+                                                       Style="{StaticResource HeaderStyle}"
+                                                       FontSize="Medium"
+                                                       Margin="1,1,1,0"
+                                                       HorizontalOptions="StartAndExpand"
+                                                       Grid.Row="0"/>
+                                                <Border StrokeThickness="1"
                                                         HorizontalOptions="FillAndExpand"
                                                         StrokeShape="RoundRectangle 40,40,40,40"
-                                                        Margin="4,0,0,0"
-                                                        Padding ="5,1,5,1">
+                                                        Padding ="5,0,5,0"
+                                                        Margin="1,1,1,1"
+                                                        Grid.Row="1"
+                                                        BackgroundColor="{Binding Path=BoardRole.RoleHEXColor, Converter={StaticResource StringToColor}}">
                                                     <Label Text="{Binding BoardRole.Name}"
-                                                           BackgroundColor="{Binding Path=BoardRole.RoleHEXColor, Converter={StaticResource StringToColor}}"
-                                                           HorizontalOptions="Center"
+                                                           FontSize="15"
+                                                           FontFamily="Roboto"
+                                                           HorizontalOptions="CenterAndExpand"
+                                                           VerticalOptions="Center"
+                                                           VerticalTextAlignment="Center"
+                                                           Margin="0,0,0,0"
+                                                           Padding="5,0,5,0"
                                                            TextColor="White"/>
                                                 </Border>
-                                            </StackLayout>
+                                            </Grid>
                                             
                                         </StackLayout>
                                     </Border>

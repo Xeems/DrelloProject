@@ -64,18 +64,16 @@
                     StrokeShape="RoundRectangle 40,40,40,40"
                     BindingContext="{Binding CurrentUser}"
                     BackgroundColor="{Binding Path=UserHEXColor, Converter={StaticResource StringToColor}}">
-                <StackLayout VerticalOptions="Center">
-                    <Label BindingContext="{Binding CurrentUser}"
-                           Text="{Binding ShortName}"
-                           VerticalOptions="Center"
-                           HorizontalOptions="Center"
-                           VerticalTextAlignment="Center"
-                           HorizontalTextAlignment="Center"
-                           TextColor="White"
-                           FontSize="25"
-                           FontFamily="RobotoLight"
-                           Margin="1,1,2,3"/>
-                </StackLayout>
+                <Label BackgroundColor="{Binding Path=User.UserHEXColor, Converter={StaticResource StringToColor}}"
+                       Text="{Binding ShortName}"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       HorizontalTextAlignment="Center"
+                       TextColor="White"
+                       FontSize="25"
+                       FontFamily="RobotoLight"
+                       Margin="1,1,2,3"/>
             </Border>
 
 

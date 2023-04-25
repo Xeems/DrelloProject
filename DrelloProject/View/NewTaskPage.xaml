@@ -48,7 +48,8 @@
                                 Padding="0"
                                 HeightRequest="50"
                                 Margin="40,5,40,5"
-                                BackgroundColor="{Binding Path=RoleHEXColor, Converter={StaticResource StringToColor}}">
+                                Stroke="{Binding Path=RoleHEXColor, Converter={StaticResource StringToColor}}"
+                                StrokeThickness="2">
                             <StackLayout VerticalOptions="CenterAndExpand">
                                 <Label Text="{Binding Name}"
                                        Style="{StaticResource HeaderStyle}"

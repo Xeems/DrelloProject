@@ -62,13 +62,17 @@ namespace DrelloProject.ViewModels
 
         [RelayCommand]
         async void NewRole()
-        { 
-            if (CurrentBoard.Id == 0)
-                roles.Add(new BoardRole { Name = roleName, RoleHEXColor = ColorList.GetRandomColor() });
-            else
+        {
+            if (RoleName != null)
             {
-                var role = new BoardRole { Name = roleName, BoardId = CurrentBoard.Id, RoleHEXColor = ColorList.GetRandomColor() };
-                Roles = await boardDataService.AddRole(currentBoard.Id, role);
+                if (CurrentBoard.Id == 0)
+                    roles.Add(new BoardRole { Name = roleName, RoleHEXColor = ColorList.GetRandomColor() });
+                else
+                {
+                    var role = new BoardRole { Name = roleName, BoardId = CurrentBoard.Id, RoleHEXColor = ColorList.GetRandomColor() };
+                    Roles = await boardDataService.AddRole(currentBoard.Id, role);
+                }
+                RoleName = null;
             }
         }
         
