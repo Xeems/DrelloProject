@@ -119,6 +119,34 @@ namespace DrelloProject.DataServices
             }
         }
 
+        public async Task<User> GetCurrentUser(int userId)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+            {
+                Debug.WriteLine("No internet");
+                return null;
+            }
+            try
+            {
+                var response = await _httpClient.GetAsync($"{_url}/User/{userId}/GetCurrentUser");
+                if (response.IsSuccessStatusCode)
+                {
+                    var user = await response.Content.ReadFromJsonAsync<User>();
+                    return user;
+                }
+                else
+                {
+                    Debug.WriteLine("Non Http 2xx response");
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Oppa, exeption" + ex.Message);
+                return null;
+            }
+        }
+
         public async Task<User> GetUserAsync(User user)
         {
             string jsonUser = JsonSerializer.Serialize<User>(user, _jsonSerializerOptions);

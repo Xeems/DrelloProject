@@ -27,12 +27,15 @@ namespace DrelloProject.ViewModels
 
         private BoardDataService _boardDataService = new();
 
+        private RestDataService _restDataService = new();
+
         [ObservableProperty]
         private Board selectedBoard;
 
         [RelayCommand]
         async Task PageLoaded() 
         {
+            CurrentUser = await _restDataService.GetCurrentUser(StaticUser.Id);
             await GetPersonalTasks(CurrentUser.Id);
             await GetUserBoards(CurrentUser.Id);    
 

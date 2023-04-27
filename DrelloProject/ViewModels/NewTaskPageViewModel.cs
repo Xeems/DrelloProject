@@ -47,6 +47,7 @@ namespace DrelloProject.ViewModels
         {
             ATask aTask = new ATask() {BoardId = Board.Id, Name = TaskName, RequiredRoleId = SelectedRole.Id };
             var response = await boardTaskDataService.NewTask(aTask);
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

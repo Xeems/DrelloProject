@@ -27,7 +27,7 @@
                             WidthRequest="280"
                             MinimumHeightRequest="140"
                             Stroke="{Binding RequiredRole.RoleHEXColor, Converter={StaticResource StringToColor}}"
-                            StrokeThickness="4"
+                            StrokeThickness="0"
                             BackgroundColor="Transparent"
                             HorizontalOptions="CenterAndExpand">
                         <Grid VerticalOptions="FillAndExpand"
@@ -39,9 +39,10 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
-                            <StackLayout BackgroundColor="White" 
+                            <StackLayout BackgroundColor="{Binding RequiredRole.RoleHEXColor, Converter={StaticResource StringToColor}}" 
                                          Grid.RowSpan="3"
-                                         Opacity="0.8"/>
+                                         Opacity="0.2"
+                                         VerticalOptions="Fill"/>
 
                             <Label Text="{Binding Name}"
                                    Style="{StaticResource HeaderStyle}"
@@ -75,7 +76,7 @@
                             <StackLayout Orientation="Horizontal"
                                          VerticalOptions="End"
                                          Grid.Row="2"
-                                         Margin="20,0,15,15">
+                                         Margin="20,0,15,20">
                                 <Border WidthRequest="30"
                                         HeightRequest="30"
                                         StrokeShape="RoundRectangle 40,40,40,40"
@@ -102,11 +103,11 @@
                                        FontFamily="RobotoMedium"
                                        FontSize="17"/>
 
-                                <ImageButton BackgroundColor="#fd6846"
-                                             WidthRequest="20"
-                                             HeightRequest="20"
+                                <ImageButton Source="right_arrow.svg"
+                                             WidthRequest="30"
+                                             HeightRequest="30"
                                              HorizontalOptions="EndAndExpand"
-                                             Grid.RowSpan="2"
+                                             Margin="0,0,20,0"
                                              IsVisible="{Binding IsAvailable}"
                                              Command="{Binding Source={RelativeSource AncestorType={x:Type local:BoardPageViewModel}}, Path=TakeATaskCommand}"
                                              CommandParameter="{Binding .}"/>
@@ -120,7 +121,7 @@
     </ContentPage.Resources>
 
     <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior EventName="Loaded"
+        <toolkit:EventToCommandBehavior EventName="Appearing"
                                         Command="{Binding PageLoadedCommand}"/>
     </ContentPage.Behaviors>
 
@@ -182,7 +183,12 @@
                         VerticalOptions="Fill">
                 <StackLayout Orientation="Horizontal">
 
-                    <StackLayout>
+                    <Border Margin="20,10,10,10"
+                            StrokeShape="RoundRectangle 20,20,20,20"
+                            StrokeThickness="0"
+                            VerticalOptions="Start">
+                    <ScrollView>
+                            <StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Text="Не начаты"
                                Style="{StaticResource HeaderStyle}"
@@ -201,40 +207,121 @@
                                     Orientation="Vertical"
                                     VerticalOptions="Start">
                             <StackLayout>
-                                <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
-                                            ItemsSource="{Binding NotStartedTasks}"/>
+                                        <CollectionView ItemsSource="{Binding NotStartedTasks}">
+                                            <CollectionView.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackLayout BackgroundColor="Transparent">
+
+                                                        <Border Style="{StaticResource BorderStyle}"
+                                                                WidthRequest="280"
+                                                                MinimumHeightRequest="100"
+                                                                Stroke="{Binding RequiredRole.RoleHEXColor, Converter={StaticResource StringToColor}}"
+                                                                StrokeThickness="0"
+                                                                BackgroundColor="Transparent">
+                                                            <Grid VerticalOptions="FillAndExpand"
+                                                                  HorizontalOptions="CenterAndExpand"
+                                                                  Opacity="1">
+                                                                <Grid.RowDefinitions>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                    <RowDefinition Height="Auto"/>
+                                                                </Grid.RowDefinitions>
+
+                                                                <StackLayout BackgroundColor="{Binding RequiredRole.RoleHEXColor, Converter={StaticResource StringToColor}}" 
+                                                                             Grid.RowSpan="2"
+                                                                             Opacity="0.2"
+                                                                             Margin="0"
+                                                                             VerticalOptions="FillAndExpand"/>
+
+                                                                <Label Text="{Binding Name}"
+                                                                       Style="{StaticResource HeaderStyle}"
+                                                                       Margin="20,10,15,1"
+                                                                       WidthRequest="250"
+                                                                       HeightRequest="50"
+                                                                       HorizontalOptions="CenterAndExpand"
+                                                                       VerticalTextAlignment="Center"
+                                                                       VerticalOptions="Center"
+                                                                       LineBreakMode="WordWrap" 
+                                                                       LineHeight="1.2"
+                                                                       MaxLines="2"
+                                                                       Grid.Row="0"/>
+
+                                                                <StackLayout Grid.Row="1"
+                                                                             VerticalOptions="FillAndExpand"
+                                                                             Orientation="Horizontal"
+                                                                             Margin="0,0,0,20">
+                                                                <Border Padding="10,0,10,0"
+                                                                        Margin="20,5,15,5"
+                                                                        HorizontalOptions="Start"
+                                                                        VerticalOptions="End"                                                                       
+                                                                        BackgroundColor="{Binding RequiredRole.RoleHEXColor, Converter={StaticResource StringToColor}}"
+                                                                        StrokeThickness="0"
+                                                                        StrokeShape="RoundRectangle 20,20,20,20">
+                                                                    <Label FontSize="12"
+                                                                           FontFamily="RobotoBold"
+                                                                           Text="{Binding RequiredRole.Name}"
+                                                                           VerticalOptions="End"
+                                                                           TextColor="White"
+                                                                           Margin="1,1,1,1"/>   
+                                                                </Border>
+
+                                                                <ImageButton Source="right_arrow.svg"
+                                                                             WidthRequest="30"
+                                                                             HeightRequest="30"
+                                                                             HorizontalOptions="EndAndExpand"
+                                                                             Margin="0,0,20,0"
+                                                                             IsVisible="{Binding IsAvailable}"
+                                                                             Command="{Binding Source={RelativeSource AncestorType={x:Type local:BoardPageViewModel}}, Path=TakeATaskCommand}"
+                                                                             CommandParameter="{Binding .}"/>
+                                                                </StackLayout>
+                                                            </Grid>
+                                                        </Border>
+                                                    </StackLayout>
+                                                </DataTemplate>
+                                            </CollectionView.ItemTemplate>
+                                        </CollectionView>
+                                    </StackLayout>
+                        </ScrollView>
                             </StackLayout>
                         </ScrollView>
-                    </StackLayout>
+                    </Border>
 
-                    <StackLayout>
-                        <Label Text="Выполняются"
+                    <Border Margin="10,10,10,10"
+                            StrokeShape="RoundRectangle 20,20,20,20"
+                            StrokeThickness="0"
+                            VerticalOptions="Start">
+                        <StackLayout>
+                            <Label Text="Выполняются"
                            Style="{StaticResource HeaderStyle}"
                            Margin="25,20,0,18"
                            VerticalOptions="Start"/>
-                        <ScrollView WidthRequest="320"
+                            <ScrollView WidthRequest="320"
                                     Orientation="Vertical">
-                            <StackLayout>
-                                <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
+                                <StackLayout>
+                                    <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
                                             ItemsSource="{Binding PerformedTasks}"/>
-                            </StackLayout>
-                        </ScrollView>
-                    </StackLayout>
+                                </StackLayout>
+                            </ScrollView>
+                        </StackLayout>
+                    </Border>
 
-                    <StackLayout>
-                        <Label Text="Закончены"
+                    <Border Margin="10,10,20,10"
+                            StrokeShape="RoundRectangle 20,20,20,20"
+                            StrokeThickness="0"
+                            VerticalOptions="Start">
+                        <StackLayout>
+                            <Label Text="Закончены"
                            Style="{StaticResource HeaderStyle}"
                            Margin="25,20,0,18"
                            VerticalOptions="Start"/>
-                        <ScrollView WidthRequest="320"
+                            <ScrollView WidthRequest="320"
                                 Orientation="Vertical">
-                            <StackLayout>
-                                <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
+                                <StackLayout>
+                                    <CollectionView ItemTemplate="{StaticResource TasksTempalte}"
                                             ItemsSource="{Binding DoneTasks}"/>
-                            </StackLayout>
-                        </ScrollView>
-                    </StackLayout>
-
+                                </StackLayout>
+                            </ScrollView>
+                        </StackLayout>
+                    </Border>
 
 
                 </StackLayout>

@@ -7,107 +7,111 @@
              Title="EnterPage"
              Shell.NavBarIsVisible="False">
 
-    <StackLayout>
+    <ScrollView>
 
-        <StackLayout.Background>
+        <ScrollView.Background>
             <SolidColorBrush Color="#f5f3f4"/>
-        </StackLayout.Background>
+        </ScrollView.Background>
 
+        <StackLayout>
+            <Label x:Name="TestLabel"
+                   Text="{Binding Test}"
+                   TextColor="Black"
+                   FontSize="10"
+                   HorizontalOptions="Center"
+                   FontFamily="ROBOTOCONDENSED-BOLD.TTF"
+                   CharacterSpacing="2"
+                   Margin="1, 10, 1, 1"></Label>
 
-        <Label x:Name="TestLabel"
-               Text="{Binding Test}"
-               TextColor="Black"
-               FontSize="10"
-               HorizontalOptions="Center"
-               FontFamily="ROBOTOCONDENSED-BOLD.TTF"
-               CharacterSpacing="2"
-               Margin="1, 10, 1, 1"></Label>
+            <Label x:Name="LogInMainLabel"
+                   Text="Log In"
+                   TextColor="Black"
+                   FontSize="30"
+                   HorizontalOptions="Start"
+                   FontFamily="ROBOTOCONDENSED-BOLD.TTF"
+                   CharacterSpacing="2"
+                   Margin="40, 100, 0, 20"></Label>
 
-        <Label x:Name="LogInMainLabel"
-               Text="Log In"
-               TextColor="Black"
-               FontSize="30"
-               HorizontalOptions="Start"
-               FontFamily="ROBOTOCONDENSED-BOLD.TTF"
-               CharacterSpacing="2"
-               Margin="40, 100, 0, 20"></Label>
+            <Label x:Name="LogInSecondLabel"
+                   FontSize="Body"
+                   TextColor="Black"
+                   HorizontalOptions="StartAndExpand"
+                   FontFamily="ROBOTOCONDENSED-REGULAR.TTF"
+                   HorizontalTextAlignment="Start"
+                   Margin="40, 10, 0, 40"
+                   LineHeight="1.2">
+                <Label.Text>
+                    Залетай с двух ног
+                </Label.Text>
 
-        <Label x:Name="LogInSecondLabel"
-               FontSize="Body"
-               TextColor="Black"
-               HorizontalOptions="StartAndExpand"
-               FontFamily="ROBOTOCONDENSED-REGULAR.TTF"
-               HorizontalTextAlignment="Start"
-               Margin="40, 10, 0, 40"
-               LineHeight="1.2">
-            <Label.Text>
-                Залетай с двух ног
-            </Label.Text>
+            </Label>
 
-        </Label>
+            <Border Style="{StaticResource BorderStyle}">
+                <Entry x:Name="Login"
+                       Placeholder="Login"
+                       Style="{StaticResource EntryStyle}"
+                       Text="{Binding Login}"
+                       TextColor="Black"/>
+            </Border>
 
-        <Border Style="{StaticResource BorderStyle}">
-            <Entry x:Name="Login"
-                   Placeholder="Login"
-                   Style="{StaticResource EntryStyle}"
-                   Text="{Binding Login}"/>
-        </Border>
+            <Border Style="{StaticResource BorderStyle}"
+                    IsVisible="{Binding IsRegister}">
+                <Entry x:Name="UserName"
+                       Placeholder="User Name"                   
+                       Style="{StaticResource EntryStyle}"
+                       Text="{Binding UserName}"
+                       TextColor="Black"/>
+            </Border>
 
-        <Border Style="{StaticResource BorderStyle}"
-                IsVisible="{Binding IsRegister}">
-            <Entry x:Name="UserName"
-                   Placeholder="User Name"                   
-                   Style="{StaticResource EntryStyle}"
-                   Text="{Binding UserName}"/>
-        </Border>
+            <Border Style="{StaticResource BorderStyle}">
+                <Entry x:Name="Password"
+                       IsPassword="True"
+                       Placeholder="Password"
+                       Style="{StaticResource EntryStyle}"
+                       Text="{Binding Password}"
+                       TextColor="Black"/>
+            </Border>
 
-        <Border Style="{StaticResource BorderStyle}">
-            <Entry x:Name="Password"
-                   IsPassword="True"
-                   Placeholder="Password"
-                   Style="{StaticResource EntryStyle}"
-                   Text="{Binding Password}"/>
-        </Border>
-
-        <Border Style="{StaticResource BorderStyle}"
-                IsVisible="{Binding IsRegister}">
-            <Entry x:Name="PasswordConfirm"
-                   IsPassword="True"
-                   Placeholder="Password confirm"
-                   Style="{StaticResource EntryStyle}"
-                   Text="{Binding PasswordConfirm}"/>
+            <Border Style="{StaticResource BorderStyle}"
+                    IsVisible="{Binding IsRegister}">
+                <Entry x:Name="PasswordConfirm"
+                       IsPassword="True"
+                       Placeholder="Password confirm"
+                       Style="{StaticResource EntryStyle}"
+                       Text="{Binding PasswordConfirm}"
+                       TextColor="Black"/>
             
-        </Border>
+            </Border>
 
 
-        <ImageButton x:Name="EnterSignUpBtn"
-                     BackgroundColor="#FD6846"
-                     Margin="60, 20, 60, 0"
-                     HorizontalOptions="End"
-                     HeightRequest="70"
-                     WidthRequest="70"
-                     Aspect="AspectFill"
-                     CornerRadius="24"
-                     Source="right_arrow.svg"
-                     Padding="10" IsEnabled="True" IsOpaque="False"
-                     Command="{Binding LogInCommand}">
-            <ImageButton.Shadow>
-                <Shadow  Offset="20,20"
-                        Radius="40"
-                        Opacity="0.4"/>
-            </ImageButton.Shadow>
-        </ImageButton>
+            <ImageButton x:Name="EnterSignUpBtn"
+                         BackgroundColor="#FD6846"
+                         Margin="60, 20, 60, 0"
+                         HorizontalOptions="End"
+                         HeightRequest="70"
+                         WidthRequest="70"
+                         Aspect="AspectFill"
+                         CornerRadius="24"
+                         Source="right_arrow.svg"
+                         Padding="10" IsEnabled="True" IsOpaque="False"
+                         Command="{Binding LogInCommand}">
+                <ImageButton.Shadow>
+                    <Shadow  Offset="20,20"
+                            Radius="40"
+                            Opacity="0.4"/>
+                </ImageButton.Shadow>
+            </ImageButton>
 
-        <Button x:Name="ChangeScenarioButton"
-                VerticalOptions="EndAndExpand"
-                HorizontalOptions="Center"
-                Margin="10"
-                Background="#0000"
-                Text="Нет аккаунта? Создай!"
-                FontFamily="ROBOTOCONDENSED-LIGHT.TTF"
-                TextColor="Black"
-                Command="{Binding ChangeScenarioCommand}"/>
-
-    </StackLayout>
+            <Button x:Name="ChangeScenarioButton"
+                    VerticalOptions="EndAndExpand"
+                    HorizontalOptions="Center"
+                    Margin="10"
+                    Background="#0000"
+                    Text="Нет аккаунта? Создай!"
+                    FontFamily="ROBOTOCONDENSED-LIGHT.TTF"
+                    TextColor="Black"
+                    Command="{Binding ChangeScenarioCommand}"/>
+        </StackLayout>
+    </ScrollView>
     
 </ContentPage>

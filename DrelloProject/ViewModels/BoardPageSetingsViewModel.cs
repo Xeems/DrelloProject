@@ -85,7 +85,7 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void BackBtn()
         {
-            await Shell.Current.GoToAsync(nameof(MainPage));
+            await Shell.Current.GoToAsync("..");
         }
 
         [RelayCommand]
@@ -122,7 +122,7 @@ namespace DrelloProject.ViewModels
             }
             else
             {
-                await Shell.Current.GoToAsync($"{nameof(UserList)}",
+                await Shell.Current.GoToAsync($"{nameof(UserList)}",true,
                         new Dictionary<string, object>
                         {
                             ["CurrentBoard"] = currentBoard

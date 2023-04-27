@@ -15,8 +15,6 @@ namespace DrelloProject.ViewModels
         [ObservableProperty]
         private User currentUser = new();
 
-        [ObservableProperty]
-        private ObservableCollection<TempalteColors> colorsList = new();
         public UserSettingsViewModel()
         {
             

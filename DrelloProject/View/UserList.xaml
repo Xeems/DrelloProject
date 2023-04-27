@@ -9,6 +9,12 @@
              xmlns:services ="clr-namespace:DrelloProject.Services"
              BackgroundColor="#f5f3f4"
              Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <services:ColorConvertor x:Key="StringToColor"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -59,28 +65,30 @@
                             <Border Style="{StaticResource BorderStyle}">
                                 <StackLayout Orientation="Horizontal">
                                     <Frame WidthRequest="40"
-                                                HeightRequest="40"
-                                                CornerRadius="20"
-                                                HorizontalOptions="Start"
-                                                Padding="1"
-                                                Margin="5,5,5,5">
+                                           HeightRequest="40"
+                                           CornerRadius="20"
+                                           HorizontalOptions="Start"
+                                           Padding="1"
+                                           Margin="5,5,5,5"
+                                           BorderColor="Transparent"
+                                           BackgroundColor="{Binding UserHEXColor, Converter={StaticResource StringToColor}}">
 
-                                        <Label Text="RK"
-                                                        HorizontalOptions="Center"
-                                                        VerticalOptions="Center"
-                                                        HorizontalTextAlignment="Center"
-                                                        VerticalTextAlignment="Center"
-                                                        WidthRequest="40"
-                                                        HeightRequest="40"
-                                                        FontSize="20"
-                                                        FontFamily="RobotoBold"/>
+                                        <Label Text="{Binding ShortName}"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center"
+                                               HorizontalTextAlignment="Center"
+                                               VerticalTextAlignment="Center"
+                                               WidthRequest="40"
+                                               HeightRequest="40"
+                                               FontSize="22"
+                                               FontFamily="RobotoLight"/>
 
                                     </Frame>
 
                                     <Label Text="{Binding UserName}"
                                             Style="{StaticResource HeaderStyle}"                                                
-                                            Margin="15,0,20,0"
-                                            FontSize="15"/>
+                                            Margin="5,0,20,0"
+                                            FontSize="18"/>
 
                                     <ImageButton Source="plusicon.svg"
                                                     HeightRequest="60"

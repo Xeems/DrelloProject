@@ -20,7 +20,7 @@ namespace DrelloProject.Models
         public ATaskStatus Status { get; set; }
         
         [JsonIgnore]
-        public bool? IsAvailable { get; set; } = false;
+        public bool? IsAvailable { get; set; }
         
     }
 

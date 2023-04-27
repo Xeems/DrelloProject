@@ -17,17 +17,17 @@ using System.Threading.Tasks;
 namespace DrelloProject.ViewModels
 {
     [QueryProperty(nameof(Board), nameof(Board))]
-    [QueryProperty(nameof(AUser), nameof(AUser))]
+    [QueryProperty(nameof(CurrentUser), nameof(CurrentUser))]
     public partial class BoardPageViewModel : ObservableObject
     {
         [ObservableProperty]
         private Board board;
 
         [ObservableProperty]
-        private User aUser;
+        private User currentUser;
 
         [ObservableProperty]
-        private UserInBoard currentUser;
+        private UserInBoard currentUserInBoard;
 
         [ObservableProperty]
         private ObservableCollection<UserInBoard> boardMembers;
@@ -49,15 +49,15 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void Back() 
         {
-            await Shell.Current.GoToAsync(nameof(MainPage));
+            await Shell.Current.GoToAsync("..",true);
         }
 
         [RelayCommand]
         async void PageLoaded() 
         {
-            LoadTasks();
             BoardMembers = await boardDataService.GetUsersInBoard(Board.Id);
-            CurrentUser = BoardMembers.Where(u=> u.User.Id == AUser.Id).First();
+            CurrentUserInBoard = BoardMembers.Where(u => u.User.Id == StaticUser.Id).First();
+            LoadTasks();            
         }
 
         [RelayCommand]
@@ -83,7 +83,7 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void TakeATask(ATask aTask)
         {
-            bool response = await taskDataService.TakeTask(aTask.Id, CurrentUser.Id);
+            bool response = await taskDataService.TakeTask(aTask.Id, CurrentUserInBoard.Id);
             if (response)
                 LoadTasks();
             else 
@@ -105,8 +105,10 @@ namespace DrelloProject.ViewModels
             var ATasks = await taskDataService.GetTasks(Board.Id);
             foreach (var ATask in ATasks)
             {
-                if (ATask.RequiredRole.Id == CurrentUser.BoardRole.Id)
+                if (ATask.RequiredRole.Id == CurrentUserInBoard.BoardRole.Id)
                     ATask.IsAvailable = true;
+                else
+                    ATask.IsAvailable = false;
 
                 switch (ATask.Status)
                 {

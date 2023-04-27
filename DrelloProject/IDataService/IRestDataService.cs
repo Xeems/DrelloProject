@@ -15,5 +15,7 @@ namespace DrelloProject.IDataService
         Task UpdateUserAsync(User user);
         Task DeleteUserAsync(int id);
         Task<ObservableCollection<User>> FindUsers(string userName);
+        Task<User> GetCurrentUser(int userId);
+
     }
 }

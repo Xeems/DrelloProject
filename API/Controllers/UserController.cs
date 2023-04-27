@@ -13,7 +13,28 @@ namespace API.Controllers
         public UserController(IConfiguration configuration)
         {
             _configuration = configuration;
-        }        
+        }
+
+        [HttpGet("{userId}/GetCurrentUser")]
+        public async Task<ActionResult<List<PersonalTask>>> GetCurrentUser([FromRoute] int userId)
+        {
+            User user = new();
+
+            using (AppDbContext context = new AppDbContext())
+            {
+                user = await context.Users.FindAsync(userId);
+            }
+
+            if (user != null)
+            {
+                user.PasswordSalt = null;
+                user.PasswordHash = null;
+            }
+            else
+                return BadRequest();
+
+            return Ok(user);
+        }
 
         [HttpGet("{userId}/GetPersonalTasks")]
         public async Task<ActionResult<List<PersonalTask>>> GetPersonalTasks([FromRoute]int userId)

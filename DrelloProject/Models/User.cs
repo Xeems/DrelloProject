@@ -19,7 +19,7 @@ namespace DrelloProject.Models
         }
         public string ShortName { get; set; }
         public string Login { get; set; }
-        public string UserHEXColor { get; set; }
+        public string UserHEXColor { get; set; } = "#00000000";
         public string Password { get; set; }
 
         public User()

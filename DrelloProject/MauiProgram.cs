@@ -46,14 +46,14 @@ public static class MauiProgram
         Appbuilder.Services.AddSingleton<EnterPage>();
         Appbuilder.Services.AddSingleton<EnterPageViewModel>();
 
-        Appbuilder.Services.AddSingleton<MainPage>();
-        Appbuilder.Services.AddSingleton<MainPageViewModel>();
+        Appbuilder.Services.AddTransient<MainPage>();
+        Appbuilder.Services.AddTransient<MainPageViewModel>();
 
-        Appbuilder.Services.AddSingleton<UserSettingsPage>();
-        Appbuilder.Services.AddSingleton<UserSettingsViewModel>();
+        Appbuilder.Services.AddTransient<UserSettingsPage>();
+        Appbuilder.Services.AddTransient<UserSettingsViewModel>();
 
         Appbuilder.Services.AddTransient<BoardPageSetings>();
-        Appbuilder.Services.AddTransient<BoardPageSetingsViewModel>();
+        Appbuilder.Services.AddTransient<BoardPageSetingsViewModel > ();
 
         Appbuilder.Services.AddTransient<BoardPage>();
         Appbuilder.Services.AddTransient<BoardPageViewModel>();
@@ -61,8 +61,8 @@ public static class MauiProgram
         Appbuilder.Services.AddTransient<NewTaskPage>();
         Appbuilder.Services.AddTransient<NewTaskPageViewModel>();
 
-        Appbuilder.Services.AddSingleton<UserList>();
-        Appbuilder.Services.AddSingleton<UserListViewModel>();
+        Appbuilder.Services.AddTransient<UserList>();
+        Appbuilder.Services.AddTransient<UserListViewModel>();
 
         Appbuilder.Services.AddSingleton<IAlertService, AlertService>();
 

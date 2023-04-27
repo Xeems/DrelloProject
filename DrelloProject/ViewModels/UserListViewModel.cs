@@ -36,7 +36,7 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async void BackToSettings()
         {
-            await Shell.Current.GoToAsync(nameof(BoardPageSetings));
+            await Shell.Current.GoToAsync("..");
         }
 
         [RelayCommand]
