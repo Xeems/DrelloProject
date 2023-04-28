@@ -82,11 +82,17 @@ namespace DrelloProject.ViewModels
         [RelayCommand]
         async Task UserSettings()
         {
-            await Shell.Current.GoToAsync($"{nameof(UserSettingsPage)}",
-                        new Dictionary<string, object>
-                        {
-                            ["CurrentUser"] = CurrentUser
-                        });
+            //await Shell.Current.GoToAsync($"{nameof(UserSettingsPage)}",
+            //            new Dictionary<string, object>
+            //            {
+            //                ["CurrentUser"] = CurrentUser
+            //            });
+        }
+
+        [RelayCommand]
+        async Task Exit()
+        {
+            await Shell.Current.GoToAsync(nameof(EnterPage));
         }
        
         public async Task GetPersonalTasks(int userId)

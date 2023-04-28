@@ -58,13 +58,13 @@
                                    Grid.Row="0"/>
 
                             <Border Padding="10,0,10,0"
-                                    Margin="20,5,15,5"
+                                    Margin="20,10,15,10"
                                     HorizontalOptions="Start"
                                     VerticalOptions="End"
                                     Grid.Row="1"
                                     BackgroundColor="{Binding RequiredRole.RoleHEXColor, Converter={StaticResource StringToColor}}"
                                     StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 20,20,20,20">
+                                    StrokeShape="RoundRectangle 5,5,5,5">
                                 <Label FontSize="12"
                                        FontFamily="RobotoBold"
                                        Text="{Binding RequiredRole.Name}"
@@ -127,7 +127,8 @@
 
     <Grid>
         <Image Aspect="AspectFill"
-               IsEnabled="False"/>
+               IsEnabled="False"
+               Source="https://cdn1.ozone.ru/s3/multimedia-w/6267770552.jpg"/>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -135,16 +136,16 @@
             </Grid.RowDefinitions>
 
             <!--START [TOP BAR REGION]-->
-            <StackLayout  Grid.Row="0"
-                      Orientation="Horizontal"
-                      HeightRequest="60"
-                      Padding="0"
-                      BackgroundColor="White">
+            <StackLayout Grid.Row="0"
+                         Orientation="Horizontal"
+                         HeightRequest="60"
+                         Padding="0"
+                         BackgroundColor="White">
                 <StackLayout.Shadow>
                     <Shadow Brush="Black"
-                Offset="20,20"
-                Radius="100"
-                Opacity="0.5" />
+                            Offset="20,20"
+                            Radius="100"
+                            Opacity="0.5"/>
                 </StackLayout.Shadow>
 
                 <ImageButton Source="close.png"
@@ -188,7 +189,7 @@
                             StrokeThickness="0"
                             VerticalOptions="Start">
                     <ScrollView>
-                            <StackLayout>
+                        <StackLayout>
                         <StackLayout Orientation="Horizontal">
                             <Label Text="Не начаты"
                                Style="{StaticResource HeaderStyle}"
@@ -203,6 +204,7 @@
                                  BackgroundColor="Transparent"
                                  Command="{Binding NewTaskCommand}"/>
                         </StackLayout>
+
                         <ScrollView WidthRequest="320"
                                     Orientation="Vertical"
                                     VerticalOptions="Start">
@@ -255,7 +257,7 @@
                                                                         VerticalOptions="End"                                                                       
                                                                         BackgroundColor="{Binding RequiredRole.RoleHEXColor, Converter={StaticResource StringToColor}}"
                                                                         StrokeThickness="0"
-                                                                        StrokeShape="RoundRectangle 20,20,20,20">
+                                                                        StrokeShape="RoundRectangle 5,5,5,5">
                                                                     <Label FontSize="12"
                                                                            FontFamily="RobotoBold"
                                                                            Text="{Binding RequiredRole.Name}"
@@ -280,7 +282,7 @@
                                             </CollectionView.ItemTemplate>
                                         </CollectionView>
                                     </StackLayout>
-                        </ScrollView>
+                                </ScrollView>
                             </StackLayout>
                         </ScrollView>
                     </Border>

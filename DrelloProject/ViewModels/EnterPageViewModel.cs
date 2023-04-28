@@ -1,7 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DrelloProject.DataServices;
 using DrelloProject.Models;
+using DrelloProject.Services;
 using DrelloProject.View;
 using Microsoft.Maui.Controls;
 
@@ -38,23 +40,31 @@ namespace DrelloProject.ViewModels
             {
                 var currentUser = await _restDataService.GetUserAsync(user);
 
-                StaticUser.ShortName = currentUser.ShortName;
-                StaticUser.UserName = currentUser.UserName;
-                StaticUser.UserHEXColor = currentUser.UserHEXColor;
-                StaticUser.Id = currentUser.Id;
 
                 if (currentUser != null)
+                {
+                    StaticUser.ShortName = currentUser.ShortName;
+                    StaticUser.UserName = currentUser.UserName;
+                    StaticUser.UserHEXColor = currentUser.UserHEXColor;
+                    StaticUser.Id = currentUser.Id;
+
                     await Shell.Current.GoToAsync($"{nameof(MainPage)}",
                         new Dictionary<string, object>
                         {
                             ["CurrentUser"] = currentUser
                         });
+                }
                 else
-                    App.AlertSvc.ShowAlert("Ошибка","Не удалось войти","ОК");
+                    App.AlertSvc.ShowAlert("Ошибка", "Не удалось войти", "ОК");
             }
             else
             {                
                 var message = _restDataService.AddUserAsync(user);
+                if (message != null)
+                {
+                    ToastService.ShowToast("Регистрация успешно завершена");
+                    ChangeScenario();
+                }
             }
                                   
         }

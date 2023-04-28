@@ -92,7 +92,7 @@ namespace API.Controllers
             using (AppDbContext context = new AppDbContext())
             {
                 users = context.Users.Where(n =>EF.Functions.Like(n.UserName, $"%{userName}%"))
-                                     .Select(n => new User { UserName = n.UserName, Id = n.Id })   
+                                     .Select(n => new User { UserName = n.UserName, Id = n.Id, UserHEXColor = n.UserHEXColor })   
                                      .ToList();
             }
             return Ok(users);

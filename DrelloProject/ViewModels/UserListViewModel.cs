@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using DrelloProject.DataServices;
 using DrelloProject.Models;
+using DrelloProject.Services;
 using DrelloProject.View;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,11 @@ namespace DrelloProject.ViewModels
         async void AddUser(User user)
         {
             var response = await boardDataService.AddUserToBoard(user.Id, currentBoard.Id);
+            if (response == true)
+                ToastService.ShowToast("Пользователь успешно добавлен");
+            else
+                ToastService.ShowToast("Пользователь уже добавлен");
+
         }
 
         [RelayCommand]

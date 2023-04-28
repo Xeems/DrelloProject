@@ -30,22 +30,9 @@
                    HorizontalOptions="Start"
                    FontFamily="ROBOTOCONDENSED-BOLD.TTF"
                    CharacterSpacing="2"
-                   Margin="40, 100, 0, 20"></Label>
-
-            <Label x:Name="LogInSecondLabel"
-                   FontSize="Body"
-                   TextColor="Black"
-                   HorizontalOptions="StartAndExpand"
-                   FontFamily="ROBOTOCONDENSED-REGULAR.TTF"
-                   HorizontalTextAlignment="Start"
-                   Margin="40, 10, 0, 40"
-                   LineHeight="1.2">
-                <Label.Text>
-                    Залетай с двух ног
-                </Label.Text>
-
+                   Margin="40, 100, 0, 80">
             </Label>
-
+          
             <Border Style="{StaticResource BorderStyle}">
                 <Entry x:Name="Login"
                        Placeholder="Login"

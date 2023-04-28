@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DrelloProject.DataServices;
 using DrelloProject.Models;
+using DrelloProject.Services;
 using DrelloProject.View;
 using System.Collections.ObjectModel;
 
@@ -110,15 +111,7 @@ namespace DrelloProject.ViewModels
         {
             if (CurrentBoard.Id == 0)
             {
-                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-
-                string text = "Сначала сохраните настройки доски";
-                ToastDuration duration = ToastDuration.Short;
-                double fontSize = 14;
-
-                var toast = Toast.Make(text, duration, fontSize);
-
-                await toast.Show(cancellationTokenSource.Token);
+                ToastService.ShowToast("Сначала сохраните настройки");
             }
             else
             {

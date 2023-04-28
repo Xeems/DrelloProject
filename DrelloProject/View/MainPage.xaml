@@ -50,18 +50,21 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <HorizontalStackLayout BackgroundColor="Transparent"
-               HeightRequest="60"
-               Margin="0"
-               Padding="20, 0, 10, 0">
+        <StackLayout BackgroundColor="Transparent"
+                     HeightRequest="60"
+                     Margin="0"
+                     Padding="20, 0, 10, 0"
+                     Orientation="Horizontal">
 
-            <HorizontalStackLayout.GestureRecognizers>
+            <StackLayout.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding UserSettingsCommand}"/>
-            </HorizontalStackLayout.GestureRecognizers>
+            </StackLayout.GestureRecognizers>
 
-            <Border WidthRequest="50"
-                    HeightRequest="50"
+            <Border WidthRequest="46"
+                    HeightRequest="45"
                     StrokeShape="RoundRectangle 40,40,40,40"
+                    StrokeThickness="0"
+                    Margin="20,0,0,0"
                     BindingContext="{Binding CurrentUser}"
                     BackgroundColor="{Binding Path=UserHEXColor, Converter={StaticResource StringToColor}}">
                 <Label BackgroundColor="{Binding Path=User.UserHEXColor, Converter={StaticResource StringToColor}}"
@@ -80,10 +83,16 @@
             <Label BindingContext="{Binding CurrentUser}"
                    Text="{Binding UserName}"
                    VerticalOptions="Center"
-                   Margin="20, 0, 0, 0"
+                   Margin="10, 0, 0, 0"
                    FontFamily="RobotoMedium"
                    FontSize="23"/>
-        </HorizontalStackLayout>
+            <ImageButton Source="logout.png"
+                         WidthRequest="25"
+                         HeightRequest="25"
+                         HorizontalOptions="EndAndExpand"
+                         Margin="0,0,20,0"
+                         Command="{Binding ExitCommand}"/>
+        </StackLayout>
         
         <ScrollView Background="#f5f3f4"
                     Grid.Row="2">
@@ -119,7 +128,7 @@
                                                 <RowDefinition/>
                                             </Grid.RowDefinitions>
                                             <Frame Padding="0" IsClippedToBounds="True" BorderColor="Transparent" Grid.Row="0" Grid.RowSpan="2">
-                                                <Image Source="https://i.pinimg.com/originals/c1/07/2b/c1072b465b980e9eb218c3b446830653.jpg" HeightRequest="260" WidthRequest="300" Aspect="AspectFill" />
+                                            <Image Source="https://img4.goodfon.ru/original/320x400/3/e9/priroda-tropiki-more-pliazh-leto-palma-noch.jpg" HeightRequest="260" WidthRequest="300" Aspect="AspectFill" />
                                             </Frame>
                                             <Border StrokeThickness="0" Grid.Row="1" Background="Black" Opacity="0.75" StrokeShape="RoundRectangle 0,0,10,10">
                                                 <Border.GestureRecognizers>

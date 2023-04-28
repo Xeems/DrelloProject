@@ -80,6 +80,8 @@
                                                VerticalTextAlignment="Center"
                                                WidthRequest="40"
                                                HeightRequest="40"
+                                               TextColor="White"
+                                               Margin="0,0,1,1"
                                                FontSize="22"
                                                FontFamily="RobotoLight"/>
 
